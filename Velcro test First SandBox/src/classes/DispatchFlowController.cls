@@ -7,7 +7,7 @@ public class DispatchFlowController {
      	            
    // class constructor 
    public DispatchFlowController(ApexPages.StandardController stdController) {
-   	    // don't need to add code here 
+   	    // don't need to add code here.  
    	   }
 	
 	// access to the Flow invoked by the VF page
