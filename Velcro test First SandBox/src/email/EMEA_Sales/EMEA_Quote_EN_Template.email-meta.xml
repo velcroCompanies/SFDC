@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>EMEA Quote English Template</description>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>Velcro_EMEA</letterhead>
+    <name>EMEA Quote EN Template</name>
+    <style>formalLetter</style>
+    <subject>VELCRO Quote #{!Quote.QuoteNumber} send to {!Contact.Name}</subject>
+    <textOnly>-------------------------------------
+
+{!Case.Description}
+
+{!Case.ContactFormComments__c}
+
+{!EmailMessage.TextBody}
+
+Message sent by Velcro
+VELCRO-X-MAILER</textOnly>
+    <type>html</type>
+</EmailTemplate>

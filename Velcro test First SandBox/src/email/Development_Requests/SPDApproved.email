@@ -1,0 +1,22 @@
+This project has been approved and assigned to {!Opportunity.DR_Project_Manager__c}. 
+
+Approval Comments: {!ApprovalRequest.Comments} 
+
+PDR#: {!Opportunity.PDR__c} 
+Project Name: {!Opportunity.Name} 
+Account: {!Opportunity.Account} 
+Total Annual Dollars: {!Opportunity.Total_Annual_Dollars__c} 
+Objective: {!Opportunity.Objective_Goal__c} 
+Application: {!Opportunity.Application__c} 
+
+
+Timing 
+Product Design: {!Opportunity.Product_Design__c} 
+Prototypes: {!Opportunity.Prototypes__c} 
+Firm Quote: {!Opportunity.Firm_Quote__c} 
+PPAP/FAIR: {!Opportunity.PPAP_FAIR__c} 
+Start of Prod.: {!Opportunity.Start_of_Production__c} 
+Project Completion Date: {!Opportunity.Projectcompletion__c} 
+
+
+Link to Opportunity : {!Opportunity.Link}

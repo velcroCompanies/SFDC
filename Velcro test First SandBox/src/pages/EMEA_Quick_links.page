@@ -1,0 +1,56 @@
+<apex:page >
+  <!-- Begin Default Content REMOVE THIS -->
+  <apex:pageBlock title="Quick Links" mode="">
+
+<apex:pageBlockSection title="Help & Training" columns="2">
+
+   
+    <apex:pageBlockSectionItem >
+        <p align="left">
+  
+       <a target="_blank" href="/apex/EMEA_help_videos">
+       <img width="55" src="{!$Resource.videoIcon}"/>
+       </a>
+       </p>  
+       <apex:pageBlockSectionItem >
+   
+     <!--   <apex:image url="{!$Resource.NewIcon}" width="40" height="40"/> -->
+         <a target="_blank" href="/apex/EMEA_help_videos">
+           Support and Training Videos  
+         </a>
+         <p>
+           Access to training videos.
+         </p>
+       </apex:pageBlockSectionItem>  
+   </apex:pageBlockSectionItem>      
+
+</apex:pageBlockSection>     
+
+   <apex:pageBlockSection title="Templates & Documents" columns="2">
+     <apex:pageBlockSectionItem >
+       
+        <p align="left">
+         <a href='/sfc/#search?searchLanguage=0&PageNum=0&searchWorkspaceIds=%5B%22058A00000009izM%22%5D&masterWorkspaceId=058A00000009izM' target='_blank' >
+       CDM New customer Templates
+         </a>
+        </p>
+     </apex:pageBlockSectionItem>    
+   </apex:pageBlockSection>
+
+
+
+
+  <apex:pageBlockSection title="Lead & account Maps " columns="1">
+   <a href='/apex/DisplayMap' target='_blank' >
+    Account and Leads map
+   </a>
+
+</apex:pageBlockSection>
+ 
+  
+  
+     
+     
+   </apex:pageBlock>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

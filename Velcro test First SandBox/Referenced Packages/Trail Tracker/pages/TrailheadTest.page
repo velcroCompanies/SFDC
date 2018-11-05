@@ -1,0 +1,19 @@
+<apex:page controller="trailheadapp.TrailheadTestController">
+    <apex:sectionHeader title="Trail Tracker" subtitle="Testing"/>
+    <apex:pageMessages /><br/> 
+    
+    <apex:form >
+        <apex:pageBlock >
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!queueJob}" value="Run Sync"/>
+            </apex:pageBlockButtons>            
+            
+            <apex:pageBlockSection >
+                <p>You can use this page to kick off the Trailhead sync job immediately or run the dedupe.</p> 
+            </apex:pageBlockSection><br/>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

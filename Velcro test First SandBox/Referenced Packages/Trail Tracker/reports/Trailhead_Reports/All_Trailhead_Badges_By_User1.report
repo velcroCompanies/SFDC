@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CHILD_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>User_Badge__c.First_Attempted_Date__c</field>
+    </columns>
+    <columns>
+        <field>User_Badge__c.Last_Attempted_Date__c</field>
+    </columns>
+    <columns>
+        <field>User_Badge__c.Finished_Date__c</field>
+    </columns>
+    <columns>
+        <field>Badge__c.Archived__c</field>
+    </columns>
+    <columns>
+        <field>User_Badge__c.Badge_Icon__c</field>
+    </columns>
+    <columns>
+        <field>User_Badge__c.Status__c</field>
+    </columns>
+    <description>Report on all Trailhead badges earned by user this quarter.</description>
+    <filter>
+        <criteriaItems>
+            <column>User_Badge__c.Finished_Date__c</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User_Badge__c.User__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>All Badges By User Completed - this QTR</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$Badge__c$User_Badge__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

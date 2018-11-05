@@ -1,0 +1,9 @@
+Please review the following.  This Opportunity was created for an Account not flagged as a being on the Sales Person's Compensation Plan.
+
+Account Name: {!Account.Name}
+Account Link: {!Account.Link}
+Opportunity Link: {!Opportunity.Link}
+Next Step: {!Opportunity.NextStep}
+Created By: {!Opportunity.CreatedBy}
+
+Thanks.

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Used to request printed materials</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Brochure__c</fullName>
+        <externalId>false</externalId>
+        <label>Brochure</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Adhesives</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Bundle Ties</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Double Faced Loop</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Double Faced Loop Embossed</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Elastic Loop</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>FNL</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>High Technology Hook (HTH)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Knits</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Logistraps</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Medical Solutions  Brochure</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Military Solutions</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>ONE-WRAP® Fasteners</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Packaging and Materials Handling</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Press-LOK</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Press-LOK for Flexible Packaging</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Printed Loop Multicam VS</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Quiet Closure</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Quik Ties</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Veltex Laminated Loop</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Woven Fasteners</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Distributor Catalogue</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <description>The language of the printed materials.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The language of the printed materials.</inlineHelpText>
+        <label>Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>English</fullName>
+                    <default>true</default>
+                </value>
+                <value>
+                    <fullName>Français</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Español</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Printed Material</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{000000}</displayFormat>
+        <label>Printed Materials Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Printed Materials</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

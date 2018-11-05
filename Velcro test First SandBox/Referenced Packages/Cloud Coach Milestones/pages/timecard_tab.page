@@ -1,0 +1,4 @@
+<apex:page controller="CCMI.TimecardRemoting" extensions="CCMI.MSAExtension" title="Timecard" sidebar="false" action="{!checkMSA}">
+	<apex:pageMessages showDetail="true" />
+	<c:ng_module app="timecard" rendered="{!isLicensed}" version="2" />
+</apex:page>

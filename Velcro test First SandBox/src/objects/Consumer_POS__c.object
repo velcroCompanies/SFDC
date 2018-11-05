@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <description>Used for weekly upload of Acclerated Analytics Data</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Category</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Account__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Consumer Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Consumer POS</relationshipLabel>
+        <relationshipName>Consumer_POS</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dollars_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Dollars % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Family__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Family</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Week_Dollars_LY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Last Week Dollars LY</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Last_Week_Dollars_TY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Last Week Dollars TY</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Last_Week_LY_Units__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Last Week LY Units</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Week_TY_Units__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Last Week TY Units</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MTD_Dollars_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>MTD Dollars % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>MTD_Dollars_LY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>MTD Dollars LY</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>MTD_Dollars_TY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>MTD Dollars TY</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>MTD_End__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA</inlineHelpText>
+        <label>MTD End</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>MTD_Start__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>MTD Start</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>MTD_Units_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>MTD Units % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>MTD_Units_LY__c</fullName>
+        <externalId>false</externalId>
+        <label>MTD Units LY</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MTD_Units_TY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>MTD Units TY</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Name__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Product Name</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Units_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Units % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Week_Ending__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>Last Week Ending</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>X52_WKS_Dollars_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>52 WKS Dollars % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>X52_WKS_Dollars_LY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>52 WKS Dollars LY</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X52_WKS_Dollars_TY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>52 WKS Dollars TY</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X52_WKS_Units_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>52 WKS Units % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>X52_WKS_Units_LY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>52 WKS Units LY</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X52_WKS_Units_TY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>52 WKS Units TY</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>YTD_Dollars_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Dollars % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>YTD_Dollars_LY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Dollars LY</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>YTD_Dollars_Share__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Dollars Share</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>YTD_Dollars_TY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Dollars TY</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>YTD_End__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD End</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>YTD_Start__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Start</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>YTD_Units_LY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Units LY</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>YTD_Units_Share__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Units Share</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>YTD_Units_TY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Units TY</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>YTD_Unitts_Change__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>AA POS</inlineHelpText>
+        <label>YTD Units % Change</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <label>Consumer POS</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000000000}</displayFormat>
+        <label>Consumer POS Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Consumer POS</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

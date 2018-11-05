@@ -1,0 +1,9 @@
+The Close Date ( {!Opportunity.CloseDate} ) for your Opportunity: {!Opportunity.Name} has passed. 
+
+It is now {!Opportunity.Days_Past_Due__c} days past the Close Date indicated.  
+
+Please review the Opportunity and Update accordingly.
+
+You can view the details here: {!Opportunity.Link}
+
+Thanks

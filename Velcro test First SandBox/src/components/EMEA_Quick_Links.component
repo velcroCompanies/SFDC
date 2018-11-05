@@ -1,0 +1,8 @@
+<apex:component >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Quick Links </h1>
+<form action='https://cs97.salesforce.com/00Q/e?RecordType=012A00000019lmn&ent=Lead'> 
+<input type='submit' value='new lead'> </input>
+</form>
+  <!-- End Default Content REMOVE THIS -->
+</apex:component>

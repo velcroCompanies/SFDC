@@ -1,0 +1,38 @@
+<apex:page showHeader="false" StandardController="Opportunity"  id="SiteTemplate">
+  <apex:insert name="header">
+  </apex:insert>
+  <apex:insert name="body">
+        
+  </apex:insert>
+  <apex:form >
+
+  <html>
+     <apex:outputPanel >
+   
+        <td align="top">
+          <apex:pageblock >
+
+                  <table  width="100%" height="100%" style="background-color:#e94035" >
+                    <tr><td align="left" valign="top" width="20%" ><font face="arial,verdana"  color="red">
+                    <apex:image url="{!$Resource.cloudcomputing5}" width="50"/>
+                    </font> </td>
+                    <td align="left" valign="center" width="80%" > <font face="arial,verdana" color="white">
+                    
+                             <b> 
+                            <apex:outputLabel value="{!$Label.EMEA_Opp_Convert_record_type}"/>
+                             </b>
+                    </font>
+                    </td></tr>
+                           
+                  </table>
+          </apex:pageblock>
+          
+       </td>
+    </apex:outputPanel>   
+  </html>
+    
+    </apex:form>
+  
+  <apex:insert name="footer">
+   </apex:insert>
+</apex:page>

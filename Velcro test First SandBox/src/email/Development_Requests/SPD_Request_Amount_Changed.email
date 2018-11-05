@@ -1,0 +1,8 @@
+Project Name: {!Opportunity.Name}
+
+Dev Request - {!Opportunity.Development_Request_ID__c},  Submitted by {!Opportunity.OwnerFullName} has had a change in the Opportunity Amount:
+
+Original Amount: {!Opportunity.Original_Opportunity_Amount__c}
+New Amount: {!Opportunity.Amount}
+
+Link to Request: {!Opportunity.Link}

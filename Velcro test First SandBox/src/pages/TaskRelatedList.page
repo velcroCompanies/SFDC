@@ -1,0 +1,27 @@
+<apex:page standardController="Contact" extensions="ExtTaskList">
+<apex:param name="Id" value="{!$CurrentPage.parameters.ID}"/>
+
+<apex:form >
+     
+     <apex:pageBlock title="Tasks and emails" mode="inlineEdit " >
+                   
+        <apex:pageBlockTable value="{!TaskListing}"  var="t" columns="3" rendered="{!NOT(ISNULL(TaskListing))}">  
+                <apex:column >
+                   <apex:outputLink value="/{!t.Id}" target="_blank" >  
+                         <apex:outputField value="{!t.Subject}" />
+                  </apex:outputLink>
+                </apex:column>
+                 
+                <apex:column value="{!t.Status}"/>
+                <apex:column value="{!t.OwnerId}"/>
+        </apex:pageBlockTable>
+        <!--  <apex:repeat value="{!TaskListing}" var="t"> 
+                <apex:outputField value="{!t.Subject}"/> 
+                <apex:outputField value="{!t.Status}"/>
+                <apex:outputField value="{!t.OwnerId}"/>
+        </apex:repeat> -->
+        
+   <apex:outputLabel value="No records to display" rendered="{!(ISNULL(TaskListing))}" styleClass="noRowsHeader"></apex:outputLabel>
+    </apex:pageBlock>
+    </apex:form>
+ </apex:page>

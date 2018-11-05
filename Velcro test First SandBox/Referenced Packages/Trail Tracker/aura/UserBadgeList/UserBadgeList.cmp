@@ -1,0 +1,33 @@
+<aura:component controller="trailheadapp.BadgesComponentController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <ltng:require styles="{!$Resource.trailheadapp__TrailheadStyles}" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="totalBadgeCount" type="Integer" default="0" />
+    <aura:attribute name="badges" type="Object[]" />
+    <aura:attribute name="hasBadges" type="Boolean" default="false" />
+    
+    <lightning:card title="{!v.totalBadgeCount}">
+
+        <aura:set attribute="footer" >
+            <aura:if isTrue="{!v.hasBadges}">
+                <div class="slds-border_top slds-text-align_center">
+                    <lightning:button onclick="{!c.handleViewAllClick}" variant="base" label="View All" class="slds-m-top_small badgeLabels" />
+                </div>
+            </aura:if>
+        </aura:set>
+
+        <div class="slds-p-left--medium slds-p-right--medium">
+            <ul class="slds-grid slds-grid_align-center slds-wrap">
+                <aura:iteration items="{!v.badges}" var="badge">
+                    <li class="slds-size_1-of-3 slds-m-bottom_small">
+                        <div class="slds-text-align_center slds-m-bottom_x-small">
+                            <aura:unescapedHtml value="{!badge.trailheadapp__Badge_Icon__c}"></aura:unescapedHtml>
+                        </div>
+                        <div class="slds-text-align_center slds-p-horizontal_small badgeLabels">{!badge.trailheadapp__Badge__r.Name}</div>
+                    </li> 
+                </aura:iteration>
+            </ul>
+        </div>  
+    </lightning:card>
+    
+</aura:component>

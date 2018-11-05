@@ -1,0 +1,3 @@
+The Following lead has been assigned to : {!Lead.OwnerFullName}
+
+{!Lead.Link}

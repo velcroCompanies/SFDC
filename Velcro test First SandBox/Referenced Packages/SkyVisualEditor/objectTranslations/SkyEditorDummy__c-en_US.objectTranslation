@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- SkyEditorDummy --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- SkyEditorDummy --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Checkbox --></label>
+        <name>Checkbox__c</name>
+    </fields>
+    <fields>
+        <label><!-- Currency --></label>
+        <name>Currency__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Datetime --></label>
+        <name>Datetime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email --></label>
+        <name>Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date Time --></label>
+        <name>Event_EndDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date Time --></label>
+        <name>Event_EndTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Date Time --></label>
+        <name>Event_StartDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Date Time --></label>
+        <name>Event_StartTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Html --></label>
+        <name>Html__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsError --></label>
+        <name>IsError__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsTextError --></label>
+        <name>IsTextError__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsURLError --></label>
+        <name>IsURLError__c</name>
+    </fields>
+    <fields>
+        <label><!-- LongTextArea --></label>
+        <name>LongTextArea__c</name>
+    </fields>
+    <fields>
+        <label><!-- MultiselectPicklist --></label>
+        <name>MultiselectPicklist__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Number --></label>
+        <name>Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent --></label>
+        <name>Parent__c</name>
+        <relationshipLabel><!-- SkyEditorDummy --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Percent --></label>
+        <name>Percent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phone --></label>
+        <name>Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Picklist --></label>
+        <name>Picklist__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Text --></label>
+        <name>Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Textarea --></label>
+        <name>Textarea__c</name>
+    </fields>
+    <fields>
+        <label><!-- URL --></label>
+        <name>URL__c</name>
+    </fields>
+    <layouts>
+        <layout>SkyEditorDummyLayout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- No --></nameFieldLabel>
+    <recordTypes>
+        <label><!-- RecordType1 --></label>
+        <name>RecordType1</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- RecordType2 --></label>
+        <name>RecordType2</name>
+    </recordTypes>
+    <startsWith><!-- Consonant --></startsWith>
+    <validationRules>
+        <errorMessage><!-- test message. --></errorMessage>
+        <name>TEST_ERROR1</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- test message. --></errorMessage>
+        <name>TEST_ERROR2</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- test message. --></errorMessage>
+        <name>TEST_ERROR3</name>
+    </validationRules>
+</CustomObjectTranslation>

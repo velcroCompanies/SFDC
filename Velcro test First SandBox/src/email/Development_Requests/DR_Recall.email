@@ -1,0 +1,3 @@
+Opportunity: {!Opportunity.Name} - has been recalled by {!Opportunity.OwnerFullName}.
+
+Link to record: {!Opportunity.Link}

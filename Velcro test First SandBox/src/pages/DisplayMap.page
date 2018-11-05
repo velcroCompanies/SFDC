@@ -1,0 +1,6 @@
+<apex:page showHeader="true" SideBar="true">
+        <apex:pageBlock >
+            <apex:iframe src="/apex/LocationsNearbyMe" scrolling="true" id="theIframe"/>
+        </apex:pageBlock>
+
+    </apex:page>

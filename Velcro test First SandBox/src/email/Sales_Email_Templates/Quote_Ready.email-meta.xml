@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Quote is Ready for Presentation to Customer</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Quote Ready</name>
+    <style>none</style>
+    <subject>Quote Ready for {!Opportunity.Name} - {!Quote.QuoteNumber} - {!Quote.Name}</subject>
+    <type>text</type>
+</EmailTemplate>

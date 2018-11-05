@@ -1,0 +1,275 @@
+<aura:component implements="force:appHostable" controller="wbsendit.AdvancedSettingsController">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="sfdcSessionId" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="disableRemoveLayout" type="Boolean" default="false" />
+    <aura:attribute access="private" name="disableAddLayout" type="Boolean" default="false" />
+    <aura:attribute access="private" name="disableNotification" type="Boolean" default="false" />
+    <aura:attribute access="private" name="disableClearLog" type="Boolean" default="false" />
+    <aura:attribute access="private" name="disableReset" type="Boolean" default="false" />
+    <aura:attribute access="private" name="disableResetButton" type="Boolean" default="true" />
+    <aura:attribute access="private" name="runningJobs" type="String[]" />
+    <aura:attribute access="private" name="setupLayoutJob" type="String" />
+    <aura:attribute access="private" name="removeLayoutJob" type="String" />
+    <aura:attribute access="private" name="refreshJob" type="String" />
+    <aura:attribute access="private" name="messageLog" type="List" />
+    <aura:attribute access="private" name="messageLogDetail" type="String" />
+    <aura:attribute access="private" name="resultsMessage" type="String" default="Loading..." />
+    <aura:attribute access="private" name="notification" type="String" default="Success" />
+    <aura:attribute access="private" name="showJobsBanner" type="Boolean" default="false" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    <aura:handler event="wbsendit:sldsJobsEvent" action="{!c.onCheckJobs}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="sldsJobsEvent" type="wbsendit:sldsJobsEvent" />
+    <aura:registerEvent name="sldsNotificationEvent" type="wbsendit:sldsNotificationEvent" />
+
+    <div aura:id="body-spinner-id" role="status" class="slds-spinner slds-spinner--small slds-spinner_brand" style="margin-left: 100px;">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+
+    <div aura:id="body-id" class="slds-hide">
+
+        <!-- NOTIFICATIONS -->
+        <wbsendit:sldsNotification message="{!v.notification}" fadeTimeout="3000" />
+
+        <wbsendit:sldsConnectBanner />
+
+        <wbsendit:sldsJobs />
+
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:custom" variant="inverse" />
+                        </div>
+                        <div class="slds-media__body">
+                            <p class="slds-text-title--caps slds-line-height--reset">{!$Label.wbsendit.SendIT_Settings_Header}</p>
+                            <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="{!$Label.wbsendit.Advanced_Settings_Header}">{!$Label.wbsendit.Advanced_Settings_Header}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <ui:outputURL class="slds-button" value="{!$Label.wbsendit.SupportLink_Maintenance_Settings}" target="_blank" label="Help" />
+                </div>
+            </div>
+        </div>
+        <!-- / PAGE HEADER -->
+
+
+        <!-- PAGE LAYOUTS -->
+        <div class="slds-m-around--small">
+            <p class="slds-section-title--divider">Salesforce Page Layouts</p>
+
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-m-around--small">
+                <div class="slds-p-horizontal--small slds-size--2-of-4">
+                    <label class="slds-form-element__label slds-text-body--regular"> {!$Label.wbsendit.Advanced_Settings_Add_Page_Layouts} </label>
+                    <wbsendit:sldsTooltip placement="top" text="Setup Salesforce page layouts for the Campaign Monitor application. This adds related lists, buttons etc to Salesforce page layouts. It does not remove any custom layouts."
+                    />
+                </div>
+                <div class="slds-p-horizontal--small slds-size--2-of-4">
+                    <aura:if isTrue="{!v.setupLayoutJob == null }">
+                        <lightning:button disabled="{!v.disableAddLayout}" variant="neutral" class="b12-button-style" label="Setup Layouts" iconName="utility:setup" iconPosition="left" onclick="{! c.onSetupPagelayouts }" />
+                        <aura:set attribute="else">
+
+                            <div role="status" class="slds-spinner slds-spinner--x-small slds-is-static" style="position: relative; top: 10px; left: 10px;">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                            <div style="margin-left: 30px;">
+                                <label class="slds-form-element__label slds-text-body--regular">{!v.setupLayoutJob.status}&nbsp;(<lightning:formattedNumber value="{!v.setupLayoutJob.pctComplete}" style="percent" />)</label>
+                            </div>
+
+                        </aura:set>
+                    </aura:if>
+
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-m-around--small">
+                <div class="slds-p-horizontal--small slds-size--2-of-4 ">
+                    <label class="slds-form-element__label slds-text-body--regular"> {!$Label.wbsendit.Advanced_Settings_Remove_Page_Layouts} </label>
+                    <wbsendit:sldsTooltip placement="top" text="Remove Campaign Monitor page layouts from Salesforce (E.g. fields from the Contact, Lead and Campaign pages, along with buttons on the list views etc.). This does not affect any non-Campaign Monitor related layouts in Salesforce."
+                    />
+                </div>
+                <div class="slds-p-horizontal--small slds-size--2-of-4 ">
+
+                    <aura:if isTrue="{!v.removeLayoutJob == null }">
+                        <lightning:button disabled="{!v.disableRemoveLayout}" variant="neutral" class="b12-button-style" label="Remove Layouts" iconName="utility:undo" iconPosition="left" onclick="{! c.onRemovePagelayouts }" />
+                        <aura:set attribute="else">
+
+                            <div role="status" class="slds-spinner slds-spinner--x-small slds-is-static" style="position: relative; top: 10px; left: 10px;">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                            <div style="margin-left: 30px;">
+                                <label class="slds-form-element__label slds-text-body--regular">{!v.removeLayoutJob.status}&nbsp;(<lightning:formattedNumber value="{!v.removeLayoutJob.pctComplete}" style="percent" />)</label>
+                            </div>
+
+                        </aura:set>
+                    </aura:if>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- / PAGE LAYOUTS -->
+
+        <!-- RESET DATA -->
+        <div class="slds-m-around--small">
+            <p class="slds-section-title--divider">Reset stored data</p>
+
+            <div class="slds-m-around--small slds-text-title">Re-import Campaign Monitor data into Salesforce.
+                <wbsendit:sldsTooltip placement="top" text="Click the type of data you want to re-import and press 'Reset Data'. This will perform a full refresh of the Campaign Monitor data residing in Salesforce. It can take up to a few hours to complete." />
+            </div>
+            <fieldset class="slds-m-around--small">
+
+                <lightning:input type="checkbox" disabled="{!v.disableReset}" label="Configuration, subscriber lists and campaign statistics" name="reset-config" value="1" aura:id="reset-config" onchange="{!c.onResetChecked}" />
+                <lightning:input type="checkbox" disabled="{!v.disableReset}" label="Subscriber list members" name="reset-subscriber" value="2" aura:id="reset-subscriber" onchange="{!c.onResetChecked}" />
+                <lightning:input type="checkbox" disabled="{!v.disableReset}" label="Email tracking data" name="reset-email" value="3" aura:id="reset-email" onchange="{!c.onResetChecked}" />
+            </fieldset>
+
+            <lightning:button label="Reset Data" disabled="{!v.disableResetButton}" class="slds-m-left--small" iconName="utility:refresh" onclick="{!c.onResetData}" />
+
+
+        </div>
+        <!-- / RESET DATA -->
+
+        <!-- MESSAGES -->
+        <div class="slds-m-around--small">
+            <p class="slds-section-title--divider">Maintenance Messages</p>
+
+            <aura:if isTrue="{!v.messageLog.length == 0 }">
+                <div class="slds-align--absolute-center slds-m-top--xx-large">
+                    <lightning:badge label="No Maintenance Messages" />
+                </div>
+                <aura:set attribute="else">
+
+                    <article aura:id="message-id" class="slds-card slds-m-around--medium">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning:icon iconName="standard:related_list" class="slds-icon" variant="inverse" />
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2>
+                                        <a href="javascript:void(0);" class="slds-card__header-link slds-truncate">
+                                            <span class="slds-text-heading--small">Messages</span>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </header>
+                            <div class="slds-no-flex">
+                                <lightning:button disabled="{v.disableClearLog}" label="Delete Messages" class="slds-m-left--small" iconName="utility:delete" onclick="{!c.onDeleteMessages}" />
+                            </div>
+                        </div>
+                        <div class="slds-card__body">
+                            <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+                                <col width="150" />
+                                <col width="100" />
+                                <col width="100%" />
+                                <thead>
+                                    <tr class="slds-text-title--caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.wbsendit.Message_Settings_Date}">{!$Label.wbsendit.Message_Settings_Date}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.wbsendit.Message_Settings_Code}">{!$Label.wbsendit.Message_Settings_Code}</div>
+                                        </th>
+
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.wbsendit.Message_Settings_Message}">{!$Label.wbsendit.Message_Settings_Message}</div>
+                                        </th>
+                                        <th scope="col" style="width: 3.25rem;">
+                                            <div class="slds-truncate" title=""></div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.messageLog}" var="row" indexVar="rowIndex">
+                                        <tr class="slds-hint-parent">
+                                            <td>
+                                                <div class="slds-truncate" title="{!row.messageTime}">
+                                                    <lightning:formattedDateTime value="{!row.messageTime}" year="2-digit" month="short" day="2-digit" weekday="short" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate" title="{!row.code}"><a href="{!row.helpURL}" target="_blank">{!row.code}</a></div>
+                                            </td>
+                                            <td style="max-width: 1px;">
+                                                <p class="slds-truncate" title="{!row.message}">{!row.message}</p>
+                                            </td>
+                                            <td style="width: 3.25rem;">
+                                                <lightning:buttonMenu alternativeText="Toggle menu" iconSize="x-small" menuAlignment="right" onselect="{! c.onOpenMessageDetailModal }">
+                                                    <lightning:menuItem label="View" value="{!'viewItem:' + rowIndex}" iconName="utility:description" />
+                                                    <lightning:menuItem label="Delete" value="{!rowIndex}" iconName="utility:delete" />
+                                                </lightning:buttonMenu>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="slds-card__footer">{!v.resultsMessage}&nbsp;</div>
+                    </article>
+                </aura:set>
+            </aura:if>
+
+        </div>
+        <!-- / MESSAGES -->
+    </div>
+
+    <!-- MESSAGE DETAIL MODAL -->
+    <wbsendit:sldsModal showOKButton="false" showCancelButton="false" aura:id="b12-message-detail-modal">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading--medium">{!$Label.wbsendit.Message_Detail}</h2>
+        </aura:set>
+
+        <div class="slds-form slds-form_compound">
+            <fieldset class="slds-form-element">
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="input-01">Date</label><br/>
+                            <span title="{!'Occurrences: ' + v.messageLogDetail.occurrences}" class="slds-form-element__static"><ui:outputDateTime value="{!v.messageLogDetail.messageTime}"/>
+							</span>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="input-02">User</label><br/>
+                            <span class="slds-form-element__static"><ui:outputURL value="{!v.messageLogDetail.userNameLink}" label="{!v.messageLogDetail.userName}" target="_blank"/></span>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="input-02">Support Code</label><br/>
+                            <span class="slds-form-element__static"><ui:outputURL value="{!v.messageLogDetail.helpURL}" label="{!v.messageLogDetail.code}" target="_blank"/></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br/>
+            <fieldset class="slds-form-element">
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="input-03">Detail</label>
+                            <br/>
+
+                            <ui:outputTextArea value="{!v.messageLogDetail.message}" />
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </wbsendit:sldsModal>
+    <!-- / MESSAGE DETAIL MODAL -->
+</aura:component>

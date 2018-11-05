@@ -1,0 +1,67 @@
+<apex:page controller="trailheadapp.TrailheadSetupController">
+    <apex:sectionHeader title="Trail Tracker" subtitle="Setup" description="Welcome to Trail Tracker for reporting on your organization's user Trailhead Badges."/>
+    <apex:pageMessages /><br/>
+    
+    <apex:form >
+        <apex:pageBlock title="Trailhead Settings">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveSettings}" value="Save"/> 
+            </apex:pageBlockButtons>            
+            
+            <apex:pageBlockSection title="Credentials & Settings" columns="1" id="creds">
+                <p>To authenticate and sync data with the Trailhead API, you need to enter a username, password and security token for this org in their respective fields. This is typically some sort of integration user. Remember, if this user's credentials change, you'll need to update these setting so that the sync can run properly. Choose at least one type of license for the users you would like to sync data for. "Standard" may include licenses such as Salesforce, Salesforce Platform, and Identity. If you are unsure, just choose "Standard".</p>
+                <p>There is also an option to log API sync events to a custom object for reporting purposes. By default this is initially set to only log errors. However, you can change this setting to errors only (ERROR), information only (INFO), information and errors (ALL), or no logging (OFF). Please keep in mind that INFO and ALL will create many records in your org so you may want to keep an eye on your storage usage and delete as needed. To view the logs, simply run the <i>Debug Logs</i> report in the Trailhead folder.</p>
+                <p>If you are using a custom domain, add only the domain name (e.g. acme) and not the fully qualified domain name (e.g. https://acme.my.salesforce.com) or it will not work. You will also need to create a remote site setting in setup with the fully qualified domain name (e.g. https://acme.my.salesforce.com). If you are not using a custom domain or are not sure if you are using a custom domain, simply leave this field blank.</p> 
+            </apex:pageBlockSection><br/>
+            
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!config.trailheadapp__Username__c}"/>
+                
+	            <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Debug Level" for="debugLevel"/>
+					<apex:selectList value="{!debugLevel}" multiselect="false" size="1" id="debugLevel">
+						<apex:selectOptions value="{!DebugLevels}"/>
+					</apex:selectList>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:inputSecret value="{!config.trailheadapp__Password__c}"/>
+                
+                <apex:inputField value="{!config.trailheadapp__Custom_Domain__c}"/>
+                
+                <apex:inputSecret value="{!config.trailheadapp__Security_Token__c}"/>
+                
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="License Types" for="licenseTypes"/>        
+					<apex:selectCheckboxes value="{!licenses}" id="licenseTypes">
+						<apex:selectOptions value="{!licenseTypes}"/>
+					</apex:selectCheckboxes>
+				</apex:pageBlockSectionItem>                
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+        <apex:pageBlock title="Trailhead Synchronization Settings">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveSync}" value="Save"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Scheduled Task" columns="1" id="task">
+                
+                <p>We will fetch all of the Trailhead data for your org on a daily based using a schedule task. Please choose the time of day to schedule your task.</p>
+                
+                <apex:selectList value="{!scheduledTime}" size="1">
+                    <apex:selectOptions value="{!availableTimes}"/>
+                </apex:selectList>
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

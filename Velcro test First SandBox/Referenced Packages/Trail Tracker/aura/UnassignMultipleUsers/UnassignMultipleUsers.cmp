@@ -1,0 +1,73 @@
+<aura:component controller="trailheadapp.TrailmixAssignmentController" implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId,flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="currentUsers" type="List" />
+    <aura:attribute name="selectedUsers" type="List" />
+    <aura:attribute name="record" type="Object"/>    
+    <aura:attribute name="loading" type="Boolean" default="false" />
+    <force:recordData recordId="{!v.recordId}" layoutType="FULL" fields="Id,Name" mode="VIEW" targetFields="{!v.record}" />    
+
+    <div>
+        
+        <header class="slds-modal__header">
+            <h2 id="id-of-modalheader-h2" class="slds-text-heading_medium">Unassign Users</h2>
+            <p class="slds-m-top_x-small">Trailmix: {!v.record.Name}</p>
+            <p class="slds-m-top_x-small">Select the users to remove their trailmix assignments.</p>
+        </header>
+        
+        <!-- start scrollable results box -->
+        <div class="slds-scrollable slds-grow" style="height: 23rem; ">
+            
+            <table role="grid" class="slds-table slds-table_fixed-layout slds-table_bordered slds-table_resizable-cols slds-no-row-hover slds-scrollable_none">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col" style="width: 3rem;"></th>
+                        <th aria-label="Name" aria-sort="none" class="slds-text-title_caps" scope="col" style="width: 3.2rem;">
+                            <span class="slds-truncate slds-th__action" title="Name">Name</span>
+                        </th>
+                        <th aria-label="Name" aria-sort="none" class="slds-text-title_caps" scope="col">
+                            <span class="slds-truncate slds-th__action" title="Name"></span>
+                        </th>
+                        <th aria-label="Name" aria-sort="none" class="slds-text-title_caps" scope="col">
+                            <span class="slds-truncate slds-th__action" title="Title">Title</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                <div class="spinnerHolder">
+                    <aura:if isTrue="{!v.loading}">
+                        <lightning:spinner alternativeText="Loading" />
+                    </aura:if>    
+                </div>                               
+
+                <aura:iteration items="{!v.currentUsers}" var="user">
+                    <tr class="slds-hint-parent" aria-selected="true">
+                        <td role="gridcell" tabindex="0" class="slds-text-align_right" style="width: 3.75rem;">
+                            <lightning:buttonIcon name="{!user.Id}" iconName="utility:dash" onclick="{!c.addUser}"  alternativeText="{!'Remove ' + user.trailheadapp__User__r.Name}" />
+                        </td>
+                        <th scope="row">
+                            <lightning:avatar variant="circle" src="{!user.trailheadapp__User__r.SmallPhotoUrl}" fallbackIconName="standard:person_account" alternativeText="{!user.trailheadapp__User__r.Name}" class="slds-m-right_small"/>
+                        </th>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="{!user.trailheadapp__User__r.Name}">{!user.trailheadapp__User__r.Name}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="{!user.trailheadapp__User__r.Title}">{!user.trailheadapp__User__r.Title}</div>
+                        </td>                            
+                    </tr>
+                </aura:iteration>
+                                            
+                </tbody>
+            </table>
+            
+        </div>
+        <!-- end scrollable results box -->
+
+        <footer class="slds-modal__footer">
+            <lightning:button name="cancelBtn" class="slds-button slds-button--neutral" onclick="{!c.cancel}" label="Cancel" /> 
+            <lightning:button name="submitBtn" class="slds-button slds-button--brand" onclick="{!c.submit}" label="Submit" />            
+        </footer>              
+        
+    </div>  
+    
+</aura:component>

@@ -1,0 +1,18 @@
+<aura:component controller="GS_LXPartner.PartnerController" access="global">
+	<aura:method name="getPartnerRecords" action="{!c.getPartnerRecords}" > 
+        <aura:attribute name="sObjectName" type="String"/>
+        <aura:attribute name="recordId" type="String"/>
+        <aura:attribute name="sortBy" type="String" default="AccountFrom.Name"/>
+        <aura:attribute name="sortDirection" type="String" default="AccountFrom.Name"/>
+        <aura:attribute name="callback" type="String" />
+    </aura:method>
+    <aura:method name="getPartnerFields" action="{!c.getPartnerFields}" > 
+        <aura:attribute name="sObjectName" type="String"/>
+        <aura:attribute name="callback" type="String" />
+    </aura:method>
+    <!-- method to fetch Partner Object and Its Field Labels  -->
+    <aura:method name="getPartnerLabels" action="{!c.getPartnerLabels}" >
+        <aura:attribute name="callback" type="String" />
+    </aura:method>
+
+</aura:component>

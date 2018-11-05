@@ -1,0 +1,36 @@
+<apex:page showHeader="true" sidebar="true" controller="wbsendit.ImportSubscriberMembersController" action="{!checkSetup}">
+<apex:slds />
+
+    <apex:includeLightning />
+
+    <div id="lightning" />
+    <script>
+
+        var listId = "{!JSENCODE($CurrentPage.parameters.importListId)}";
+        var subscriberListId = "{!subscriberListId}";
+        var subscriberListName = "{!subscriberListName}";
+        var isPremiumOrTrial = "{!isPremiumOrTrial}";
+        var isConnected = "{!isConnected}";
+        var isAPIEnabled = "{!isAPIEnabled}";
+        var preventMemberSync = "{!preventMemberSync}";
+
+        $Lightning.use("wbsendit:ImportWizardApp", function() {
+
+            $Lightning.createComponent(
+            "wbsendit:ImportWizard",
+            {
+                "listId" : listId,
+                "subscriberListId" : subscriberListId,
+                "subscriberListName" : subscriberListName,
+                "isPremiumOrTrial" : isPremiumOrTrial,
+                "isConnected" : isConnected,
+                "isAPIEnabled" : isAPIEnabled,
+                "preventMemberSync" : preventMemberSync
+            },
+            "lightning",
+            function(cmp) {
+            });
+        });
+    </script>
+
+</apex:page>

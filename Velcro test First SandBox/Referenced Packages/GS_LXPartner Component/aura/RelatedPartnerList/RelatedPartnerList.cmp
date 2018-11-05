@@ -1,0 +1,115 @@
+<aura:component access="global" >
+<!-- Attributes -->     
+<aura:attribute name="partners" type="Partner[]"/>
+<aura:attribute name="partnerFields" type="GS_LXPartner.PartnerField[]"/>
+<aura:attribute name="noOfModalCreateRows"  type="Integer"/>     
+<aura:attribute name="sObjectName" type="String" access="global"/>
+<aura:attribute name="recordId" type="String"/> 
+<aura:attribute name="recordName" type="String"/>  
+<aura:attribute name="labelsObj" type="Object" access="global"/>   
+
+<!-- design attribute to set opportunity field visibility passed from outer most comp /> -->
+<aura:attribute name="showOppField" type="Boolean" />   
+
+<!-- design attributes coming from the outer mose component for when user is to create new Partner, drop down list that suggests an account's or opportunity's Name to select can have an extra field to differentiate records with same names used in createPartner.cmp--> 
+<aura:attribute name="accountExtraField" type="String" access="global" />
+<aura:attribute name="oppExtraField" type="String" access="global" /> 
+
+<!-- Registered Events -->
+<aura:registerEvent name="refreshPartnerCardEvent" type="GS_LXPartner:refreshPartnerCardEvent"/> 
+
+<!-- Event handlers -->
+<aura:handler name="init" action="{!c.doInit}" value="{!this}"/>      
+<aura:handler name="partnerAddedEvent" event="GS_LXPartner:partnerAddedEvent" action="{!c.handlePartnerAddition}"/>
+<aura:handler name="partnerDeletedEvent" event="GS_LXPartner:partnerDeletedEvent" action="{!c.handlePartnerDeletion}"/>     
+<aura:handler name="openCreatePartnerModal" event="GS_LXPartner:openCreatePartnerModalEvent" action="{!c.openCreatePartnerModal}"/> 
+<aura:handler name="closeCreatePartnerModal" event="GS_LXPartner:closeCreatePartnerModalEvent" action="{!c.closeCreatePartnerModal}"/>    
+
+<aura:handler name="partnerEditEvent" event="GS_LXPartner:openEditPartnerModalEvent" action="{!c.handlePartnerEdit}"/> 
+<aura:handler name="closeEditPartnerModal" event="GS_LXPartner:closeEditPartnerModalEvent" action="{!c.closeEditPartnerModal}"/> 
+<aura:handler name="partnerEdited" event="GS_LXPartner:PartnerEditedEvent" action="{!c.handlePartnerEdited}"/>   
+<!-- Util -->    
+<GS_LXPartner:PartnerUtil aura:id="utilMethods"/>  
+<!-- markup -->
+<lightning:spinner aura:id="list-spinner" alternativeText="list-spinner" variant="brand" size="large" class="slds-hide"/>  
+<!-- header -->
+<GS_LXPartner:RelatedPartnerListHeader sObjectName="{!v.sObjectName}" 
+                            recordId="{!v.recordId}"
+                            recordName="{!v.recordName}"
+                            numOfRecords="{!v.partners.length}"
+                            accountExtraField="{!v.accountExtraField}"
+                            oppExtraField="{!v.oppExtraField}"
+                            labelsObj="{!v.labelsObj}"
+                            />    
+<table class="slds-table slds-table--bordered slds-table--fixed-layout" role="grid">
+  <thead>
+    <tr class="slds-line-height--reset">
+      <aura:iteration items="{!v.partnerFields}" var="field" indexVar="index">  
+      <th focusable="true" class="slds-is-sortable slds-is-resizable slds-text-title--caps" scope="col">
+		<a href="javascript:void(0);" onclick="{!c.clickColumnSort}" data-field-name="{!field.apiName}" data-index="{!index}" data-sort-dir="{!field.sortDirection}" class="toggle slds-th__action slds-text-link--reset" tabindex="0">
+          <span class="slds-assistive-text">{!$Label.gs_lxpartner.Sort} </span>
+          <span class="slds-truncate">{!field.label}</span>
+            <aura:if isTrue="{!field.sortDirection == 'ASC'}">  
+            <GS_LXPartner:svgIcon svgPath="{!$Resource.GS_LXPartner__slds220 + '/assets/icons/utility-sprite/svg/symbols.svg#arrowup'}" class="slds-icon slds-icon--x-small slds-icon-text-default slds-is-sortable__icon bluefill"/>
+            </aura:if> 
+            <aura:if isTrue="{!field.sortDirection == 'DESC'}"> 
+            <GS_LXPartner:svgIcon svgPath="{!$Resource.GS_LXPartner__slds220 + '/assets/icons/utility-sprite/svg/symbols.svg#arrowdown'}" class="slds-icon slds-icon--x-small slds-icon-text-default slds-is-sortable__icon bluefill"/>
+            </aura:if>
+            <aura:if isTrue="{!field.sortDirection == ''}"> 
+            <GS_LXPartner:svgIcon svgPath="{!$Resource.GS_LXPartner__slds220 + '/assets/icons/utility-sprite/svg/symbols.svg#arrowup'}" class="slds-icon slds-icon--x-small slds-icon-text-default slds-is-sortable__icon"/>
+            </aura:if>
+          <span class="slds-assistive-text" aria-live="assertive" aria-atomic="true"></span>
+        </a>
+        <div class="slds-resizable">
+          <label for="{!'cell-resize-handle-'+index}" class="slds-assistive-text">{!$Label.gs_lxpartner.Column_width}</label>
+          <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="{!'cell-resize-handle-'+index}" tabindex="0" />
+          <span class="slds-resizable__handle">
+            <span class="slds-resizable__divider"></span>
+          </span>
+        </div>
+      </th>
+      </aura:iteration>  
+      <th scope="col" style="width:3.25rem;">
+        <div class="slds-th__action">
+          <span class="slds-assistive-text">{!$Label.gs_lxpartner.Actions}</span>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <aura:iteration items="{!v.partners}" var="partner" indexVar="index">  
+    <tr class="slds-hint-parent">
+      <th scope="row">
+          <div class="slds-truncate slds-p-left_small">
+              <a href="javascript:void(0);" onclick="{!c.navigateToRecord}" data-navigatetorecordid="{!partner.AccountToId}">{!partner.AccountTo.Name}</a>
+          </div>
+      </th>
+      <td role="gridcell">
+        <div class="slds-truncate slds-p-left_x-small">{!partner.Role}</div>
+      </td>
+      <aura:if isTrue="{!and (v.sObjectName == 'Account', v.showOppField) }">  
+      <td role="gridcell">
+          <div class="slds-truncate slds-p-left_x-small" >
+              <a href="javascript:void(0);" onclick="{!c.navigateToRecord}" data-navigatetorecordid="{!partner.OpportunityId}">{!partner.Opportunity.Name}</a>
+          </div>
+      </td>
+      </aura:if>
+      <aura:if isTrue="{!v.sObjectName == 'Opportunity'}">
+      <td role="gridcell" >
+        <aura:if isTrue="{!partner.IsPrimary}"> 
+        <div class="slds-m-left--small slds-p-left_x-small">
+            <GS_LXPartner:svgIcon svgPath="{!$Resource.GS_LXPartner__slds220 + '/assets/icons/utility-sprite/svg/symbols.svg#check'}" class="slds-icon slds-icon--x-small slds-icon-text-default"/>
+        </div> 
+        </aura:if>
+      </td>
+      </aura:if>  
+      <td role="gridcell" style="width:3.25rem;">
+        <GS_LXPartner:RelatedPartnerActions partnerRecId="{!partner.Id}" sObjName="{!v.sObjectName}" menuAlignment="right"/>
+      </td>
+    </tr>
+	</aura:iteration>
+  </tbody>
+</table>
+<!-- modal placeholder -->    
+{!v.body}    
+</aura:component>

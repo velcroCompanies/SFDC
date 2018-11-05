@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Add Key Reward Opportunities to Business Plan</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Growth_Amount_PY_Normal__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( text(CurrencyIsoCode) , &quot;USD&quot;,  Growth_Initiative_AmountforPY__c  , &quot;CAD&quot;, Growth_Initiative_AmountforPY__c / value(&quot;.943400&quot;),&quot;BRL&quot;, Growth_Initiative_AmountforPY__c / value(&quot;0.434800&quot;),&quot;MXN&quot;, Growth_Initiative_AmountforPY__c / value(&quot;0.078700&quot;),0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Growth Amount Plan Year Normal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Growth_Amount_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>Growth_Amount_PY_Normal__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Sums Up Opp total and  non opp total to create a single field to roll up</inlineHelpText>
+        <label>Growth Amount Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Growth_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Growth Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Growth_Initiative_AmountforPY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If no Opportunity Exists in Salesforce, Here is where you enter Amount for Growth Initiatives that are not Opportunities in Salesforce.com</inlineHelpText>
+        <label>Growth Initiative Amount for Plan Year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Growth_Initiative_for_Plan_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Growth Initiative for Plan Year</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>RelatedOpportunity__r.Amount</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This field auto populates Related Opp amount.   If you are not Relating an Opp to this Growth Initiatve</inlineHelpText>
+        <label>Opportunity Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>RelatedOpportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>If Growth Initiative is already an Opportunity in Salesforce - Add that Opportunity here</inlineHelpText>
+        <label>Related Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Growth Initiatives</relationshipLabel>
+        <relationshipName>Reward_Opportunities</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reward__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Plan</label>
+        <referenceTo>SFDC_Acct_Plan__c</referenceTo>
+        <relationshipName>Reward_Opportunities</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Shipping_Time_Frame__c</fullName>
+        <externalId>false</externalId>
+        <label>Shipping Time Frame</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Q1</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q1-Q2</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q1-Q3</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q2</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q2-Q3</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q2-Q4</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q3</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q3-Q4</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Ongoing Through Year</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Growth Initiative</label>
+    <nameField>
+        <displayFormat>{0000000000}</displayFormat>
+        <label>Reward Opportunities Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Growth Initiatives</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

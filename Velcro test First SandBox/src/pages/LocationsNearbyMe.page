@@ -1,0 +1,357 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" controller="LocationsNearbyMe">
+ 
+
+<!--  <apex:includeScript value="https://maps.google.com/maps/api/js?sensor=false&callback=initialize"/> -->
+     <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsH6mE3VyCb6_yPrYWIbivGHE4g69V3N0&sensor=false">
+      </script>
+
+        
+    <!-- Setup the map to take up the whole window -->
+    <style>
+        html, body { height: 100%; }
+        .page-map, .ui-content, #map-canvas { width: 100%; height:100%; padding: 0; }
+        #map-canvas { height: min-height: 100%; }
+        .form-element__label {font-family:Salesforce Sans,Arial,Sans-Serif; color: rgb(107,109,112); line-height:1,5; }
+    </style>
+    
+    <script>
+          var mapBoundary; 
+          var cont;
+          var acc;
+          var map ;
+          var lat, lon;
+          var iconBase="https://maps.google.com/mapfiles/ms/micons/";           
+          var icons = {
+           account: {
+              icon: iconBase+ 'purple-dot.png'
+            },
+           lead: {
+              icon: iconBase+ 'orange-dot.png'
+            }
+          };
+
+          
+      function addAccounts(map)
+          {          var formAccountDistance = document.forms['f'].elements['accdistance'].value;
+                     var zipcodes=document.forms['f'].elements['zipcodes'].value;
+                     var budget=document.forms['f'].elements['budget'].value;
+                     var userfilter=document.forms['f'].elements['userfilter'].value;
+                     
+                     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.LocationsNearbyMe.getNearbyAccounts}', lat, lon, formAccountDistance ,zipcodes,budget,userfilter,
+                         function(result, event){
+                             if (event.status) {
+                                 console.log('addAccounts result length: '+ result.length );
+                                 
+                                  for(var i=0; i<result.length;i++){
+                                        acc = result[i];
+                                        //console.log(result[i]);
+                                        setupAccountsMapMarker('account');
+                                     }
+                                    
+                             } else if (event.type === 'exception') {
+                                 //exception case code 
+                   
+                             } else {
+                                 //console.log(result);
+                             }
+                          },
+                          {escape: true}
+                         );
+           } 
+           
+          function addLeads(map)
+          {          var formLeadDistance = document.forms['f'].elements['ldistance'].value;
+                     var zipcodes=document.forms['f'].elements['zipcodes'].value;
+                     var budget=document.forms['f'].elements['budget'].value;
+           			 var userfilter=document.forms['f'].elements['userfilter'].value;
+                     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.LocationsNearbyMe.getNearbyLeads}', lat, lon, formLeadDistance ,zipcodes,budget,userfilter,
+                         function(result, event){
+                             if (event.status) {
+                                 console.log(result);
+                                  for(var i=0; i<result.length;i++){
+                                        acc = result[i];
+                                        //console.log(result[i]);
+                                        setupLeadsMapMarker('lead');
+                                     }
+                                    
+                             } else if (event.type === 'exception') {
+                                 //exception case code 
+                       
+                             } else {
+                                 //console.log(result);
+                             }
+                          },
+                          {escape: true}
+                         );
+           } 
+
+           
+           
+          function error_loc()
+          {
+            var output = document.getElementById("map-canvas");
+            output.innerHTML = "Unable to retrieve your location";
+                  // lat = 40.416775;
+                  // lon = -3.703790;
+                  // var result = [];
+                  // createMap(lat, lon, result);
+                 //  addAccounts(map);
+                 //  console.log("error_loc: accounts");
+                 //  addLeads(map);
+           
+          } 
+          
+          function initialize() {
+            
+          var zipcodes=document.forms['f'].elements['zipcodes'].value;
+          var budget=document.forms['f'].elements['budget'].value;
+          var userfilter=document.forms['f'].elements['userfilter'].value;
+          
+             if (navigator.geolocation) {
+
+                     navigator.geolocation.getCurrentPosition(function(position){
+                     lat = position.coords.latitude;
+                     lon = position.coords.longitude;                    
+                     var formLeadDistance = document.forms['f'].elements['ldistance'].value;
+                     
+                     
+                     // Use Visualforce JavaScript Remoting to query for nearby leads      
+                     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.LocationsNearbyMe.getNearbyLeads}', lat, lon, formLeadDistance ,zipcodes,budget,userfilter,
+                         function(result, event){
+                             if (event.status) {
+                                 //console.log(result);
+                                 createMap(lat, lon, result);           
+                             } else if (event.type === 'exception') {
+                                 //exception case code 
+                                 alert(result);        
+                             } else {
+                                 //console.log(result);
+                             }
+                          },
+                          {escape: true}
+                      );
+                  },error_loc());
+              } else {
+                    // Set default values for map if the device doesn't have geolocation capabilities. 
+                    //  Madrid
+                   
+                   lat = 40.416775;
+                   lon = -3.703790;
+                                        
+                   var result = [];
+                   createMap(lat, lon, result);
+              }
+          
+         }
+
+ function setupAccountsMapMarker(mtype){
+                var contNavUrl;
+                var ok=0; 
+                if (acc!=null) 
+                {
+                
+                try{
+                    if(ok==1){
+                        contNavUrl =
+                            'javascript:sforce.one.navigateToSObject(\'' + acc.Id + '\')';
+                     }
+                     else {
+                       contNavUrl = '\\' + acc.Id;
+                     }  
+                   } 
+                    catch(err) {
+                    //console.log(err);
+                    contNavUrl = '\\' + acc.Id;
+                }      
+                console.log(contNavUrl);                         
+                
+                var AccDetails =  acc.Name ;
+                                                
+                var marker = new google.maps.Marker({
+                  // map:map,
+                   title: AccDetails,
+                   label:'A',
+                   icon: icons[mtype].icon,
+                   position: new google.maps.LatLng(
+                                   acc.BillingLatitude,
+                                   acc.BillingLongitude)
+               });
+               //console.log(marker); 
+               marker.setMap(map);
+
+              var content = '';
+              if ( acc!=null) {
+                content='<div id="content" class=""><h4><a target="_blank" href="/'+ acc.Id +'">' +acc.Name+'</a></h4>' +
+                        '<div id="text">' + 
+                        acc.BillingStreet  +'<br/>'+
+                        acc.BillingCity +'<br/>'+
+                        acc.Phone+ '<br/>'+
+                        'Gross sales:' + acc.Actual_YTD_Gross_Sales__c+ '<br/>'+
+                        'Gross budget:'+ acc.Gross_Budget__c+'<br/>'+
+                        '</div></div>';
+                }
+                    var infowindow = new google.maps.InfoWindow({ 
+                        content: content,
+                        maxWidth: 370
+                    });
+                    
+                    marker.addListener('click', function() {
+                            infowindow.open(map, marker);
+                    });
+                    
+                    //google.maps.event.addListener(marker, 'click', function (){  
+                    //    infowindow.open(map, marker);
+                    // });
+                    
+                    
+               mapBoundary.extend(marker.getPosition());
+               map.fitBounds(mapBoundary);
+            } 
+          }   
+ 
+         
+       function setupLeadsMapMarker(mtype){
+                var contNavUrl;
+                var ok=0; 
+                var contId='';
+                if (cont!=null)
+                { contId=cont.Id;
+                
+                try{
+                    if(ok==1){
+                        contNavUrl =
+                            'javascript:sforce.one.navigateToSObject(\'' + cont.Id + '\')';
+                     }
+                     else {
+                       contNavUrl = '\\' + cont.Id;
+                     }  
+                   } 
+                    catch(err) {
+                    console.log(err);
+                    contNavUrl = '\\' + cont.Id;
+                }      
+               // console.log(contNavUrl);                         
+                
+                var contDetails =
+                    
+                    cont.Name + ',' +
+                    cont.Street + ',' +
+                    cont.City + ',' +
+                    cont.PostalCode;
+                //console.log('coords:' + cont.Latitude+' '+cont.Longitude);                             
+                
+               var marker = new google.maps.Marker({
+                  // map:map,
+                   title:contDetails,
+                   icon: icons[mtype].icon,
+                   position: new google.maps.LatLng(
+                                   cont.Latitude,
+                                   cont.Longitude)
+               });
+              // console.log(marker); 
+               marker.setMap(map);
+
+               var content = '<div class=""><h4><a target="_blank"  href="/'+ contId +'">' +cont.Name+'</a></h4><h4><span class="label label-danger"> '+ cont.Street +'</span></h4></div>';
+
+                    var infowindow = new google.maps.InfoWindow({ 
+                        content: content,
+                        maxWidth: 370
+                    });
+                    google.maps.event.addListener(marker, 'click', function (){
+                        infowindow.open(map, marker);
+                    });
+                mapBoundary.extend(marker.getPosition());
+              }  
+           }   
+            
+         function createMap(lat, lon, leads){
+            var currentPosition = new google.maps.LatLng(lat,lon);
+            var mapDiv = document.getElementById('map-canvas');
+            map = new google.maps.Map(mapDiv, {
+                center: currentPosition,
+                zoom:12,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            
+            // Set a marker for the current location
+            var positionMarker = new google.maps.Marker({
+                map: map,
+                position: currentPosition,
+                title: 'You are here',
+            });
+            
+            // Keep track of the map boundary that holds all markers
+            
+            mapBoundary = new google.maps.LatLngBounds();
+             //mapBoundary.extend(currentPosition);
+            
+            // Set markers on the map from the @RemoteAction results
+            //console.log('leads array length: ' + leads.length);
+            
+            for(var i=0; i<leads.length;i++){
+                cont = leads[i];
+               // console.log(leads[i]);
+                setupLeadsMapMarker('lead');
+            }
+           //map.fitBounds(mapBoundary);
+           
+       // add accounts now.
+       addAccounts(map);
+       map.setZoom(12);
+       console.log('code end');
+       
+                  
+        }
+
+    google.maps.event.addDomListener(window, 'load', function() { initialize();  });
+        
+    </script>
+     <div id="options">
+        <form name="f">
+            <label class="uiLabel-top form-element__label uiLabel">Leads</label>
+             <select class="form-element__label" name="ldistance" id="ldistance" onChange="initialize()"> 
+              <option value="0">none</option>
+              <option value="25">25 km</option>
+              <option value="50">50 km</option>
+              <option value="150">150 km</option>
+              <option value="400">400 km</option>
+              <option value="1000">1000 km</option>
+            </select>         
+           
+           
+            <label class="uiLabel-top form-element__label uiLabel">Accounts</label>
+             <select class="form-element__label" name="accdistance" id="accdistance" onChange="initialize()"> 
+              <option value="0">none</option>
+              <option value="25">25 km</option>
+              <option value="50">50 km</option>
+              <option value="150">150 km</option>
+              <option value="400">400 km</option>
+              <option value="700">700 km</option>
+              <option value="1000">1000 km</option>
+              <option value="5000">5000 km</option>
+             </select>      
+             <label class="uiLabel-top form-element__label uiLabel" for="187:842;a" data-aura-rendered-by="913:0" data-aura-class="uiLabel">Budget</label>
+
+<input type="text" size="7" name="budget" class="form-element__label"  id="buget"/>   
+             <label class="uiLabel-top form-element__label uiLabel" for="187:842;a" data-aura-rendered-by="913:0" data-aura-class="uiLabel">Zip code</label>
+<input type="text" size="10" name="zipcodes" class="form-element__label" id="zipcodes"/>   
+             
+             <label class="uiLabel-top form-element__label uiLabel">Show</label>
+             <select class="form-element__label" name="userfilter" id="userfilter" onChange="initialize()"> 
+              <option value="{!$User.Id}">My Accounts/Leads</option>
+              <option value="ALL">All Accounts/Leads </option>
+             </select>   
+             
+             <input type="hidden" name="UserId" class="form-element__label" id="UserId" value="{!$User.Id}"/>
+             <input type="button" name="submit" value="filter" onClick="initialize()" />
+           </form>
+         </div>
+                  
+                  
+
+        <div id="map-canvas">
+          map goes here
+         </div>
+
+</apex:page>

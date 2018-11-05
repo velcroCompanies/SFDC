@@ -1,0 +1,6 @@
+A credit check is required for the following client:
+Client Name : {!Account.Name}
+Client Billing Address : {!Account.BillingAddress}
+Client Shipping Address: {!Account.ShippingAddress}
+Client Parent Company: {!Account.Parent}
+Please complete the credit check and respond to this email with the results. If you have any questions, please contact {!Opportunity.OwnerFullName} at {!Opportunity.OwnerPhone} or {!Opportunity.OwnerEmail}.

@@ -1,0 +1,4 @@
+PDR# {!Opportunity.PDR__c}
+Name: {!Opportunity.Name}
+New SOP: {!Opportunity.Start_of_Production__c}
+Detail Link: {!Opportunity.Link}

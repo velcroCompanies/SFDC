@@ -1,0 +1,18 @@
+Hi {!Opportunity.OwnerFullName} 
+You have a DR opportunity pending ( not yet submited).
+Please, take action if needed.
+
+Link to Opportunity : {!Opportunity.Link}
+
+Project Name: {!Opportunity.Name}
+Account: {!Opportunity.Account}
+Total Annual Value: {!Opportunity.Total_Annual_Dollars__c}
+Estimated Close Date: {!Opportunity.CloseDate}
+Objective: {!Opportunity.Objective_Goal__c}
+Project Delivery Date:  {!Opportunity.Projectcompletion__c}
+
+Requirements--
+Prototypes/Samples: {!Opportunity.Prototypes_Samples__c}
+Quote: {!Opportunity.Quote__c}
+Packaging: {!Opportunity.Packaging__c}
+Application: {!Opportunity.Application__c}

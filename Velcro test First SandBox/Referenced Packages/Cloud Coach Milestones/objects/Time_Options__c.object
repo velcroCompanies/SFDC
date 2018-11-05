@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Hide_Create_Time_Entry__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Should the &quot;Create Time Entry&quot; button be included on the timecard</description>
+        <externalId>false</externalId>
+        <label>Hide Create Time Entry</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Approvals__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Should the &quot;Submit for Approval&quot; button be included on the timecard</description>
+        <externalId>false</externalId>
+        <label>Show Submit For Approval</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Configuration Options</label>
+    <visibility>Public</visibility>
+</CustomObject>

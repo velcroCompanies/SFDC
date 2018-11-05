@@ -1,0 +1,61 @@
+<aura:component implements="force:appHostable" controller="wbsendit.ImportWizardController">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="importConfig" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="importTooltip" type="String" default="Loading..." />
+    <aura:attribute access="private" name="isNextDisabled" type="Boolean" default="true" />
+    <aura:attribute access="private" name="isReportListDisabled" type="Boolean" default="true" />
+    <aura:attribute access="private" name="sourceList" type="List" />
+    <aura:attribute access="private" name="selectedSourceList" type="String" default="report" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="ImportWizardEvent" type="wbsendit:ImportWizardEvent" />
+
+    <!-- SELECT IMPORT TYPE -->
+    <div aura:id="report-id" class="slds-col--padded slds-size--1-of-4 ">
+    </div>
+    <div aura:id="report-folder-id" class="slds-col--padded slds-size--1-of-3" style="padding: 15px; margin: 0 -15px; border: 1px solid #e2e2e2; background: #f4f4f4; border-radius: 6px; position: relative; zoom: 1;">
+        <div>
+            <form class="slds-form--inline">
+                <fieldset class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <div class="slds-text-heading--medium">Import to Campaign Monitor</div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <lightning:select name="wizard-select-id" label="Where would you like to import the Salesforce records from?" aura:id="wizard-select-id" value="{!v.selectedSourceList}" onchange="{!c.doSelectImportType}">
+                <aura:iteration items="{!v.sourceList}" var="item">
+                    <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}" />
+                </aura:iteration>
+            </lightning:select>
+
+        </div>
+        <div aura:id="listview-msg-id" class="slds-box slds-box_small slds-m-top_x-small slds-hide" style="background: #f9f9f9">
+            <div class="slds-text-color_weak">'List View' import is not available in Professional or if user does not have the System Permission 'View Setup and Configuration'.</div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div aura:id="report-id" class=" slds-p-right--xx-large slds-col--padded slds-size--1-of-2 ">
+        <div>
+            <div class="slds-form-element">
+                <div class="slds-form-element__icon slds-align-middle">
+                    <button class="slds-button slds-button slds-button--icon" aria-describedby="help" title="Help">
+					<span class="slds-assistive-text">Help</span>
+					</button>
+                </div>
+            </div>
+            <div class="slds-popover slds-popover--tooltip slds-nubbin--left" role="tooltip" id="help" style="position:relative;top:10px;left:15px;">
+                <div class="slds-popover__body">{!v.importTooltip}</div>
+            </div>
+        </div>
+    </div>
+
+
+</aura:component>

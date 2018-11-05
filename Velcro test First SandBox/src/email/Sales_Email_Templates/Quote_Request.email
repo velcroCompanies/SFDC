@@ -1,0 +1,2 @@
+Please provide a quote request for the customer :  {!Quote.Account_Name__c} at {!Quote.Link}.
+Please complete the quote request to this email with the quote attached. If you have any questions, please contact {!Quote.Opportunity_Owner__c} at {!Quote.Opportunity_Owner_Phone__c} or {!Quote.Opportunity_Owner_Email__c}.

@@ -1,0 +1,136 @@
+<apex:page showHeader="false" sidebar="false" showChat="false" standardStylesheets="false" controller="wbsendit.SetupWizardController" >
+
+	<body style="background: rgba(239, 243, 247, 0.86)">
+		<apex:slds />
+		<apex:includeLightning />
+		<div id="b12-main-id" style="min-height: 600px;" class="">
+			<div id="lightning" />
+		    <script>
+
+		    	var connectionCompletedEvent; // Declare here so the oauth popup can access it.
+
+		        // Need to refresh the handle to ConnectionCompletedEvent
+				var refreshConnectionCompletedEvent = function(event){
+
+					$Lightning.use("wbsendit:AdministrationApp", function() {
+				    	connectionCompletedEvent = $A.get("e.wbsendit:ConnectionCompletedEvent");
+				    });
+				};
+
+				var startConfig = function(){
+
+					var clientList = document.getElementById("client-id");
+					var clientId = clientList.options[clientList.selectedIndex].value;
+					var clientName = clientList.options[clientList.selectedIndex].text;
+
+					// Start the config and page layout batch jobs
+					Visualforce.remoting.Manager.invokeAction(
+			            '{!$RemoteAction.SetupWizardController.startConfig}',
+				            clientId,
+				            clientName,
+			            function(result, event){
+
+							window.opener.connectionCompletedEvent.setParams({"code": result.code, "state": result.description });
+							window.opener.connectionCompletedEvent.fire();
+							window.close();
+
+			            },
+			            { buffer: false, escape: true, timeout: 30000 }
+			        );
+				};
+
+				// Capture any parameters
+				var code = "{!$CurrentPage.parameters.code}";
+				var state = "{!$CurrentPage.parameters.state}";
+				var error = "{!$CurrentPage.parameters.error}";
+				var errorDescription = "{!$CurrentPage.parameters.error_description}";
+				var accessToken = "{!$CurrentPage.parameters.access_token}";
+				var cmpid = "{!$CurrentPage.parameters.cmpid}";
+
+				if(!state) {
+					// Add component to the page / this should only be on the initial load
+			        $Lightning.use("wbsendit:AdministrationApp", function() {
+
+			            $Lightning.createComponent(
+			            "wbsendit:SetupWizard",
+			            {
+			            	"cmpid": cmpid
+			            },
+			            "lightning",
+			            function(cmp) {
+			            	connectionCompletedEvent = $A.get("e.wbsendit:ConnectionCompletedEvent");
+
+			            	// You can only use the ConnectionCompletedEvent once, so it needs to be refreshed after each use
+		            		$A.eventService.addHandler({ "event": "wbsendit:ConnectionCompletedEvent", "handler" : refreshConnectionCompletedEvent});
+			            });
+			        });
+				} else {
+
+					// Check the OAuth response and save
+					Visualforce.remoting.Manager.invokeAction(
+			            '{!$RemoteAction.SetupWizardController.saveConnection}',
+				            code,
+				            state,
+				            accessToken,
+				            error,
+				            errorDescription,
+			            function(result, event){
+
+			            	if(result.code === "201") {
+
+			            		// If there are multi clients, then show a CM Client picklist
+							    var select = document.getElementById("client-id"), option = null;
+							    for(var i = 0; i <= result.clients.length - 1; i++) {
+							        option = document.createElement("option");
+							        option.value = result.clients[i].clientId;
+							        option.innerHTML = result.clients[i].clientName;
+							        select.appendChild(option);
+							    }
+
+							    var b12mainid = document.getElementById("b12-main-id");
+							    b12mainid.classList.add("slds-hide");
+
+							    var b12clientid = document.getElementById("b12-client-id");
+							    b12clientid.classList.remove("slds-hide");
+
+			            	} else {
+								// Connecting, send code back to parent window and close the auth window
+								window.opener.connectionCompletedEvent.setParams({"code": result.code, "state": result.description });
+								window.opener.connectionCompletedEvent.fire();
+			            		window.close();
+			            	}
+
+			            },
+			            { buffer: false, escape: true, timeout: 30000 }
+			        );
+
+				}
+
+
+		    </script>
+		</div>
+
+		<!-- CLIENT SELECT -->
+		<div id="b12-client-id" class="slds-grid slds-grid_align-center slds-hide" >
+			<div class="slds-box slds-grid" style="top: 30%; position: absolute;">
+				<div class="slds-col slds-p-around_small">
+					<div class="slds-text-heading_medium slds-p-bottom_medium">Campaign Monitor for Salesforce Install</div>
+					<div class="slds-form-element">
+						<label class="slds-form-element__label">Select Campaign Monitor Client to connect with Salesforce</label>
+						<select id="client-id" class="slds-form-element__control slds-select slds-select_container">
+						</select>
+					</div>
+					<div class="slds-clearfix slds-p-top_medium">
+						<div class="slds-float_right">
+							<button class="slds-button slds-button_brand" onclick="startConfig()">Continue</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--// CLIENT SELECT -->
+
+	</body>
+
+
+</apex:page>

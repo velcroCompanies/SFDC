@@ -1,0 +1,34 @@
+<design:component label="QuickNav Link">
+ 	<design:attribute name="Label" 
+                      label="Label" 
+                      description="Enter a Label for Link"/>
+    
+    <design:attribute name="alignment" 
+                      label="Horizontal Alignment"
+                      description="Where would you like the link placed?" 
+                      datasource="center,left,right"/>
+
+    <design:attribute name="Target" 
+                      label="Target" 
+                      description="What type of target? URL, Object Home, List View or a Lightning Page?" 
+                      datasource="navigateToUrl,navigateToObjectHome,navigateToList,navigateToLightningPage"  />           
+
+    <design:attribute name="Url" 
+                      label="URL" 
+                      description="Only used when Type is navigateToURL.   E.g. https://help.salesforce.com/home." />   
+
+  <design:attribute name="ObjectName" 
+                      label="Object Name" 
+                      datasource="apex://labsnavhelper.ObjectsPickListDesignCtrl" 
+                      description="Only used when Type is navigateToObjectHome."/>
+
+    <design:attribute name="ViewName" 
+                      label="List View Name" 
+                      datasource="apex://labsnavhelper.ViewsPickListDesignCtrl" 
+                      description="Only used when Type is navigateToList.   Search Hint: To see all list views for Account search for Account_"/>
+
+    <design:attribute name="ComponentName" 
+                      label="Lightning Page" 
+                      description="Only used when Type is navigateToLightningPage. Use the Lighting Page API name"/>    
+	
+</design:component>

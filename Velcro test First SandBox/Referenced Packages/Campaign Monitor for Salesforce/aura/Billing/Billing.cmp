@@ -1,0 +1,285 @@
+<aura:component implements="force:appHostable" controller="wbsendit.BillingSettingsController">
+
+    <ltng:require scripts="{!$Resource.wbsendit__SendItAssets + '/modules/stripe/checkout.js'}" afterScriptsLoaded="{!c.doInit}" />
+    <aura:registerEvent name="subscriptionEvent" type="wbsendit:sldsSubscriptionEvent" />
+    <aura:handler name="subscriptionEvent" event="wbsendit:sldsSubscriptionEvent" action="{!c.subscriptionEventHandler}" />
+
+    <aura:registerEvent name="updateCardEvent" type="wbsendit:sldsUpdateCardEvent" />
+    <aura:handler name="updateCardEvent" event="wbsendit:sldsUpdateCardEvent" action="{!c.updateCardEventHandler}" />
+
+    <aura:attribute access="private" name="invoiceJson" type="String" />
+    <aura:attribute access="private" name="selectedEmailRecipient" type="String" />
+    <aura:attribute access="private" name="billSummary" type="String" />
+    <aura:attribute access="private" name="licence" type="String" />
+    <aura:attribute access="private" name="messageId" type="String" />
+    <aura:attribute access="private" name="resultsMessage" type="String" />
+    <aura:attribute access="private" name="isFree" type="Boolean" default="false" />
+    <aura:attribute access="private" name="promptBody" type="String" />
+    <aura:attribute access="private" name="promptHeader" type="String" />
+    <aura:attribute access="private" name="notification" type="String" default="Success" />
+
+    <!-- NOTIFICATIONS -->
+    <wbsendit:sldsNotification message="{!v.notification}" fadeTimeout="3000" />
+
+    <div aura:id="body-spinner-id" role="status" class="slds-spinner slds-spinner--small slds-spinner_brand" style="margin-left: 100px;">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+
+    <div aura:id="body-id" class="slds-hide">
+
+        <wbsendit:sldsConnectBanner />
+
+        <wbsendit:sldsPrompt aura:id="b12-prompt-subscription" messageHeader="{!v.promptHeader}" message="{!v.promptBody}" />
+
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="custom:custom17" />
+                        </div>
+                        <div class="slds-media__body">
+                            <p class="slds-text-title--caps slds-line-height--reset">{!$Label.wbsendit.SendIT_Settings_Header}</p>
+                            <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="{!$Label.wbsendit.Billing_Header}">{!$Label.wbsendit.Billing_Header}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <lightning:buttonGroup>
+                        <lightning:button label="Edit Billing Contact" iconName="utility:user" onclick="{!c.openBillingContactModal}" disabled="{!v.isFree}" />
+                        <aura:if isTrue="{!v.licence.planType != 'Annual'}">
+                            <lightning:button label="Edit Payment Details" onclick="{!c.openCardUpdateModal}" disabled="{!v.isFree}" />
+                        </aura:if>
+                    </lightning:buttonGroup>
+                    <ui:outputURL class="slds-button" value="{!$Label.wbsendit.Help_Url_Billing_Settings}" target="_blank" label="Help" />
+                </div>
+            </div>
+            <ul class="slds-grid slds-page-header__detail-row">
+                <li class="slds-page-header__detail-block">
+                    <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="{!$Label.wbsendit.Billing_Active_Subscribers}">{!$Label.wbsendit.Billing_Active_Subscribers}</p>
+                    <p class="slds-text-body--regular slds-truncate">
+                        <lightning:formattedNumber value="{!v.licence.licenceSummary.activeSubscribers}" style="decimal" /> &nbsp;
+                    </p>
+                </li>
+                <li class="slds-page-header__detail-block">
+
+
+                    <aura:if isTrue="{!v.licence.planType == 'Annual'}">
+                        <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="{!$Label.wbsendit.Billing_Annual_Cost}">{!$Label.wbsendit.Billing_Annual_Cost}</p>
+                        <aura:set attribute="else">
+                            <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="{!$Label.wbsendit.Billing_Monthly_Cost}">{!$Label.wbsendit.Billing_Monthly_Cost}</p>
+                        </aura:set>
+                    </aura:if>
+
+
+
+                    <aura:if isTrue="{!v.isFree}">
+                        <p class="slds-text-body--regular slds-truncate" title="{!v.licence.licenceSummary.licenceCost}">Free</p>
+                        <aura:set attribute="else">
+                            <p class="slds-text-body--regular slds-truncate" title="{!v.licence.licenceSummary.licenceCost}">$
+                                <lightning:formattedNumber value="{!v.licence.licenceSummary.licenceCost}" /> (USD)</p>
+
+                        </aura:set>
+                    </aura:if>
+
+                </li>
+                <li class="slds-page-header__detail-block">
+                    <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="{!$Label.wbsendit.Billing_Contact}">{!$Label.wbsendit.Billing_Contact}</p>
+                    <p class="slds-text-body--regular slds-truncate" title="{!v.licence.billingContactEmail}">{!v.licence.billingContactEmail}</p>
+                </li>
+                <li class="slds-page-header__detail-block">
+                    <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="{!$Label.wbsendit.Billing_Licence_Type}">{!$Label.wbsendit.Billing_Licence_Type}</p>
+                    <p class="slds-text-body--regular slds-truncate" title="{!v.licence.planType}">{!v.licence.planType}</p>
+                </li>
+            </ul>
+        </div>
+        <!-- // PAGE HEADER -->
+
+        <!-- PURCHASE -->
+        <div aura:id="buy-now-id" class="slds-align--absolute-center slds-p-top--xx-large slds-hide">
+            <div class="slds-visual-picker slds-visual-picker_medium">
+
+                <label for="visual-picker-317">
+					<span class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center">
+					<span>
+					<span class="slds-text-heading_large">
+						${!v.licence.licenceSummary.licenceCost}
+					</span>
+					<span class="slds-text-title">USD/month *</span>
+					<span class="slds-text-title">&nbsp;</span>
+					<span class="slds-text-title"><lightning:button label="Upgrade Now" onclick="{!c.openPurchaseModal}" variant="brand"/></span>
+					</span>
+					</span>
+					<span class="slds-visual-picker__body">
+					<span class="slds-text-heading_small">Campaign Monitor for Salesforce: Premium</span>
+					<span class="slds-text-title"><a class="slds-text-color_weak" href="http://support.beaufort12.com/customer/en/portal/articles/2809456" target="_blank">*Read More</a></span>
+					</span>
+
+				</label>
+
+            </div>
+        </div>
+        <!-- / PURCHASE -->
+
+        <!-- NO INVOICES -->
+        <div aura:id="no-invoice-id" class="slds-align--absolute-center slds-p-top--xx-large  slds-hide">
+            <div class="slds-text-color--weak">No Invoices.</div>
+        </div>
+        <!-- / NO INVOICES -->
+
+        <!-- INVOICES -->
+        <article aura:id="invoice-id" class="slds-card slds-m-around--medium slds-hide">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning:icon iconName="standard:related_list" class="slds-icon" />
+                    </div>
+                    <div class="slds-media__body">
+                        <h2>
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate">
+                                <span class="slds-text-heading--small">Invoices</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+                <div class="slds-no-flex">
+                </div>
+            </div>
+            <div class="slds-card__body">
+                <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title--caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="{!$Label.wbsendit.Billing_Invoice_Date}">{!$Label.wbsendit.Billing_Invoice_Date}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="{!$Label.wbsendit.Billing_Invoice_Number}">{!$Label.wbsendit.Billing_Invoice_Number}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="{!$Label.wbsendit.Billing_Invoice_Amount}">{!$Label.wbsendit.Billing_Invoice_Amount}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="{!$Label.wbsendit.Billing_Invoice_Recipient}">{!$Label.wbsendit.Billing_Invoice_Recipient}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="{!$Label.wbsendit.Billing_Invoice_Action}">{!$Label.wbsendit.Billing_Invoice_Action}</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.licence.invoices}" var="row" indexVar="rowIndex">
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="{!row.invoiceDate}">{!row.invoiceDate}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title="{!row.invoiceNumber}">{!row.invoiceNumber}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title="{!row.amount}">
+                                        <lightning:formattedNumber value="{!row.amount}" style="currency" currencyCode="USD" currencyDisplayAs="symbol" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title="{!row.recipientEmail}">{!row.recipientEmail}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title="Resend">
+                                        <lightning:button name="id-resend" value="{!row.messageId + ':' + row.recipientEmail}" variant="" label="Resend" onclick="{!c.openResendInvoiceModal }" iconName="utility:email" iconPosition="left" class="b12-small-button" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slds-card__footer">{!v.resultsMessage}&nbsp;</div>
+        </article>
+        <!-- / INVOICES -->
+    </div>
+
+    <!-- PURCHASE MODAL -->
+    <wbsendit:sldsModal okAction="{!c.saveContact}" showOKButton="true" showCancelButton="true" okButtonLabel="{!$Label.wbsendit.Save}" aura:id="b12-billing-purchase-modal">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading--medium">{!$Label.wbsendit.Billing_Contact}</h2>
+        </aura:set>
+
+        <fieldset class="slds-form--compound">
+            <legend class="slds-form-element__label slds-text-title--caps">Name</legend>
+            <div class="slds-form-element__group">
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="First Name" name="contactFirstName" value="{!v.licence.billingContactFirstName}" required="true" />
+                    </div>
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="Last Name" name="contactLastName" value="{!v.licence.billingContactLastName}" required="true" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="slds-form--compound">
+            <legend class="slds-form-element__label slds-text-title--caps">Recipient</legend>
+            <div class="slds-form-element__group">
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-1">
+                        <lightning:input type="email" label="Email" name="email" value="{!v.licence.billingContactEmail}" required="true" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </wbsendit:sldsModal>
+    <!-- / PURCHASE MODAL -->
+
+    <!-- BILLING CONTACT MODAL -->
+    <wbsendit:sldsModal okAction="{!c.saveContact}" showOKButton="true" showCancelButton="true" okButtonLabel="{!$Label.wbsendit.Save}" aura:id="b12-billing-contact-modal">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading--medium">{!$Label.wbsendit.Billing_Contact}</h2>
+        </aura:set>
+
+        <fieldset class="slds-form--compound">
+            <legend class="slds-form-element__label slds-text-title--caps">Name</legend>
+            <div class="slds-form-element__group">
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="First Name" name="contactFirstName" value="{!v.licence.billingContactFirstName}" required="true" />
+                    </div>
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="Last Name" name="contactLastName" value="{!v.licence.billingContactLastName}" required="true" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="slds-form--compound">
+            <legend class="slds-form-element__label slds-text-title--caps">Recipient</legend>
+            <div class="slds-form-element__group">
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-1">
+                        <lightning:input type="email" label="Email" name="email" value="{!v.licence.billingContactEmail}" required="true" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </wbsendit:sldsModal>
+    <!-- / BILLING CONTACT MODAL -->
+
+    <!-- RESEND INVOICE MODAL -->
+    <wbsendit:sldsModal okAction="{!c.onResendInvoice}" showOKButton="true" showCancelButton="true" okButtonLabel="{!$Label.wbsendit.Billing_Resend_Invoice}" aura:id="b12-billing-resend-modal">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading--medium">{!$Label.wbsendit.Billing_Resend_Invoice}</h2>
+        </aura:set>
+
+        <fieldset>
+            <legend>Resend Invoice to:</legend>
+            <lightning:input type="radio" label="{!v.licence.billingContactEmail + ' '}" name="resend-email-id" value="{!v.licence.billingContactEmail}" aura:id="resend-email-id" checked="true" />
+            <div aura:id="b12-previous-recipient-email" class="slds-hide">
+                <lightning:input type="radio" label="{!v.selectedEmailRecipient + ' '}" name="resend-email-id" value="{!v.selectedEmailRecipient}" aura:id="resend-email-id" />
+            </div>
+        </fieldset>
+
+    </wbsendit:sldsModal>
+    <!-- / RESEND INVOICE MODAL -->
+
+</aura:component>

@@ -1,0 +1,60 @@
+<apex:page standardController="Quote" extensions="QuoteLinesListController" tabstyle="Quote">
+<apex:includeScript value="/soap/ajax/29.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/29.0/apex.js"/>
+<script>
+ function show_saved() {
+    resulmsg.innerHTML="<h3> Records saved </h3>";
+ }
+</script>
+<apex:param name="QuoteId" value="{!$CurrentPage.parameters.QuoteID}"/>
+
+ <apex:form >
+   <apex:pageBlock title="Quote Lines">
+      <apex:pageBlockTable value="{!wrappers}" var="wrapper" id="wtable">
+         <apex:column headerValue="Ident">
+            <apex:outputText value="{!wrapper.ident}"/>
+         </apex:column>
+         <apex:column headerValue="Description">
+            <apex:inputField value="{!wrapper.quol.Description__c}"/>
+         </apex:column>
+         
+         <apex:column headerValue="Product_Code">
+            <apex:inputField value="{!wrapper.quol.Product_Code__c}"/>
+         </apex:column>
+         <apex:column headerValue="Price">
+            <apex:inputField value="{!wrapper.quol.Price__c}"/>
+        </apex:column>
+        <apex:column headerValue="Units_of_measure__c">
+            <apex:inputField value="{!wrapper.quol.Units_of_measure__c}"/>
+         </apex:column>
+        <apex:column headerValue="Presentation">
+            <apex:inputField value="{!wrapper.quol.Presented__c}"/>
+         </apex:column>
+        <apex:column headerValue="Lead Time">
+            <apex:inputField value="{!wrapper.quol.Lead_Time__c}"/>
+         </apex:column>
+                        
+        
+        <apex:column headerValue="Minimun_Order_Quantity__c">
+            <apex:inputField value="{!wrapper.quol.Minimun_Order_Quantity__c}"/>
+         </apex:column>
+         
+         <apex:column headerValue="Action">
+            <apex:commandButton value="Delete" action="{!delWrapper}" rerender="wtable">
+               <apex:param name="toDelIdent" value="{!wrapper.ident}" assignTo="{!toDelIdent}"/> 
+            </apex:commandButton>
+         </apex:column>
+         <!--  hidden input  -->
+         <apex:inputHidden value="{!wrapper.quol.quote__c}"/>
+         
+      </apex:pageBlockTable>
+      <apex:commandButton value="Add New Row" action="{!addRows}" rerender="wtable">
+         <apex:param name="addCount" value="1" assignTo="{!addCount}"/> 
+      </apex:commandButton>
+    <!-- <apex:commandButton value="Add 5 Rows" action="{!addRows}" rerender="wtable">
+         <apex:param name="addCount" value="5" assignTo="{!addCount}"/> 
+      </apex:commandButton> -->
+      <apex:commandButton value="Save All" action="{!save}" onclick="show_saved();"  /><div id="resulmsg"> </div>
+   </apex:pageBlock>
+ </apex:form>
+   </apex:page>

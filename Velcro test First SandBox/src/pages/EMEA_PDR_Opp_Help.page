@@ -1,0 +1,43 @@
+<apex:page showHeader="false" StandardController="Opportunity"  id="SiteTemplate">
+  <apex:insert name="header">
+  </apex:insert>
+  <apex:insert name="body">
+        
+  </apex:insert>
+  <apex:form >
+
+  <html>
+     <apex:outputPanel >
+   
+        <td align="top">
+          <apex:pageblock >
+
+                <table  width="100%" height="100%" style="background-color:#4035e9" >
+                  <tr>
+                   <td align="left" valign="center" width="80%" heigth="80px"  margin-left="40px" > 
+                    <p style="padding:10 10 10 0">
+                    <font face="arial,verdana" color="white">
+                     <b>
+                        If you are not sure about what are the answers to those questions or what are the next steps, click on the " Help me " button.
+                        <br/>
+                        <font style="align:center"> 
+                        <apex:commandButton onclick="window.open('https://velcro.my.salesforce.com/sfc/p/A0000000bhq1/a/1J000000URA4/SERFZ1v8lBF84VAYuLb1YZ1BqvoQOqTs0T8RRj27P44','help DR','location=1,status=1,scrollbars=1')" value=" Help me "/>
+                        </font>
+                     </b>
+                    </font>
+                   </p>
+
+                    </td></tr>
+                           
+                  </table>
+          </apex:pageblock>
+          
+       </td>
+    </apex:outputPanel>   
+  </html>
+    
+    </apex:form>
+  
+  <apex:insert name="footer">
+   </apex:insert>
+</apex:page>

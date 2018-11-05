@@ -1,0 +1,12 @@
+PDR Number: {!Opportunity.PDR__c}
+Opportunity Name: {!Opportunity.Name}
+Stage: {!Opportunity.StageName}
+Project Manager: {!Opportunity.DR_Project_Manager__c}
+Project Type: {!Opportunity.ProjectType__c}
+SBU: {!Opportunity.Account_SBU__c}
+Region: {!Opportunity.Account_Org__c}
+Region of MFG: {!Opportunity.Region_of_MFG__c}
+Year 3 Forecast: {!Opportunity.Year_3_Forecast__c}
+Category: {!Opportunity.Account_Category__c}
+
+Link to Opportunity : {!Opportunity.Link}

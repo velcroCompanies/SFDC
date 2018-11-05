@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>FB_InstallContext</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FB_InstallContext</shortDescription>
+        <value>Install Context</value>
+    </labels>
+    <labels>
+        <fullName>FP_AnalysisStatus</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>analysis status</shortDescription>
+        <value>Analysis Status</value>
+    </labels>
+    <labels>
+        <fullName>FP_BooleanError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Boolean</shortDescription>
+        <value>&lt;b&gt;Error:&lt;/b&gt; You must enter boolean value</value>
+    </labels>
+    <labels>
+        <fullName>FP_Cancel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>FP_ChartHelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>chart help text</shortDescription>
+        <value>Click the columns to view field usage per record type</value>
+    </labels>
+    <labels>
+        <fullName>FP_ChartUnavailable</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>unavailable</shortDescription>
+        <value>Footprint Analysis Chart is unavailable for display.</value>
+    </labels>
+    <labels>
+        <fullName>FP_CreatedDate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Created date</shortDescription>
+        <value>Created Date</value>
+    </labels>
+    <labels>
+        <fullName>FP_Createfootprint</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>create footprint</shortDescription>
+        <value>Create a new footprint</value>
+    </labels>
+    <labels>
+        <fullName>FP_DateError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>date error</shortDescription>
+        <value>&lt;b&gt;Error:&lt;/b&gt; Invalid Date (Valid date format 7/14/2016 )</value>
+    </labels>
+    <labels>
+        <fullName>FP_DateTimeError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>date time error</shortDescription>
+        <value>&lt;b&gt;Error:&lt;/b&gt; Invalide DateTime (Valid date format 2016-07-11T07:49:01.000+0000)</value>
+    </labels>
+    <labels>
+        <fullName>FP_EmailMe</fullName>
+        <categories>Footprint Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>EmailMe</shortDescription>
+        <value>Email me at the end of the analysis</value>
+    </labels>
+    <labels>
+        <fullName>FP_Emptyfield</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Empty Filter</shortDescription>
+        <value>(If you leave this field as is only the first filter will be taken into consideration)</value>
+    </labels>
+    <labels>
+        <fullName>FP_ErrorNumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Number of errors</shortDescription>
+        <value>Errors</value>
+    </labels>
+    <labels>
+        <fullName>FP_Error_Enter</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>error you mus enter</shortDescription>
+        <value>&lt;b&gt;Error:&lt;/b&gt; The value you entered is not valid</value>
+    </labels>
+    <labels>
+        <fullName>FP_Field</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_Field</shortDescription>
+        <value>Field</value>
+    </labels>
+    <labels>
+        <fullName>FP_FieldUsage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FieldUsage</shortDescription>
+        <value>Fields Usage</value>
+    </labels>
+    <labels>
+        <fullName>FP_FilterLogic</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_FilterLogic</shortDescription>
+        <value>^([ \s]*([1-9]|[(][ \s]*[1-9][ \s]+(\b(AND|OR)\b)[ \s]+[1-9][ \s]*[)])[ \s]*)([ \s]+(\b(AND|OR)\b)[ \s]+([1-9]|([(][ \s]*[1-9][ \s]+(\b(AND|OR)\b)[ \s]+[1-9][ \s]*[)]))+)*[ \s]*$</value>
+    </labels>
+    <labels>
+        <fullName>FP_FootprintReportName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Footprrint report name</shortDescription>
+        <value>Footprint Analysis</value>
+    </labels>
+    <labels>
+        <fullName>FP_Footprintname</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>footprintName</shortDescription>
+        <value>Footprint Name</value>
+    </labels>
+    <labels>
+        <fullName>FP_GoalLink</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_GoalLink</shortDescription>
+        <value>GoalLink</value>
+    </labels>
+    <labels>
+        <fullName>FP_Indicator</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Indicator</shortDescription>
+        <value>Indicator</value>
+    </labels>
+    <labels>
+        <fullName>FP_Metric</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_Metric</shortDescription>
+        <value>Metric</value>
+    </labels>
+    <labels>
+        <fullName>FP_NumericError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Numeric error</shortDescription>
+        <value>&lt;b&gt;Error:&lt;/b&gt; You must enter a numeric value</value>
+    </labels>
+    <labels>
+        <fullName>FP_ObjectName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ObjectName</shortDescription>
+        <value>Object API Name</value>
+    </labels>
+    <labels>
+        <fullName>FP_Operator</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Operator</shortDescription>
+        <value>Operator</value>
+    </labels>
+    <labels>
+        <fullName>FP_Org</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_Org</shortDescription>
+        <value>Release_Org</value>
+    </labels>
+    <labels>
+        <fullName>FP_ProcessedItems</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Processed Items</shortDescription>
+        <value>Processed Items</value>
+    </labels>
+    <labels>
+        <fullName>FP_Progress</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Progress</shortDescription>
+        <value>Progress</value>
+    </labels>
+    <labels>
+        <fullName>FP_PublicFolder</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_PublicFolder</shortDescription>
+        <value>unfiled$public</value>
+    </labels>
+    <labels>
+        <fullName>FP_PublicReports</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_PublicReports</shortDescription>
+        <value>Public Reports</value>
+    </labels>
+    <labels>
+        <fullName>FP_RecordTypeUsage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>record type usage</shortDescription>
+        <value>Record type usage</value>
+    </labels>
+    <labels>
+        <fullName>FP_Save</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>save button</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>FP_SaveLaunch</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>save and launch</shortDescription>
+        <value>Save &amp; Launch Analysis</value>
+    </labels>
+    <labels>
+        <fullName>FP_Sort</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>sort</shortDescription>
+        <value>Sort</value>
+    </labels>
+    <labels>
+        <fullName>FP_UnavailableText</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>unavailable chart text</shortDescription>
+        <value>Footprint Analysis Chart is unavailable for display</value>
+    </labels>
+    <labels>
+        <fullName>FP_VR</fullName>
+        <categories>Footprint Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>VR</shortDescription>
+        <value>Validation rules</value>
+    </labels>
+    <labels>
+        <fullName>FP_Value</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_Value</shortDescription>
+        <value>Value</value>
+    </labels>
+    <labels>
+        <fullName>FP_ViewFootprint</fullName>
+        <categories>Footprint Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ViewFootprint</shortDescription>
+        <value>View Footprint</value>
+    </labels>
+    <labels>
+        <fullName>FP_Wait</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>pleaseWait</shortDescription>
+        <value>Please wait</value>
+    </labels>
+    <labels>
+        <fullName>FP_WaitMessage</fullName>
+        <categories>Footprint Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WaitMessage</shortDescription>
+        <value>This may take a few minutes...</value>
+    </labels>
+    <labels>
+        <fullName>FP_WorkCoaching</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_WorkCoaching</shortDescription>
+        <value>WorkCoaching</value>
+    </labels>
+    <labels>
+        <fullName>FP_WorkFeedback</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_WorkFeedback</shortDescription>
+        <value>WorkFeedback</value>
+    </labels>
+    <labels>
+        <fullName>FP_WorkFeedbackQuestion</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_WorkFeedbackQuestion</shortDescription>
+        <value>WorkFeedbackQuestion</value>
+    </labels>
+    <labels>
+        <fullName>FP_WorkFeedbackQuestionSet</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_WorkFeedbackQuestionSet</shortDescription>
+        <value>WorkFeedbackQuestionSet</value>
+    </labels>
+    <labels>
+        <fullName>FP_WorkFeedbackRequest</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_WorkFeedbackRequest</shortDescription>
+        <value>WorkFeedbackRequest</value>
+    </labels>
+    <labels>
+        <fullName>FP_WorkPerformanceCycle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FP_WorkPerformanceCycle</shortDescription>
+        <value>WorkPerformanceCycle</value>
+    </labels>
+    <labels>
+        <fullName>FP_generatingfootprint</fullName>
+        <categories>Footprint Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>generatingfootprint</shortDescription>
+        <value>Generating Footprint...</value>
+    </labels>
+    <labels>
+        <fullName>FP_invalidObject</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>invalidObject</shortDescription>
+        <value>&lt;b&gt;Error:&lt;/b&gt; This is not a valid object</value>
+    </labels>
+    <labels>
+        <fullName>FP_selectMetadata</fullName>
+        <categories>Footprint Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>selectMetadata</shortDescription>
+        <value>Select the Metadata types you want to include in the analysis:</value>
+    </labels>
+    <labels>
+        <fullName>FP_status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>FP_wf</fullName>
+        <categories>Footprint Labels</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>wf</shortDescription>
+        <value>Workflow rules</value>
+    </labels>
+    <labels>
+        <fullName>RangeTitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RangeTitle</shortDescription>
+        <value>Range Selected for Field Usage:</value>
+    </labels>
+</CustomLabels>

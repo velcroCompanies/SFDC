@@ -1,0 +1,9 @@
+Project Name: {!Opportunity.Name}
+
+Approval Status: {!ApprovalRequest.Status}
+Approval Comments: {!ApprovalRequest.Comments}
+
+
+{!Opportunity.OwnerFullName} has submitted a SPD request for review and approval.  Please see details below:
+
+Link to Opportunity : {!Opportunity.Link}

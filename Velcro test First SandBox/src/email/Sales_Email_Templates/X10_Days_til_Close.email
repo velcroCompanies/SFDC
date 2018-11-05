@@ -1,0 +1,14 @@
+Dear {!Opportunity.OwnerFirstName} {!Opportunity.OwnerLastName},
+
+You have an Open Opportunity that is approaching it's anticipated close date.  Please review the details here:
+
+Account: {!Opportunity.Account}
+Amount:  {!Opportunity.Amount}
+Close Date: {!Opportunity.CloseDate}
+Opportunity Name: {!Opportunity.Name}
+
+Link to Opportunity: {!Opportunity.Link}
+
+Please take the time to review this Opportunity and update as needed.
+
+Thanks.

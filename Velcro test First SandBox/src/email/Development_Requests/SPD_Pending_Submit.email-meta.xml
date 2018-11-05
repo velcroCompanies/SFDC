@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Alerts User about request not submitted</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SPD Pending Submit</name>
+    <style>none</style>
+    <subject>{!Opportunity.Name} for {!Opportunity.Account}: PDR#{!Opportunity.PDR__c}  Pending Submit</subject>
+    <type>text</type>
+</EmailTemplate>

@@ -1,0 +1,82 @@
+<aura:component implements="force:appHostable" controller="wbsendit.ImportWizardController">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="importConfig" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="fieldMap" type="String" />
+    <aura:attribute access="private" name="showEmailWarning" type="Boolean" default="false" />
+    <aura:attribute access="private" name="isLEX" type="Boolean" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="ImportWizardEvent" type="wbsendit:ImportWizardEvent" />
+
+    <div aura:id="spinner-id" role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+
+    <div class="{!v.showEmailWarning ? 'slds-notify slds-notify_alert slds-theme_warning slds-theme_alert-texture slds-m-bottom_medium' : 'slds-hide' }" role="alert" style="border-radius: 5px;">
+        <span class="slds-assistive-text">Info</span>
+        <h2 data-aura-rendered-by="12:55;a"><span class="slds-p-right_xx-small">The Email Address field needs to be mapped</span></h2>
+    </div>
+
+    <div aura:id="table-wrapper-id" class="slds-hide" style="padding: 15px; margin: 0 -15px; border: 1px solid #e2e2e2; background: #f4f4f4; border-radius: 6px; position: relative; zoom: 1;">
+
+        <form class="slds-form_inline">
+            <fieldset class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <div class="slds-text-heading_medium">Map the Salesforce fields to Campaign Monitor...</div>
+                    <span class="slds-p-top_small slds-p-bottom_x-small  slds-form-element__label">Choose which Salesforce fields you’d like to map to Campaign Monitor.   If the Campaign Monitor field doesn't exist, you can create a new one in the dropdown.</span>
+                </div>
+            </fieldset>
+        </form>
+
+        <table aura:id="table-id" class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-table_col-bordered slds-card">
+
+            <!-- TABLE HEADER -->
+            <thead>
+                <tr class="slds-text-heading_label">
+                    <th scope="col" class="slds-text-align_right">
+                        <span class="slds-truncate">Salesforce Field</span>
+                    </th>
+                    <th scope="col" class="slds-text-align_right">
+                        <span class="slds-truncate">Campaign Monitor Field</span>
+                    </th>
+                </tr>
+            </thead>
+            <!-- / TABLE HEADER -->
+
+            <!-- MAPPING TABLE BODY -->
+            <tbody>
+
+                <aura:iteration items="{!v.fieldMap.allFields}" var="row" indexVar="rowIndex">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Salesforce Field" class="slds-text-align_right">
+                            <span class="">{!row.sfLabel}</span>
+                        </td>
+                        <td data-label="Campaign Monitor Field" class="slds-text-align_left">
+                            <div aura:id="selectFormElementId" class="slds-form-element">
+                                <div class="{!'slds-form-element__control ' + if(v.isLEX, '', 'slds-select_container') }">
+                                    <ui:inputSelect label="" class="{!'dynamic slds-select row-' + rowIndex}" aura:id="cm-field-list-id" change="{!c.selectCMField}" />
+                                </div>
+                                <div aura:id="error-message-id" class="slds-form-element__help slds-hide">Email has been selected in more than one column</div>
+                            </div>
+                            <div aura:id="cmFieldBox" data-id="{!rowIndex}" class="slds-form-element slds-m-top_xx-small slds-hide">
+                                <div class="slds-form-element__control">
+                                    <input type="text" aura:id='newFieldId' class="slds-input" placeholder="{!row.sfLabel}" name="{!rowIndex}" onblur="{!c.saveFieldName}" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+
+            </tbody>
+            <!-- / MAPPING TABLE BODY -->
+        </table>
+    </div>
+</aura:component>

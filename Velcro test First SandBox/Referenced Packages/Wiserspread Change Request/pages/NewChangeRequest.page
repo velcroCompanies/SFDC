@@ -1,0 +1,44 @@
+<apex:page standardController="WSCR__Change_Request__c" id="thePage">
+<apex:slds />
+
+    <apex:includeScript value="https://code.jquery.com/jquery-2.2.4.min.js" />
+    
+    <apex:form styleClass="slds-form-element" id="theForm">
+        <apex:pageBlock title="New Request" id="thePageBlock">
+       
+            <apex:pageblockButtons id="thePageBlockButtons">
+                <apex:commandButton value="Save" action="{!Save}" styleClass=".slds-button" id="thePageBlockSave"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}" styleClass=".slds-button" id="thePageBlockCancel"/>
+            </apex:pageblockButtons>
+            <apex:pageblockSection columns="1" id="thePageBlockSection">
+                <apex:repeat value="{!$ObjectType.WSCR__Change_Request__c.FieldSets.WSCR__New_change_request}" var="f"> 
+                    
+                    <div class="slds-form-element">
+                      
+                      <div class="slds-form-element__control">
+                        
+                        <apex:inputField value="{!WSCR__Change_Request__c[f]}" styleClass="slds-input"/>
+                        
+                      </div>
+                    </div>
+                    
+                </apex:repeat>
+                
+               <apex:inputHidden value="{!WSCR__Change_Request__c.WSCR__Submitted_By__c}" id="submittedBy"/>
+                
+              </apex:pageblockSection>
+        </apex:pageBlock>
+    </apex:form>
+   
+    <script>
+        
+        
+        document.getElementById('{!$Component.thePage.theForm.thePageBlock.thePageBlockSection.submittedBy}').value = '{!$User.Id}';
+        $('iframe').load( function() {
+            $('iframe').contents().find("head")
+            
+        });
+        
+      </script>
+      
+</apex:page>

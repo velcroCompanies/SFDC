@@ -1,0 +1,145 @@
+<aura:component implements="force:appHostable" controller="wbsendit.SalesforceCampaignsController">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="settings" type="String" />
+    <aura:attribute access="public" name="statuses" type="String" />
+    <aura:attribute access="public" name="notification" type="String" default="Success" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="sldsNotificationEvent" type="wbsendit:sldsNotificationEvent" />
+
+    <div aura:id="body-spinner-id" role="status" class="slds-spinner slds-spinner--small slds-spinner_brand" style="margin-left: 100px;">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <wbsendit:sldsNotification message="{!v.notification}" fadeTimeout="2000" />
+
+    <div aura:id="body-id" class="slds-hide">
+
+        <wbsendit:sldsConnectBanner />
+
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:custom" variant="inverse" />
+                        </div>
+                        <div class="slds-media__body">
+                            <p class="slds-text-title--caps slds-line-height--reset">{!$Label.wbsendit.SendIT_Settings_Header}</p>
+                            <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="{!$Label.wbsendit.Campaign_Settings_Header}">{!$Label.wbsendit.Campaign_Settings_Header}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <ui:outputURL class="slds-button" value="{!$Label.wbsendit.SupportLink_Campaign_Settings}" target="_blank" label="Help" />
+                </div>
+            </div>
+        </div>
+        <!-- / PAGE HEADER -->
+
+        <div class="slds-m-around--small">
+
+            <!-- CAMPAIGN SETTINGS -->
+            <p class="slds-section-title--divider">Campaign Settings</p>
+            <div class="slds-form--inline slds-m-top--medium slds-m-left--small">
+                <div class="slds-form-element">
+                    <wbsendit:sldsTooltip class="slds-float--right" placement="top" text="Update the linked Salesforce Campaign with Campaign Monitor Campaign statistics (E.g. total number of clicks, opens etc.)." />
+                    <div class="slds-form-element__control">
+                        <lightning:input aura:id="udpate-campaign-stats-id" name="udpate-campaign-stats" class=" slds-text-body--regular" type="toggle" label="Update Salesforce Campaign statistics with Campaign Monitor statistics" checked="{!v.settings.updateCampaignStats}"
+                            onchange="{!c.doSaveCampaignStats}" />
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form--inline slds-m-top--medium slds-m-left--small">
+                <div class="slds-form-element">
+                    <wbsendit:sldsTooltip class="slds-float--right" placement="top" text="Automatically create Salesforce Campaigns for each Campaign Monitor Campaign (which has been sent) and link the two together. Salesforce Campaigns will be created when the main sync runs (N.B. this is not retrospective - only Campaign Monitor Campaigns created after the date this setting is enabled will result in Salesforce Campaigns being created)."
+                    />
+                    <div class="slds-form-element__control">
+                        <lightning:input aura:id="auto-create-campaign-id" name="auto-create-campaign-id" class="" type="toggle" label="Auto create Salesforce Campaigns from Campaign Monitor Campaigns" checked="{!v.settings.autoCreateCampaign}" onchange="{!c.doSaveAutoCreateCampaign}"
+                        />
+                    </div>
+                </div>
+            </div>
+            <!-- / CAMPAIGN SETTINGS -->
+
+            <!-- CAMPAIGN STATUSES -->
+            <p class="slds-section-title--divider  slds-m-top--medium">Campaign Statuses</p>
+            <div class="slds-form--inline slds-m-top--medium slds-m-left--small">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label slds-text-body--regular" for="inputSample2"> {!$Label.wbsendit.Campaign_Settings_Refresh} </label>
+                    <wbsendit:sldsTooltip placement="top" text="Control updating of Salesforce Campaign Member statuses. Never = Don't update Campaign Member statuses. Always = Update on each sync. Once Only = Update on the first sync." />
+                    <div class="slds-form-element__control  slds-m-left--medium">
+                        <lightning:buttonGroup>
+                            <lightning:button aura:id="Never" onclick="{!c.doSaveFrequencySetting}" label="{!$Label.wbsendit.Campaign_Settings_Never}" variant="{!(v.settings.refresh == 'Never' ? 'brand' : 'neutral')}" />
+                            <lightning:button aura:id="Always Update" onclick="{!c.doSaveFrequencySetting}" label="{!$Label.wbsendit.Campaign_Settings_Always}" variant="{!(v.settings.refresh == 'Always Update' ? 'brand' : 'neutral')}" />
+                            <lightning:button aura:id="Once" onclick="{!c.doSaveFrequencySetting}" label="{!$Label.wbsendit.Campaign_Settings_Once}" variant="{!(v.settings.refresh == 'Once' ? 'brand' : 'neutral')}" />
+                        </lightning:buttonGroup>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form--inline slds-m-top--medium slds-m-left--small">
+                <div class="slds-form-element">
+                    <wbsendit:sldsTooltip class="slds-float--right" placement="top" text="Create Salesforce Campaign Member status picklist values if they don't already exist." />
+                    <div class="slds-form-element__control">
+                        <lightning:input aura:id="email-sync-all-id" name="email-sync-all-id" class="" type="toggle" label="{!$Label.wbsendit.Campaign_Settings_Auto_Create}" checked="{!v.settings.autoSave}" onchange="{!c.doAutoCreateCampaign}" />
+                    </div>
+                </div>
+            </div>
+            <!-- / CAMPAIGN STATUSES -->
+
+            <!-- RESPONDED TABLE -->
+            <div class="slds-m-top--medium">
+                <p class="slds-section-title--divider slds-m-bottom--xx-small">Map Statuses</p>
+                <table class="slds-table slds-table--bordered slds-max-medium-table--stacked">
+                    <!-- TABLE HEADER -->
+                    <thead>
+                        <tr class="slds-text-heading--label">
+                            <th scope="col" class="">
+                                <span class="slds-truncate">{!$Label.wbsendit.Campaign_Settings_CM_Activity}</span>
+                            </th>
+                            <th scope="col" class="">
+                                <span class="slds-truncate">{!$Label.wbsendit.Campaign_Settings_SFDC_Status}</span>
+                            </th>
+                            <th scope="col" class="">
+                                <span class="slds-truncate">{!$Label.wbsendit.Campaign_Settings_Responded}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- / TABLE HEADER -->
+                    <tbody>
+                        <aura:iteration items="{!v.statuses}" var="row" indexVar="rowIndex">
+                            <tr class="slds-hint-parent">
+                                <th data-label="Campaign Monitor Status" role="row"><label class="slds-form-element__label slds-text-body--regular">{!row.name}</label></th>
+                                <td data-label="Salesforce Member Status">
+                                    <div aura:id="b12-cm-field" class="slds-form-element">
+                                        <div class="form-element__group">
+                                            <div class="slds-form-element__row ">
+                                                <ui:inputText aura:id="b12-cm-field-value" labelClass="slds-form-element__label" blur="{!c.doSaveStatus}" label="" value="{!row.statusLabel}" class="slds-input" placeholder="{!row.name}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="{!$Label.wbsendit.Campaign_Settings_Responded}">
+                                    <lightning:input aura:id="{! 'checkbox' + rowIndex}" name="{! 'checkbox' + rowIndex}" class="" type="toggle" label=" " checked="{!row.hasResponded}" onchange="{!c.doSaveResponse}" />
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- / RESPONDED TABLE -->
+
+        </div>
+
+    </div>
+
+</aura:component>

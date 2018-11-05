@@ -1,0 +1,488 @@
+<aura:component controller="wbsendit.CustomMappingRemoteController" implements="force:appHostable,lightning:actionOverride,force:hasRecordId,force:hasSObjectName">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="listId" type="String" />
+    <aura:attribute access="public" name="backLocation" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="listdetail" type="String" />
+    <aura:attribute access="private" name="mappings" type="String" />
+    <aura:attribute access="private" name="salesforceFields" type="List[]" default="" required="true" />
+    <aura:attribute access="private" name="notification" type="String" default="Success" />
+    <aura:attribute access="private" name="footerMessage" type="String" default="Field Mappings" />
+    <aura:attribute access="private" name="subscriberLists" type="String" />
+    <aura:attribute access="private" name="subscriberList" type="String" />
+    <aura:attribute access="private" name="mappedRow" type="String" />
+    <aura:attribute access="private" name="salesforceContactFields" type="String" />
+    <aura:attribute access="private" name="salesforceLeadFields" type="String" />
+    <aura:attribute access="private" name="otherSubscriberLists" type="String" />
+    <aura:attribute access="private" name="deletedFields" type="String" />
+    <aura:attribute access="private" name="createFieldPrimaryObjectLabel" type="String" />
+    <aura:attribute access="private" name="breadCrumbParentLabel" type="String" />
+    <aura:attribute access="private" name="mappedRowIndex" type="Integer" />
+    <aura:attribute access="private" name="selectedField" type="String" />
+    <aura:attribute access="private" name="newSelectedField" type="String" />
+    <aura:attribute access="private" name="deletedFieldId" type="String" />
+    <aura:attribute access="private" name="enableSalesforceId" type="Boolean" default="false" />
+    <aura:attribute access="private" name="showCreateOption" type="Boolean" default="false" />
+    <aura:attribute access="private" name="showRequired" type="Boolean" default="false" />
+    <aura:attribute access="private" name="disableCloneOkayButton" type="Boolean" default="true" />
+    <aura:attribute access="private" name="showEdit" type="Boolean" default="false" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="sldsNotificationEvent" type="wbsendit:sldsNotificationEvent" />
+
+    <lightning:spinner variant="brand" size="small" aura:id="spinner-id" alternativeText="spinner" />
+
+    <div aura:id="body-id" class="slds-show" style="border-top-right-radius: 5px;">
+
+        <!-- NOTIFICATIONS -->
+        <wbsendit:sldsNotification message="{!v.notification}" fadeTimeout="3500" />
+
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="custom:custom96" />
+                        </div>
+                        <div class="slds-media__body">
+                            <lightning:breadcrumbs>
+                                <lightning:breadcrumb label="Subscriber List" />
+                                <lightning:breadcrumb label="Field Mappings" />
+                            </lightning:breadcrumbs>
+                            <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate"
+                                title="{!$Label.wbsendit.Subscriber_List_Detail}">{!v.listdetail.listName}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <lightning:buttonGroup>
+                        <lightning:button label="Edit" onclick="{!c.onEditMappings}" disabled="{!v.showEdit}" />
+                        <lightning:button label="Retrospective Sync" onclick="{!c.onRetrospectiveSync}" iconName="utility:sync"
+                            disabled="{!v.showEdit}" />
+                        <lightning:button label="Clone" onclick="{!c.onCloneMapping}" iconName="utility:copy" disabled="{!v.showEdit}" />
+                        <lightning:button label="Back" onclick="{!c.onBack}" />
+                    </lightning:buttonGroup>
+                    <ui:outputURL class="slds-button" value="https://www.cm4sf.com/doing-more/field-mappings" target="_blank"
+                        label="Help" />
+                </div>
+            </div>
+        </div>
+        <!-- / PAGE HEADER -->
+
+
+        <lightning:card class="slds-m-around_small" footer="{! v.mappings.length + ' ' + v.footerMessage}" title="Field Mappings">
+            <aura:set attribute="actions">
+
+                <lightning:buttonStateful labelWhenOff="Link by Salesforce Id" labelWhenOn="Linked by Salesforce Id"
+                    labelWhenHover="Unlink Salesforce Id" iconNameWhenOff="utility:add" iconNameWhenOn="utility:link"
+                    iconNameWhenHover="utility:remove_link" state="{! v.enableSalesforceId }" onclick="{! c.onEnableSalesforceId }"
+                    class="{! (v.showEdit ? '' : 'slds-hide')}" />
+                <lightning:button label="New Campaign Monitor Field" onclick="{!c.addRow}" iconName="utility:add" class="{! (v.showEdit ? '' : 'slds-hide')}" />
+
+            </aura:set>
+
+            <table class="slds-table slds-table_fixed-layout slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                <!-- TABLE HEADER -->
+                <thead>
+                    <tr class="slds-text-heading_label">
+                        <th scope="col">
+                            <span class="slds-truncate">{!$Label.wbsendit.FieldMapping_LeadField}</span>
+                        </th>
+                        <th scope="col">
+                            <span class="slds-truncate">{!$Label.wbsendit.FieldMapping_ContactField}</span>
+                        </th>
+                        <th scope="col" style="width: 230px">
+                            <span class="slds-truncate">{!$Label.wbsendit.FieldMapping_SyncDirection}</span>
+                        </th>
+                        <th scope="col">
+                            <span class="slds-truncate">{!$Label.wbsendit.FieldMapping_CampaignMonitorField}</span>
+                        </th>
+                        <th class="{! 'slds-row-action ' + if(v.showEdit, 'slds-hide', 'slds-hide')}" scope="col">
+                        </th>
+                    </tr>
+                </thead>
+                <!-- / TABLE HEADER -->
+
+                <!-- MAPPING TABLE BODY -->
+                <tbody>
+                    <aura:iteration items="{!v.mappings}" var="row" indexVar="rowIndex">
+                        <tr class="slds-hint-parent">
+
+                            <td data-label="Lead" class="slds-truncate" role="row">
+                                <span class="{!'slds-truncate ' + (row.leadField == '[HIDDEN]' ? 'slds-text-heading_label' : '')}">{!row.leadLabel}{!(row.leadLabel
+                                    != '' &amp;&amp; row.leadRequired &amp;&amp; row.direction
+                                    == 'cm2sf') ? '*' : ''}</span>
+                                <span class="slds-truncate slds-text-body_small slds-m-left_small" style="opacity: .3;">
+                                    {!row.defaultLeadValue}</span>
+                            </td>
+                            <td data-label="Contact" class="slds-truncate">
+                                <span class="{!'slds-truncate ' + (row.contactField == '[HIDDEN]' ? 'slds-text-heading_label' : '')}">{!row.contactLabel}{!(row.contactLabel
+                                    != '' &amp;&amp; row.contactRequired &amp;&amp; row.direction
+                                    == 'cm2sf') ? '*' : ''}</span>
+                                <span class="slds-truncate slds-text-body_small slds-m-left_small" style="opacity: .3;">
+                                    {!row.defaultContactValue}</span>
+                            </td>
+                            <td data-label="Direction">
+                                <span class="{!'slds-badge ' + ( row.direction == 'cm2sf' ? '' : 'slds-theme_shade' ) }">{!row.directionLabel}</span>
+                            </td>
+                            <td data-label="Campaign Monitor Field">
+                                <span class="slds-truncate">{!row.cmLabel}</span>
+                            </td>
+                            <td class="{! 'slds-row-action ' + if(v.showEdit, '', 'slds-hide')}">
+                                <aura:if isTrue="{! not(row.reservedField) }">
+                                    <lightning:buttonMenu alternativeText="Toggle menu" iconSize="x-small"
+                                        menuAlignment="right" onselect="{!c.onMappingRowMenu}">
+                                        <lightning:menuItem label="Edit Mapping" value="{!'editItem:' + rowIndex}"
+                                            iconName="utility:edit" />
+                                        <lightning:menuItem label="Clear Mapping" value="{!'clearItem:' + rowIndex}"
+                                            iconName="utility:clear" />
+                                        <lightning:menuItem label="Delete Campaign Monitor Field" value="{!'deleteItem:' + rowIndex}"
+                                            iconName="utility:delete" />
+                                    </lightning:buttonMenu>
+                                    <aura:set attribute="else">
+                                        <lightning:icon iconName="utility:lock" variant="warning" size="xx-small" class="slds-p-left_xxx-small" />
+                                    </aura:set>
+
+                                </aura:if>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+                <!-- / MAPPING TABLE BODY -->
+            </table>
+
+        </lightning:card>
+
+        <ui:outputText class="{! 'slds-m-around_small slds-text-body_small slds-text-color_weak ' + if(v.showRequired, '', 'slds-hide')}"
+            value="* Required fields in Salesforce must be mapped when auto Lead/Contact creation is enabled." />
+        <wbsendit:sldsTooltip class="{! 'slds-m-right_x-small slds-m-top_medium ' + if(v.showRequired, '', 'slds-hide')}"
+            placement="top" text="If there is a Salesforce field that requires a value when creating or updating a Salesforce record, the field must be mapped with Campaign Monitor and should have a default value. If the field is not mapped, then auto creation of the Salesforce record may fail." />
+
+
+        <!-- SAVE -->
+        <div class="{! 'slds-docked-form-footer ' + if(v.showEdit, '', 'slds-hide')}" aura:id="crud-save-id">
+            <lightning:button label="Cancel" variant="neutral" onclick="{!c.onCancel}" />
+            <lightning:button label="Save" variant="brand" onclick="{!c.onSaveMappings}" />
+        </div>
+        <!-- / SAVE -->
+
+    </div>
+
+    <!-- CREATE CM FIELD MODAL -->
+    <wbsendit:sldsModal aura:id="b12-add-field-modal" okButtonLabel="Select" showOKButton="true" showCancelButton="true"
+        okAction="{!c.saveCreateField}">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading_medium">{!$Label.wbsendit.FieldMapping_CreateCampaignMonitorField}</h2>
+        </aura:set>
+        <form class="slds-form_inline">
+            <fieldset class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <label class="slds-radio" for="selectedObjectContact">
+                        <input type="radio" name="options" aura:id="selectedObjectContact" id="selectedObjectContact"
+                            checked="checked" onclick="{!c.radioSelectObject}" />
+                        <span class="slds-radio_faux"></span>
+                        <span class="slds-form-element__label">{!$Label.wbsendit.FieldMapping_Contact}</span>
+                    </label>
+                </div>
+                <div class="slds-form-element__control">
+                    <label class="slds-radio" for="selectedObjectLead">
+                        <input type="radio" name="options" aura:id="selectedObjectLead" id="selectedObjectLead" onclick="{!c.radioSelectObject}" />
+                        <span class="slds-radio_faux"></span>
+                        <span class="slds-form-element__label">{!$Label.wbsendit.FieldMapping_Lead}</span>
+                    </label>
+                </div>
+            </fieldset>
+        </form>
+        <div class="slds-form-element slds-m-top_large">
+
+            <form class="slds-form_inline slds-m-bottom_xx-small">
+                <fieldset class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <span class="slds-type-focus slds-form-element__label" onclick="{!c.selectRootBreadcrumb}"
+                            aura:id="rootBreadcrumb">{!v.createFieldPrimaryObjectLabel}</span>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__label  slds-hide" aura:id="parentBreadcrumb">
+                            > {!v.breadCrumbParentLabel}
+                        </span>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div class="slds-form-element__control">
+
+                <div aura:id="levels" class="slds-select_container">
+                    <select id="select-create-new-field" class="slds-select" onchange="{!c.selectField}">
+                        <aura:iteration items="{!v.salesforceFields}" var="frow" indexVar="index">
+                            <aura:If isTrue="{!frow.fieldType == 'REFERENCE' &amp;&amp; v.breadCrumbParentLabel == ''}">
+                                <ui:inputSelectOption text="{!frow.fieldName}" label="{!frow.fieldText + ' >>'}" value="false">{!rowIndex}</ui:inputSelectOption>
+                                <aura:set attribute="else">
+                                    <ui:inputSelectOption text="{!frow.fieldName}" label="{!frow.fieldText}" value="false">{!rowIndex}</ui:inputSelectOption>
+                                </aura:set>
+                            </aura:If>
+                        </aura:iteration>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </wbsendit:sldsModal>
+    <!-- / CREATE CM FIELD MODAL -->
+
+    <!-- MAP FIELD MODAL -->
+    <wbsendit:sldsModal aura:id="b12-map-field-modal" okButtonLabel="Select" showOKButton="true" showCancelButton="true"
+        okAction="{!c.saveMap}">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading_medium">Edit Mapping</h2>
+        </aura:set>
+        <div class="slds-grid slds-wrap">
+
+            <!-- Sync Direction -->
+            <div class="slds-col_padded slds-size_1-of-1">
+                <label class="slds-form-element__label">{!$Label.wbsendit.FieldMapping_SyncDirection}</label>
+            </div>
+            <div class="slds-col_padded slds-size_1-of-1">
+
+                <p class="slds-text-title slds-m-bottom_xx-small" title="{!v.mappedRow.directionLabel}">{!v.mappedRow.directionLabel}
+                    <lightning:buttonMenu alternativeText="Toggle menu" iconSize="xx-small" variant="bare"
+                        menuAlignment="slds-nubbin_left" onselect="{!c.onSwitchMapDirection}">
+                        <lightning:menuItem label="{!$Label.wbsendit.Map_SF_to_MS}" value="sf2cm" iconName="utility:forward" />
+                        <lightning:menuItem label="{!$Label.wbsendit.Map_MS_to_SF}" value="cm2sf" iconName="utility:back"
+                            disabled="{!v.mappedRow.cmField == '[ReservedConsentToTrack]'}" />
+                    </lightning:buttonMenu>
+                </p>
+            </div>
+
+            <!-- Campaign Monitor Field Section -->
+            <div class="slds-col_padded slds-size_1-of-2">
+                <div class="slds-m-top_medium slds-m-bottom_medium">
+                    <!-- Campaign Monitor Field  Value -->
+                    <div aura:id="b12-cm-field" class="slds-form-element slds-m-top_medium">
+                        <div class="form-element__group">
+                            <div class="slds-form-element__row ">
+                                <ui:inputText aura:id="b12-cm-field-value" labelClass="slds-form-element__label" label="Campaign Monitor Field"
+                                    value="{!v.mappedRow.cmLabel}" class="slds-input" required="true" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col_padded slds-size_1-of-2">
+                <div class="slds-m-top_medium slds-m-bottom_medium">
+                </div>
+            </div>
+
+            <!-- Salesforce Fields to Map Section -->
+            <!-- Lead fields/Default Value -->
+            <div class="slds-col_padded slds-size_1-of-2">
+                <div>
+                    <form class="slds-form_inline">
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <span class="slds-type-focus slds-form-element__label" onclick="{!c.clickRootBreadCrumb}"
+                                    data-object='lead' aura:id="rootBreadcrumbMapContact">{!$Label.wbsendit.FieldMapping_Lead}</span>
+                            </div>
+                            <div class="slds-form-element__control">
+                                <span class="{!'slds-form-element__label ' + (v.mappedRow.parentObjectLeadLabel == '' ? 'slds-hide' : 'slds-show') }"
+                                    aura:id="b12-sf-breadcrumb-lead-id">
+                                    > {!v.mappedRow.parentObjectLeadLabel}
+                                </span>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <div aura:id="lead-x" class="slds-select_container">
+                        <select id='b12-select-lead-id' class="slds-select" onchange="{!c.selectLeadField}">
+                            <aura:iteration items="{!v.salesforceLeadFields}" var="lrow" indexVar="leadIndex">
+                                <aura:If isTrue="{!lrow.fieldType == 'REFERENCE' &amp;&amp; v.mappedRow.parentObjectLeadLabel == ''}">
+                                    <ui:inputSelectOption text="{!lrow.fieldName}" label="{!lrow.fieldText + ' >>'}"
+                                        value="{!lrow.fieldName == v.mappedRow.leadField }">{!leadIndex}</ui:inputSelectOption>
+                                    <aura:set attribute="else">
+                                        <ui:inputSelectOption text="{!lrow.fieldName}" label="{!lrow.fieldText}" value="{! lrow.fieldName == v.mappedRow.leadField || lrow.fieldName == v.mappedRow.parentObjectLeadField  }">{!contactIndex}</ui:inputSelectOption>
+                                    </aura:set>
+                                </aura:If>
+                            </aura:iteration>
+                        </select>
+                    </div>
+
+                    <!-- Default Lead Value -->
+                    <div aura:id="b12-default-lead" class="slds-form-element slds-m-top_medium">
+                        <div class="form-element__group">
+                            <div class="slds-form-element__row ">
+                                <ui:inputText aura:id="b12-default-lead-value" placeholder="Enter default value"
+                                    labelClass="slds-form-element__label" label="{!'Default Lead Value' + (v.mappedRow.leadRequired ? '*' : '')}"
+                                    value="{!v.mappedRow.defaultLeadValue}" class="slds-input " required="false" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact fields/Default Value -->
+            <div class="slds-col_padded slds-size_1-of-2">
+                <div>
+                    <form class="slds-form_inline">
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <span class="slds-type-focus slds-form-element__label" onclick="{!c.clickRootBreadCrumb}"
+                                    data-object='contact' aura:id="rootBreadcrumbMapContact">{!$Label.wbsendit.FieldMapping_Contact}</span>
+                            </div>
+                            <div class="slds-form-element__control">
+                                <span class="{!'slds-form-element__label ' + (v.mappedRow.parentObjectContactLabel == '' ? 'slds-hide' : 'slds-show') }"
+                                    aura:id="b12-sf-breadcrumb-contact-id">
+                                    > {!v.mappedRow.parentObjectContactLabel}
+                                </span>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <div aura:id="b12-contact-fields-container" class="slds-select_container">
+                        <select id="b12-select-contact-id" class="slds-select" onchange="{!c.selectContactField}">
+                            <aura:iteration items="{!v.salesforceContactFields}" var="crow" indexVar="contactIndex">
+                                <aura:If isTrue="{!crow.fieldType == 'REFERENCE' &amp;&amp; v.mappedRow.parentObjectContactLabel == ''}">
+                                    <ui:inputSelectOption text="{!crow.fieldName}" label="{!crow.fieldText + ' >>'}"
+                                        value="{!crow.fieldName == v.mappedRow.contactField }">{!contactIndex}</ui:inputSelectOption>
+                                    <aura:set attribute="else">
+                                        <ui:inputSelectOption text="{!crow.fieldName}" label="{!crow.fieldText}" value="{! crow.fieldName == v.mappedRow.contactField || crow.fieldName == v.mappedRow.parentObjectContactField  }">{!contactIndex}</ui:inputSelectOption>
+                                    </aura:set>
+                                </aura:If>
+                            </aura:iteration>
+                        </select>
+                    </div>
+                    <!-- Default Contact Value -->
+                    <div aura:id="b12-default-contact" class="slds-form-element slds-m-top_medium">
+                        <div class="form-element__group">
+                            <div class="slds-form-element__row ">
+                                <ui:inputText aura:id="b12-default-contact-value" placeholder="Enter default value"
+                                    labelClass="slds-form-element__label" label="{!'Default Contact Value' + (v.mappedRow.contactRequired ? '*' : '')}"
+                                    value="{!v.mappedRow.defaultContactValue}" class="slds-input " required="false" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Only use mapping when creating Lead/Contact -->
+            <lightning:input class="{! 'slds-m-top_medium slds-m-left_medium ' + if(and(v.showCreateOption, v.mappedRow.direction == 'cm2sf'), '', 'slds-hide')}"
+                type="checkbox" label="Only use mapping when creating a Salesforce Lead or Contact" name="create-first-id"
+                checked="{!v.mappedRow.createOnly}" />
+            <wbsendit:sldsTooltip class="{! 'slds-float_right slds-m-right_x-small slds-m-top_medium ' + if(and(v.showCreateOption, v.mappedRow.direction == 'cm2sf'), '', 'slds-hide')}"
+                placement="top" text="Check this box if you only want to use the default value when the Salesforce Contact or Lead is first created. This prevents the Salesforce field from being updated each time the main sync runs (i.e. if not checked, the sync will overwrite the field value in Salesforce each time it runs)." />
+
+        </div>
+
+    </wbsendit:sldsModal>
+    <!-- / MAP FIELD MODAL -->
+
+    <!-- SAVE MAPPING MODAL -->
+    <wbsendit:sldsModal okAction="{!c.onSaveMappinsConfirmed}" showOKButton="true" showCancelButton="true"
+        okButtonLabel="Save Mappings" cancelButtonLabel="Cancel" aura:id="b12-save-confirm">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading_medium">Save Mappings</h2>
+        </aura:set>
+        <div class="slds-form slds-form_compound slds-m-around_medium">
+            <ul class="slds-m-top_medium slds-list_dotted">
+                <li>When the mappings are saved, a background job will run that syncs the data in the mapped fields
+                    from Salesforce
+                    to Campaign Monitor. This can take a few minutes to run.</li>
+                <li>The mappings from Campaign Monitor to Salesforce will sync when the next master sync occurs
+                    (typically hourly).
+                    See: General Settings --> Sync Settings</li>
+                <li>Any deleted mappings will also delete the fields from Campaign Monitor and remove all related data
+                    for the
+                    fields. This cannot be reversed.</li>
+            </ul>
+        </div>
+    </wbsendit:sldsModal>
+    <!-- / SAVE MAPPING MODAL -->
+
+
+    <!-- DELETE FIELD MODAL -->
+    <wbsendit:sldsModal okAction="{!c.onDeleteMapping}" showOKButton="true" showCancelButton="true" okButtonLabel="Delete Field"
+        okButtonVariant="destructive" aura:id="b12-delete-field-confirm">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading_medium">Delete Campaign Monitor Field</h2>
+        </aura:set>
+        <div class="slds-form slds-form_compound slds-m-around_medium">
+            Caution. The Campaign Monitor field and all it's data will be deleted when you press 'Save'.
+        </div>
+    </wbsendit:sldsModal>
+    <!-- / DELETE MAPPING MODAL -->
+
+    <!-- CLONE MODAL -->
+    <wbsendit:sldsModal aura:id="b12-clone-modal" showOkButton="true" okDisabled="{! v.disableCloneOkayButton }" okButtonLabel="Clone"
+        showCancelButton="true" okAction="{!c.storeMappingsToMultipleLists}">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading_medium">{!$Label.wbsendit.FieldMapping_CloneHeader}</h2>
+        </aura:set>
+        <aura:set attribute="tagline">{!$Label.wbsendit.FieldMapping_CloneHeaderTagline}</aura:set>
+
+        <div aura:id="clone-spinner-id" role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+        <div style="min-height: 200px;">
+            <div aura:id="clone-id" class="slds-grid slds-wrap">
+
+                <aura:if isTrue="{! v.subscriberLists.length > 0 }">
+
+                    <div class="slds-col_padded slds-size_1-of-1">
+                        <span class="slds-form-element__label slds-text-body_regular">{!$Label.wbsendit.FieldMapping_Subscriber_Lists}</span>
+                    </div>
+                    <div class="slds-col_padded slds-size_1-of-1">
+                        <div aura:id="b12-contact-fields-container" class="slds-select_container">
+                            <ui:inputSelect multiple="true" class="multiple slds-select" aura:id="b12-other-lists-id"
+                                change="{!c.onMultiSelectChange}">
+                                <aura:iteration items="{!v.subscriberLists}" var="sl" indexVar="slIndex">
+                                    <ui:inputSelectOption text="{!sl.listId}" label="{!sl.listLabel}" />
+                                </aura:iteration>
+                            </ui:inputSelect>
+                        </div>
+                    </div>
+
+                    <lightning:input aura:id="clone-delete-id" class="slds-m-top_medium slds-m-left_medium " type="checkbox"
+                        label="{!$Label.wbsendit.FieldMapping_DeleteUnmappedFields}" name="clone-delete-id" />
+                    <wbsendit:sldsTooltip class="slds-m-top_medium" placement="top" text="Caution. When checked, this will REPLACE all mappings in the selected susbcriber lists. It will permanantely DELETE all Campaign Monitor custom fields that are not listed in this current mapping." />
+                    <aura:set attribute="else">
+                        <div class="slds-align_absolute-center">
+                            <lightning:badge label="There are no other subscriber lists to copy to" />
+                        </div>
+                    </aura:set>
+                </aura:if>
+
+
+            </div>
+        </div>
+    </wbsendit:sldsModal>
+    <!-- / CLONE MODAL -->
+
+    <!-- RETRO CONFIRMTION MODAL -->
+    <wbsendit:sldsModal okAction="{!c.onRetrospectiveSyncConfirm}" showOKButton="true" showCancelButton="true"
+        okButtonLabel="Retro Sync" aura:id="b12-retro-confirm" okButtonVariant="destructive">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading_medium">Perform Retrospective Sync?</h2>
+        </aura:set>
+        <div class="slds-form slds-form_compound slds-m-around_medium">
+
+            A 'Retrospective Sync' will push the mapped data from Salesforce to Campaign Monitor for all Leads/Contacts
+            currently associted
+            with this Subscriber List. Please note:
+            <ul class="slds-m-top_medium slds-list_dotted">
+                <li>It only pushes data from Salesforce to Campaign Monitor (not Campaign Monitor to Salesforce)</li>
+                <li>It will apply to all records related to the subscriber list</li>
+                <li>If this sync is not run, then the new mappings will only apply to Salesforce Leads/Contacts that
+                    are subsequently
+                    updated or created</li>
+            </ul>
+
+        </div>
+    </wbsendit:sldsModal>
+    <!-- / RETRO CONFIRMTION MODAL -->
+</aura:component>

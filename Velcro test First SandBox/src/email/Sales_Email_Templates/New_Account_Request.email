@@ -1,0 +1,26 @@
+{!Opportunity.Account} is ready for closure and must be set-up in Oracle. Attached to this email are the :
+a.      Credit Application
+b.      State Sales Tax exemption certificate or resale certificate
+c.       Purchase Order
+d.       Quote
+
+Primary Territory: {!User.Primary_Territory__c}
+
+You can view the opportunity in Salesforce here : {!Opportunity.Link}
+
+The customer contact name is: [Enter Customer Contact Here]
+
+The billing address is: {!Opportunity.Account_Billing_Address__c}
+
+The shipping address is: {!Opportunity.Account_Shipping_Address__c}
+
+The SBU is:  {!Opportunity.Account_SBU__c}
+
+The customer category is: {!Account.Customer_Category__c}
+
+Salesforce Account Id : {!Opportunity.AccountId}
+
+If you have any questions, please contact 
+{!Opportunity.OwnerFullName} 
+p {!Opportunity.OwnerPhone}
+e {!Opportunity.OwnerEmail}

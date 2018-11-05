@@ -1,0 +1,86 @@
+.THIS .b12-label .slds-form-element__label {
+    color: white !important;
+}
+
+.THIS .b12-select .slds-select {
+    color: black !important;
+}
+
+.THIS .status-optout {
+    background: #F5B456;
+    color: #fff;
+    width: fit-content;
+    border-radius: 3px;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    float: left;
+}
+
+.THIS .status-optin {
+    background: #67B8EB;
+    color: #fff;
+    width: fit-content;
+    border-radius: 3px;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    float: left;
+}
+
+.THIS .b12-tooltip-position {
+    position: relative;
+}
+
+.THIS .b12-model-content {
+    min-height: 500px
+}
+
+.THIS .b12-left-button {
+    margin-left: .25rem;
+}
+
+.THIS .slds-page-header {
+    border-radius: 0px;
+    border-top-right-radius: 5px;
+    box-shadow: none;
+    border-left: 0px;
+}
+
+.THIS {
+    background-color: #fff;
+}
+
+.THIS .b12-lightning-card {
+    border: 1px solid rgb(221, 219, 218);
+}
+
+.THIS .b12-lightning-card-header {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.THIS .b12-feature-body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+}
+
+.THIS .b12-feature-button {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.THIS .b12-feature {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    z-index: 15;
+    top: 200px;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+}
+
+.THIS .b12-footer {
+    height: 100px;
+}

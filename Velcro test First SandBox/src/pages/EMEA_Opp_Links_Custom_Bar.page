@@ -1,0 +1,91 @@
+<apex:page standardController="Account" applyBodyTag="false"  renderAS="html">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+<style>
+   li.menu_bar { min-width:100px; }
+   .menu_item  {margin-left:20px;}
+</style>
+<apex:includeScript value="{!$Resource.svg4everybody}" />
+  <script>
+    svg4everybody();
+  </script>
+<script type="text/javascript" src="/support/console/28.0/integration.js"></script>
+
+<script type="text/javascript">
+  function ReactivateOpp(Id,AccountNumber) {
+    var argv = ReactivateOpp.arguments;
+    // parent.window.location.href= ''; 
+    alert('Please conact CDM or customer support to reactivate Account Number: ' + AccountNumber); 
+   }
+</script>  
+
+
+<apex:includeScript value="{!$Resource.ButtonBar}" />
+<apex:stylesheet value="{!$Resource.siteCSS}" />
+
+</head>
+
+<body>  
+
+<apex:outputPanel rendered="{!Account.Inactive__c == true}"> 
+   <br/>
+   <font color="red"> 
+   <apex:outputText rendered="{!Account.Inactive__c }" value="This Account Is inactive. Do not use it until reactivation process is completed" /> 
+   </font>
+   <br/>
+   <input type="button" value="Reactivate Account" onclick="ReactivateOpp('{!Account.Id}', '{!Account.AccountNumber}')" />
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!Account.Inactive__c == false}">  
+<ul class="standard__icons slds-m-top--x-large slds-grid slds-wrap icon-grid"  style="align:center">
+<li class="site-icon-width-container slds-m-bottom--x-large menu_bar">
+<p class="menu_item">
+<span class="slds-icon_container slds-icon-standard-quotes"  style="align:center">
+<a href="#" onClick="javascript:NewQuote('{!Account.Id}');" title="Creates a New Opportunity and associated quote in one step" >
+<svg aria-hidden="false" class="slds-icon slds-icon--large">
+  <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#quotes')}"  ></use>
+</svg>
+</a>
+</span>
+</p>
+<p>
+Opp and Quote
+</p>
+</li>
+<li class="site-icon-width-container slds-m-bottom--x-large menu_bar">
+<p class="menu_item">
+<span class="slds-icon_container slds-icon-standard-opportunity"  style="align:center">
+<a href="#" onClick="javascript:NewOpportunity('{!Account.Id}');" title="Create New Opportunity fot this Acount">
+<svg aria-hidden="false" class="slds-icon slds-icon--large">
+  <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#opportunity')}"></use>
+
+</svg>
+</a>
+</span>
+</p>
+<p>
+Opportunity 
+</p>
+
+</li>
+<li class="site-icon-width-container slds-m-bottom--x-large menu_bar">
+<p class="menu_item">
+<span class="slds-icon_container slds-icon-standard-maintenance-plan" style="align:center">
+<a title="Create a Sample request" href="#" onClick="javascript:alert('Attention: To be used only to request samples for EXISTING part numbers. Otherwise, open a Development Request');  NewSampleRequest('{!Account.Id}',encodeURI('{!Account.Name}'),encodeURI('{!$User.FirstName}'+' '+'{!$User.LastName}'),'{!$User.Id}');">
+<svg aria-hidden="false" class="slds-icon slds-icon--large">
+  <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#maintenance_plan')}"></use>
+
+</svg>
+</a>
+</span>
+</p>
+<p>
+Samples Request</p>
+</li>
+
+</ul>
+</apex:outputPanel>
+
+  </body>
+  </html>
+</apex:page>

@@ -1,0 +1,80 @@
+<apex:page standardController="Campaign" extensions="wbsendit.AddMembersToListController"  >
+<apex:sectionHeader title="Campaign Monitor Members" subtitle="Subscriber Members" help="{!$Label.wbsendit__supportlink_add_contacts_or_leads}" />
+
+    <apex:includeScript value="{!URLFOR($Resource.wbsendit__SendItAssets, 'modules/jquery/jquery.min.js')}" />
+    <script>
+
+        j$ = jQuery.noConflict();
+
+        var addMembersToListController = {};
+
+        addMembersToListController.missingIds = JSON.parse('{!JSENCODE(JSONMissingListIds)}');
+
+        addMembersToListController.startRefresh = function(){
+
+            var link = j$("a[id$='refreshLink']");
+            var con = link.parent();
+
+            link.remove();
+            con.append('<div>Updating. The page will refresh when complete.</div>').css('color', 'grey');
+
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.AddMembersToListController.refreshLists}',
+                addMembersToListController.missingIds,
+                function(result, event){
+                    refresh();
+                });
+        };
+
+    </script>
+
+    <apex:form >
+
+    <apex:pageBlock title="Add Members to Email List">
+        <apex:pageMessages escape="false"/>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton action="{!addMembers}" value="Add Members to Email List" rendered="{!showAddButton}"/>
+            <apex:commandButton action="{!cancel}" value="Cancel"/>
+        </apex:pageBlockButtons>
+        <apex:actionFunction name="refresh" action="{!refreshPage}" reRender="details"/>
+        <apex:pageBlockSection columns="2" rendered="{!showAddButton}" id="details" >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Select an Email List" for="pro"></apex:outputLabel>
+                <apex:selectList id="pro" value="{!SubscriberList}" size="1" title="Email Lists">
+                    <apex:selectOptions value="{!SubscriberListOptions}"></apex:selectOptions>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputlabel style="color:grey">All the campaign members will be added to this list in Campaign Monitor.</apex:outputlabel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!MissingListIds.size > 0}">
+                <apex:outputText value="" />
+                <apex:outputLink id="refreshLink" value="#" onclick="addMembersToListController.startRefresh()">Refresh subscriber lists</apex:outputLink>
+            </apex:pageBlockSectionItem>
+            <apex:outputlabel rendered="{!MissingListIds.size > 0}" style="color:grey">Some subscriber lists from Campaign Monitor aren't currently shown in this list.</apex:outputlabel>
+
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="" />
+                <apex:commandLink action="{!createList}" value="Create new Subscriber List" id="idCreateList">
+                </apex:commandLink>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputlabel style="color:grey"></apex:outputlabel>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Campaign Status" for="status"></apex:outputLabel>
+                <apex:selectList id="status" value="{!campaignStatusList}" size="5" title="Campaign Statuses" multiselect="true">
+                    <apex:selectOptions value="{!campaignStatusOptions}"></apex:selectOptions>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputlabel style="color:grey">Only add Campaign Members with these selected Campaign Statuses.</apex:outputlabel>
+            </apex:pageBlockSectionItem>
+
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    </apex:form>
+
+</apex:page>

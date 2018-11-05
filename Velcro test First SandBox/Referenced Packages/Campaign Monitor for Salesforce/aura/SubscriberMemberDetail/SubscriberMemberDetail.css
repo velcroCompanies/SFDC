@@ -1,0 +1,32 @@
+.THIS .status-optout {
+    background: #F5B456;
+    color: #fff;
+    width: fit-content;
+    border-radius: 3px;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    float: left;
+}
+.THIS .status-optin {
+    background: #67B8EB;
+    color: #fff;
+    width: fit-content;
+    border-radius: 3px;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    float: left;
+}
+.THIS .slds-page-header {
+    border-radius: 0px;
+    border-top-right-radius: 5px;
+    box-shadow: none;
+    border-left: 0px;
+}
+.THIS {
+    background-color: #fff;
+}
+.THIS .b12-slds-form-element {
+    width: 100%;
+}

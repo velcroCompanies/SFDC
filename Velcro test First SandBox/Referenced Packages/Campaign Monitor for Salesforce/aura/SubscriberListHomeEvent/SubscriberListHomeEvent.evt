@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Subscriber Home Event" >
+	<aura:attribute name="action" type="String" description="E.g. MEMBER_ACTION" />
+	<aura:attribute name="id" type="String" description="Salesforce Id of the record to display" />
+</aura:event>

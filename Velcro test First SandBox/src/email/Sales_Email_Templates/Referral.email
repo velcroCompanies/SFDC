@@ -1,0 +1,18 @@
+Dear {!CampaignMember.Referall_Contact__c}-
+
+{!CampaignMember.FirstName} {!CampaignMember.LastName} was referred to you by a Velcro Representative.
+
+Title: {!CampaignMember.Title}
+Email: {!CampaignMember.Email}
+Phone: {!CampaignMember.Phone}
+Company: {!CampaignMember.CompanyOrAccount}
+
+Address:
+
+{!CampaignMember.Street}
+{!CampaignMember.City}
+{!CampaignMember.State}
+
+Referral Details:
+{!CampaignMember.Contact_Interest__c}
+{!CampaignMember.Interest__c}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Alerts Product Management of an SPD Submittal</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SPD Submitted</name>
+    <style>none</style>
+    <subject>PDR# {!Opportunity.PDR__c} {!Opportunity.Name} for {!Opportunity.Account} has been submited for review and approval</subject>
+    <type>text</type>
+</EmailTemplate>

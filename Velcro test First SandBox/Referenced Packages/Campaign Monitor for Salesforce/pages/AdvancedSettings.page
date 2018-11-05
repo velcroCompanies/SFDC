@@ -1,0 +1,4 @@
+<apex:page showHeader="true" sidebar="false" controller="wbsendit.AdvancedSettingsController" action="{!redirect}">
+
+
+</apex:page>

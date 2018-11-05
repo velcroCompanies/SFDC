@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Footprint_Line_Item__c.Footprint_Line_Items_Populated_On_Perc__c</field>
+    </columns>
+    <columns>
+        <field>FootPrint__c.Analysis_Date__c</field>
+    </columns>
+    <columns>
+        <field>FootPrint__c.FootPrint_Object_Label__c</field>
+    </columns>
+    <columns>
+        <field>FootPrint__c.FootPrint_Fields__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>CUST_ID</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Footprint Analysis</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$FootPrint__c$Footprint_Line_Item__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

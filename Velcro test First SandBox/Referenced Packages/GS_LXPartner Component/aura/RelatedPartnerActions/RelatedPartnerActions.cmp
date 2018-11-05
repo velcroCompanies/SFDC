@@ -1,0 +1,15 @@
+<aura:component access="global" controller="GS_LXPartner.PartnerController">
+<!-- Attributes -->
+<aura:attribute name="partnerRecId" type="String"/> 
+<aura:attribute name="sObjName" type="String" />
+<aura:attribute name="menuAlignment" type="String"/>    
+<!-- Registered Events -->
+<aura:registerEvent name="partnerDeletedEvent" type="GS_LXPartner:partnerDeletedEvent"/> 
+<aura:registerEvent name="partnerEditEvent" type="GS_LXPartner:openEditPartnerModalEvent"/> 
+    
+<!-- markup -->    
+<lightning:buttonMenu aura:id="pr-act-menu" alternativeText="Actions" menuAlignment="{!v.menuAlignment}"  variant="border-filled" iconSize="x-small"  onselect="{! c.clickAction }">
+	<lightning:menuItem label="{!$Label.gs_lxpartner.Edit}"/>
+	<lightning:menuItem label="{!$Label.gs_lxpartner.Delete}"/>
+</lightning:buttonMenu>   
+</aura:component>

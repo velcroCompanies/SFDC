@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account_shipping_address__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Customer__r.ShippingStreet)),      Customer__r.ShippingStreet            + &apos;\n&apos;, NULL) +
+IF(NOT(ISBLANK(Customer__r.ShippingCity)),        Customer__r.ShippingCity              + &apos;\n&apos;, NULL) +
+IF(NOT(ISBLANK(Customer__r.ShippingState)),       Customer__r.ShippingState,                    NULL) +
+IF(NOT(ISBLANK(Customer__r.ShippingPostalCode)),  &quot;, &quot; + Customer__r.ShippingPostalCode + &apos;\n&apos;, NULL) +
+IF(NOT(ISBLANK(Customer__r.ShippingCountry)),     Customer__r.ShippingCountry,                  NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account shipping address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Assigned__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Assign this samples request to a user</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Assign this samples request to a user</inlineHelpText>
+        <label>Assigned to</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$User.Region__c</field>
+                <operation>equals</operation>
+                <valueField>User.Region__c</valueField>
+            </filterItems>
+            <infoMessage>Select user the request should be assigned to</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>User</referenceTo>
+        <relationshipName>AssignedUser</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Customer Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Sample Requests</relationshipLabel>
+        <relationshipName>Sample_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Feedback_Comments__c</fullName>
+        <description>Provide customer feedback comments or details.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Provide customer feedback comments or details , including why the samples fit to purpose or not and next actions to be performed.</inlineHelpText>
+        <label>Customer Feedback Comments</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Customer_Feedback__c</fullName>
+        <description>Provide feedback from customer about the samples.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Provide feedback from customer about the samples.</inlineHelpText>
+        <label>Customer Feedback</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>OK-Samples accepted</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>KO-Samples NOT accepted</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Samples Not received</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Need to re-send</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>No answer</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Customer_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Shipping_Address__c</fullName>
+        <description>Address where send samples will be shipped from VESA.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Address where send samples will be shipped from VESA.</inlineHelpText>
+        <label>Customer Shipping Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Sample Requests</relationshipLabel>
+        <relationshipName>Sample_Requests</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Delivery_Deadline__c</fullName>
+        <description>When the sample should be received by customer</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When the sample should be received by customer</inlineHelpText>
+        <label>Delivery Deadline</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Delivery_additional_comments__c</fullName>
+        <description>Delivery additional notes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Delivery additional notes, provide any dtails needed</inlineHelpText>
+        <label>Delivery additional comments</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Delivery_method__c</fullName>
+        <externalId>false</externalId>
+        <label>Delivery method</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>UPS</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>VELCRO TRUCK</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Courier</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Finished_Goods_Planner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose this is not available from Sample Lab</inlineHelpText>
+        <label>Finished Goods Planner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Sample_Requests1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipLabel>Sample Requests</relationshipLabel>
+        <relationshipName>Sample_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>NOtes_Special_Requirements__c</fullName>
+        <description>APPLICATION/PURPOSE OF SAMPLES</description>
+        <externalId>false</externalId>
+        <inlineHelpText>APPLICATION/PURPOSE OF SAMPLES</inlineHelpText>
+        <label>Application/purpose of samples</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Opportunity this sample request belongs to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Opportunity this sample request belongs to</inlineHelpText>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Sample Requests</relationshipLabel>
+        <relationshipName>Sample_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Project Name</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Request_Region__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Pick the region where customer is located</inlineHelpText>
+        <label>Request Region</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>APAC</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>CONSUMER</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>EMEA</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>LATAM</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>NAM</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Request_to_Country__c</fullName>
+        <description>Country where the request will go</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose the country where the request will go</inlineHelpText>
+        <label>Request to Country</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Request_Region__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Italy</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>USA</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Spain</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Germany</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>France</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>United Kingdom</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Belgium</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>NAM</controllingFieldValue>
+                <valueName>Canada</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <valueName>Italy</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>NAM</controllingFieldValue>
+                <valueName>USA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <valueName>Spain</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <valueName>Germany</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <valueName>France</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <valueName>United Kingdom</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <valueName>Belgium</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Requestor_s_Phone__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Salesperson making the request</inlineHelpText>
+        <label>Requestor&apos;s Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>SBU__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Opportunity__r.Opportunity_SBU__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SBU</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sample_Lab_Approval__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Sends request to Evan</inlineHelpText>
+        <label>Sample Lab Approval</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Sample_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sample_Requested_Velcro_PN__c</fullName>
+        <externalId>false</externalId>
+        <label>Sample Requested and QTY (Velcro PN)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Send_to_Affiliate__c</fullName>
+        <description>To what affiliatte should the samples be sent?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>To what affiliatte should the samples be sent?</inlineHelpText>
+        <label>Send to Affiliate</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Delivery_method__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>ABE</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>APL</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>VEIT</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>VESA</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>VGMBH</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>VIF</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>VLTD</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>UPS</controllingFieldValue>
+                <controllingFieldValue>VELCRO TRUCK</controllingFieldValue>
+                <controllingFieldValue>Courier</controllingFieldValue>
+                <valueName>ABE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>UPS</controllingFieldValue>
+                <controllingFieldValue>VELCRO TRUCK</controllingFieldValue>
+                <controllingFieldValue>Courier</controllingFieldValue>
+                <valueName>APL</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>UPS</controllingFieldValue>
+                <controllingFieldValue>VELCRO TRUCK</controllingFieldValue>
+                <controllingFieldValue>Courier</controllingFieldValue>
+                <valueName>VEIT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>UPS</controllingFieldValue>
+                <controllingFieldValue>VELCRO TRUCK</controllingFieldValue>
+                <controllingFieldValue>Courier</controllingFieldValue>
+                <valueName>VESA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>UPS</controllingFieldValue>
+                <controllingFieldValue>VELCRO TRUCK</controllingFieldValue>
+                <controllingFieldValue>Courier</controllingFieldValue>
+                <valueName>VGMBH</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>UPS</controllingFieldValue>
+                <controllingFieldValue>VELCRO TRUCK</controllingFieldValue>
+                <controllingFieldValue>Courier</controllingFieldValue>
+                <valueName>VIF</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>UPS</controllingFieldValue>
+                <controllingFieldValue>VELCRO TRUCK</controllingFieldValue>
+                <controllingFieldValue>Courier</controllingFieldValue>
+                <valueName>VLTD</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>true</default>
+                </value>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Sent</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Assigned</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Assigned to Planner</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Processing</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Completed - Sample Lab</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Completed - Planner of Finished Goods</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Shipped to Customer</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>VELCRO_shipping_address__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( TEXT(Send_to_Affiliate__c),
+ &apos;VLTD&apos;, $Label.VLTD_Address,
+ &apos;VEIT&apos;, $Label.VEIT_Address,
+ &apos;VIF&apos;, $Label.VIF_Address,
+ &apos;VGMBH&apos;, $Label.VGMBH_Address,
+ &apos;APL&apos;, $Label.APL_Address,
+ &apos;ABE&apos;, $Label.ABE_Address,
+
+ &apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>VELCRO shipping address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Sample Request</label>
+    <listViews>
+        <fullName>All_Sample_requests</fullName>
+        <columns>NAME</columns>
+        <columns>Assigned__c</columns>
+        <columns>Status__c</columns>
+        <columns>NOtes_Special_Requirements__c</columns>
+        <columns>Customer__c</columns>
+        <columns>Delivery_Deadline__c</columns>
+        <columns>Delivery_method__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Sample requests</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Samples_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>Customer__c</columns>
+        <columns>Assigned__c</columns>
+        <columns>Delivery_Deadline__c</columns>
+        <columns>Delivery_method__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Samples Requests</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>SR-{000000}</displayFormat>
+        <label>Sample Request Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Sample Requests</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Canada_Sample_Request</fullName>
+        <active>true</active>
+        <description>For canada Sampls requests only</description>
+        <label>Canada Sample Request</label>
+        <picklistValues>
+            <picklist>Customer_Feedback__c</picklist>
+            <values>
+                <fullName>KO-Samples NOT accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need to re-send</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OK-Samples accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Samples Not received</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Delivery_method__c</picklist>
+            <values>
+                <fullName>Courier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UPS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VELCRO TRUCK</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Region__c</picklist>
+            <values>
+                <fullName>APAC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CONSUMER</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NAM</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_to_Country__c</picklist>
+            <values>
+                <fullName>Belgium</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canada</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>France</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Germany</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Italy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>United Kingdom</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_to_Affiliate__c</picklist>
+            <values>
+                <fullName>ABE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>APL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VEIT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VESA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VGMBH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VIF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VLTD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>EMEA_Sample_Request</fullName>
+        <active>true</active>
+        <description>For all EMEA samples requests with existing product code</description>
+        <label>EMEA Sample Request</label>
+        <picklistValues>
+            <picklist>Customer_Feedback__c</picklist>
+            <values>
+                <fullName>KO-Samples NOT accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need to re-send</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OK-Samples accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Samples Not received</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Delivery_method__c</picklist>
+            <values>
+                <fullName>Courier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UPS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VELCRO TRUCK</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Region__c</picklist>
+            <values>
+                <fullName>APAC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CONSUMER</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NAM</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_to_Country__c</picklist>
+            <values>
+                <fullName>Belgium</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canada</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>France</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Germany</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Italy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>United Kingdom</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_to_Affiliate__c</picklist>
+            <values>
+                <fullName>ABE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>APL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VEIT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VESA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VGMBH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VIF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VLTD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Assigned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Processing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped to Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>NAM_Sample_Request</fullName>
+        <active>true</active>
+        <description>Sample Requests for North America</description>
+        <label>NAM Sample Request</label>
+        <picklistValues>
+            <picklist>Customer_Feedback__c</picklist>
+            <values>
+                <fullName>KO-Samples NOT accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need to re-send</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OK-Samples accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Samples Not received</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Delivery_method__c</picklist>
+            <values>
+                <fullName>UPS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VELCRO TRUCK</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Region__c</picklist>
+            <values>
+                <fullName>APAC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CONSUMER</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NAM</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_to_Country__c</picklist>
+            <values>
+                <fullName>Belgium</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canada</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>France</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Germany</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Italy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>United Kingdom</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_to_Affiliate__c</picklist>
+            <values>
+                <fullName>ABE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>APL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VEIT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VESA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VGMBH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VIF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VLTD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assigned to Planner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed - Planner of Finished Goods</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed - Sample Lab</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped to Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Address_account_changed_check</fullName>
+        <active>true</active>
+        <errorConditionFormula>(ISBLANK(PRIORVALUE(Customer_Shipping_Address__c )) 
+&amp;&amp; NOT(ISBLANK(Customer_Shipping_Address__c ))
+)
+&amp;&amp; NOT(ISBLANK( VELCRO_shipping_address__c))</errorConditionFormula>
+        <errorMessage>First remove the Affiliate address before adding customer delivery information.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Address_check</fullName>
+        <active>false</active>
+        <errorConditionFormula>ISBLANK( VELCRO_shipping_address__c ) &amp;&amp;
+ISBLANK(Customer_Shipping_Address__c )</errorConditionFormula>
+        <errorMessage>You must select either an Affiliate or provide the customer address.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Address_velcro_changed_check</fullName>
+        <active>true</active>
+        <errorConditionFormula>(ISBLANK(PRIORVALUE(VELCRO_shipping_address__c)) 
+&amp;&amp; NOT(ISBLANK(VELCRO_shipping_address__c ))
+)
+&amp;&amp; NOT(ISBLANK( Customer_Shipping_Address__c))</errorConditionFormula>
+        <errorMessage>First remove the Customer shipping  address before adding VELCRO Affiliate delivery information.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Delivery_Method_check</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(ISBLANK(Customer_Shipping_Address__c ))
+&amp;&amp; ISPICKVAL( Delivery_method__c , &apos;VELCRO TRUCK&apos;)</errorConditionFormula>
+        <errorMessage>You can not use &apos;Velcro truck&apos; delivery method to send samples to a customer.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>UPS_name_and_contact</fullName>
+        <active>false</active>
+        <description>If you choose UPS to customer , you must provide email and phone numbers</description>
+        <errorConditionFormula>ISPICKVAL( Delivery_method__c ,&apos;UPS&apos;) 
+&amp;&amp;
+ISBLANK(VELCRO_shipping_address__c )
+&amp;&amp; ( ISBLANK( Customer_Email__c ) 
+||  ISBLANK(  Customer_Phone__c  ) )</errorConditionFormula>
+        <errorMessage>If you choose UPS delivery , you must provide email and phone numbers</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>New_Request</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Request</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/25.0/connection.js&quot;)}  
+{!REQUIRESCRIPT(&quot;/soap/ajax/25.0/apex.js&quot;)}  
+
+var status=&apos;{!Sample_Request__c.Status__c}&apos;;
+
+if (status==&apos;Approved&apos;) {
+var result=&apos;/apex/SDOC__SDCreate1?id={!Sample_Request__c.Id}&amp;Object=Sample_Request__c&apos;;
+location.href=result;
+}
+else
+{
+  alert(&apos;Request has not yet been approved.&apos;);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_to_assigned_user</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send to assigned user</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)}
+
+var template=&apos;&apos;;
+
+template = &quot;&amp;template_id=00XA0000001fdGI&quot;;
+
+
+//window.location.reload();
+var url=&apos;/email/author/emailauthor.jsp?retURL=/{!Sample_Request__c.Id}&amp;p3_lkid={!Sample_Request__c.Id}&amp;p2_lkid={!Sample_Request__c.Assigned__c}&amp;p4=&amp;p24={!$User.Email}&apos;+template;
+
+location.replace(url);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Set_Shipping_Address</fullName>
+        <availability>online</availability>
+        <description>Sets the Shipping Address to the existing Account Shipping address stored in the Account_shipping_address__c field.</description>
+        <displayType>link</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Set Shipping Address (using Account data)</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/connection.js&quot;)}
+ 
+var SamplesUpdate = new sforce.SObject(&quot;Sample_Request__c&quot;);
+
+SamplesUpdate.Id=&apos;{!Sample_Request__c.Id}&apos;;
+SamplesUpdate.Customer_Shipping_Address__c=
+&apos;{!Sample_Request__c.Account_shipping_address__c}&apos;;
+ 
+
+var result=updateSample = sforce.connection.update([SamplesUpdate]);
+ 
+if (result[0].success==&apos;false&apos;) { 
+alert(result[0].errors.message); 
+} else { 
+window.parent.location.href=&quot;/{!Sample_Request__c.Id}&quot;; 
+}</url>
+    </webLinks>
+</CustomObject>

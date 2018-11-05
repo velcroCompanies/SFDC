@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ABE_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABE_Address</shortDescription>
+        <value>Alfatex N.V. 
+Industrielaan 16
+9800 Deinze
+België</value>
+    </labels>
+    <labels>
+        <fullName>ABE_Quote_Footer</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABE Quote Footer</shortDescription>
+        <value>&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; Alfatex NV – Velcro EUROPE S.A.&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>ABE_Quote_Header</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABE Quote Header</shortDescription>
+        <value>&lt;p style=&quot;margin:0px; line-height: 15.4pt;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;margin: 0px; color: #cc0033; font-family: &apos;Arial&apos;,sans-serif; font-size: 8pt;&quot;&gt;Alfatex NV – Velcro EUROPE S.A.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot; &gt;Industrielaan 16&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;9800 Deinze - Belgium&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Phone: : (+32) 9 386 12 18 – Fax: (+32) 9 386 89 76  &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;infoBE@velcro.com - www.velcro.com&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>APL_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APL Address</shortDescription>
+        <value>Alfatex Sp. z o.o.
+Ul. Muchoborska 18
+PL - 54-424 Wroclaw</value>
+    </labels>
+    <labels>
+        <fullName>APL_Quote_Footer</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APL Quote Footer</shortDescription>
+        <value>&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; Alfatex  Sp. z.o.o.&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>APL_Quote_Header</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APL Quote Header</shortDescription>
+        <value>&lt;p style=&quot;margin:0px; line-height: 15.4pt;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;margin: 0px; color: #cc0033; font-family: &apos;Arial&apos;,sans-serif; font-size: 8pt;&quot;&gt;Alfatex Sp. z.o.o.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot; &gt;Ul. Muchoborska 18&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt; PL - 54-424 Wroclaw&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Tel: +48 71 798 57 89&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Faks: +48 71 798 57 90&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span
+class=&quot;c74&quot;&gt;www.alfatex.pl&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>Adhesives_warn</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Adhesives_warn</shortDescription>
+        <value>Adhesives: Use under the responsibility of the end user. To be used within 12 months</value>
+    </labels>
+    <labels>
+        <fullName>Annual_Volume</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Annual Volume</shortDescription>
+        <value>Annual Volume</value>
+    </labels>
+    <labels>
+        <fullName>CLIENT_NUMBER</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CLIENT NUMBER</shortDescription>
+        <value>CLIENT NUMBER</value>
+    </labels>
+    <labels>
+        <fullName>Company</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Company</shortDescription>
+        <value>Company</value>
+    </labels>
+    <labels>
+        <fullName>Counter_typed_color_warn</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Counter typed color warn</shortDescription>
+        <value>Counter-typed color: charged 40 €, deducted in case of firm order of the same color.</value>
+    </labels>
+    <labels>
+        <fullName>DELIVERY_TERMS</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DELIVERY TERMS</shortDescription>
+        <value>DELIVERY TERMS</value>
+    </labels>
+    <labels>
+        <fullName>DESCRIPTION</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DESCRIPTION</shortDescription>
+        <value>DESCRIPTION</value>
+    </labels>
+    <labels>
+        <fullName>Date</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Date</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>EMEA_Opp_Convert_record_type</fullName>
+        <categories>DR, warning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EMEA_Opp_Convert_record_type</shortDescription>
+        <value>To place a NEW DR (development request) please answer following questions based on your knowledge</value>
+    </labels>
+    <labels>
+        <fullName>From</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>From</shortDescription>
+        <value>From</value>
+    </labels>
+    <labels>
+        <fullName>LEAD_TIME</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LEAD TIME</shortDescription>
+        <value>LEAD TIME</value>
+    </labels>
+    <labels>
+        <fullName>MINIMUM_ORDER_QTY</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MINIMUM ORDER QTY</shortDescription>
+        <value>MINIMUM ORDER QTY</value>
+    </labels>
+    <labels>
+        <fullName>Minimun_Order_Amount_500</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Minimun Order Amount 500</shortDescription>
+        <value>Minimum order amount 500€</value>
+    </labels>
+    <labels>
+        <fullName>NOTES</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NOTES</shortDescription>
+        <value>NOTES</value>
+    </labels>
+    <labels>
+        <fullName>New_Opportunity_button_text</fullName>
+        <categories>button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Opportunity button text</shortDescription>
+        <value>New EMEA Opportunity</value>
+    </labels>
+    <labels>
+        <fullName>OFFER_VALIDITY</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OFFER VALIDITY</shortDescription>
+        <value>OFFER VALIDITY</value>
+    </labels>
+    <labels>
+        <fullName>Other</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other</shortDescription>
+        <value>Other</value>
+    </labels>
+    <labels>
+        <fullName>PAYMENT_TERMS</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PAYMENT TERMS</shortDescription>
+        <value>PAYMENT TERMS</value>
+    </labels>
+    <labels>
+        <fullName>POSITION</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>POSITION</shortDescription>
+        <value>POSITION</value>
+    </labels>
+    <labels>
+        <fullName>PRESENTATION</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PRESENTATION</shortDescription>
+        <value>PRESENTATION</value>
+    </labels>
+    <labels>
+        <fullName>PRODUCT_CODE</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PRODUCT CODE</shortDescription>
+        <value>PRODUCT CODE</value>
+    </labels>
+    <labels>
+        <fullName>Page</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Page</shortDescription>
+        <value>Page</value>
+    </labels>
+    <labels>
+        <fullName>QUOTE</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUOTE</shortDescription>
+        <value>QUOTE</value>
+    </labels>
+    <labels>
+        <fullName>Quote_Packaging</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quote_Packaging</shortDescription>
+        <value>Packaging</value>
+    </labels>
+    <labels>
+        <fullName>Quote_Text_presentation1</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quote_Text_presentation1</shortDescription>
+        <value>Dear</value>
+    </labels>
+    <labels>
+        <fullName>Quote_Text_presentation2</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quote_Text_presentation2</shortDescription>
+        <value>We are pleased to provide price guideline for our VELCRO® Brand products based on our general conditions:</value>
+    </labels>
+    <labels>
+        <fullName>SALES_PERSON</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SALES PERSON</shortDescription>
+        <value>SALES PERSON</value>
+    </labels>
+    <labels>
+        <fullName>SERVICE_CONTACT</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SERVICE CONTACT</shortDescription>
+        <value>SERVICE CONTACT</value>
+    </labels>
+    <labels>
+        <fullName>To</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>To</shortDescription>
+        <value>To</value>
+    </labels>
+    <labels>
+        <fullName>UNIT_OF_MEASURE</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>UNIT OF MEASURE</shortDescription>
+        <value>UNIT OF MEASURE</value>
+    </labels>
+    <labels>
+        <fullName>UNIT_PRICE</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>UNIT PRICE</shortDescription>
+        <value>UNIT PRICE</value>
+    </labels>
+    <labels>
+        <fullName>VEIT_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VEIT Address</shortDescription>
+        <value>Velcro Italia, S.R.L.
+Via Nazario Sauro 12
+20043 Arcore (Milano)
+Italy</value>
+    </labels>
+    <labels>
+        <fullName>VEIT_Quote_footer</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VEIT Quote Footer</shortDescription>
+        <value>&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; VELCRO ITALIA S.R.L.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; CERTIFIÉ: &lt;strong&gt; ISO 9001 / ISO 14001 / ISO 13485 / ISO TS 16949 &lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>VEIT_Quote_header</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VEIT Quote header</shortDescription>
+        <value>&lt;p style=&quot;margin:0px; line-height: 15.4pt;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;margin: 0px; color: #cc0033; font-family: &apos;Arial&apos;,sans-serif; font-size: 8pt;&quot;&gt;VELCRO ITALIA S.R.L.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot; &gt;Via Nazario Sauro, 12&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt; 20862 – Arcore (MB) – ITALY&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Tel: +39(0) 39 62 700 1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Fax: +39(0) 39 68 820 19&lt;/span&gt;&lt;/p&gt;
+
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span 
+class=&quot;c74&quot;&gt;www.velcro.com&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>VESA_Quote_Footer</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VESA_Quote_Footer</shortDescription>
+        <value>&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; VELCRO EUROPE, S.A R.M. DE BARCELONA, H.6.370, F 227, T. 1.078, L 559, SEC 2ª - V.A.T. ESA08112534 &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; EMPRESA CERTIFICADA: &lt;strong&gt; ISO 9001 / ISO 14001 / ISO 13485 / ISO TS 16949 &lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>VESA_Quote_Header</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VESA_Quote_Header_Address</shortDescription>
+        <value>&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 15.4pt;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;margin: 0px; color: #cc0033; font-family: &apos;Arial&apos;,sans-serif; font-size: 8pt;&quot;&gt;Velcro Europe, S.A.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span style=&quot;margin: 0px; font-family: &apos;Arial&apos;,sans-serif; font-size: 7pt;&quot;&gt;Ctra. Matar&amp;oacute; - Granollers, Km. 5,8&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 7.2pt;&quot;&gt;&lt;span style=&quot;margin: 0px; font-family: &apos;Arial&apos;,sans-serif; font-size: 7pt;&quot;&gt;08310 Argentona (Barcelona) - Spain&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 7.2pt;&quot;&gt;&lt;span style=&quot;margin: 0px; font-family: &apos;Arial&apos;,sans-serif; font-size: 7pt;&quot;&gt;Phone: (+34) 93 758 32 98 &amp;ndash; Fax: (+34) 93 758 32 86&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 7.2pt;&quot;&gt;&lt;span style=&quot;margin: 0px; font-family: &apos;Arial&apos;,sans-serif; font-size: 7pt;&quot;&gt;infovesa@velcro.com - www.velcro.com&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>VGMBH_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VGMBH Address</shortDescription>
+        <value>Velcro Gmbh
+Kleines Wegle 1
+D-71691 Freiberg am Neckar
+Deutschland</value>
+    </labels>
+    <labels>
+        <fullName>VIF_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VIF Address</shortDescription>
+        <value>Velcro France
+Batiment Orion – Parc Mail – 24b avenue de la Demi-Lune
+CS16117 Roissy en France
+95701 Roissy Charles de Gaulle Cedex – France</value>
+    </labels>
+    <labels>
+        <fullName>VIF_Quote_Footer</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VIF Quote Footer</shortDescription>
+        <value>&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; VELCRO INDUSTRIES France S.A.S  &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; CERTIFIÉ: &lt;strong&gt; ISO 9001 / ISO 14001 / ISO 13485 / ISO TS 16949 &lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>VIF_Quote_Header</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VIF Quote Header</shortDescription>
+        <value>&lt;p style=&quot;margin:0px; line-height: 15.4pt;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;margin: 0px; color: #cc0033; font-family: &apos;Arial&apos;,sans-serif; font-size: 8pt;&quot;&gt;VELCRO INDUSTRIES France S.A.S&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot; &gt;Bâtiment Orion - Parc Mail&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;24b Avenue de la Demi-Lune&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;CS16117 Roissy en France&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Tel: 01 34 38 78 88 &amp;ndash; Fax:01 34 38 78 89 &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;infovif@velcro.com - www.velcro.com&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>VLTD_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VLTD Address</shortDescription>
+        <value>Velcro Limited
+1 Aston Way
+Middlewich Industrial Estate
+Middlewich
+Cheshire
+CW10 0HS</value>
+    </labels>
+    <labels>
+        <fullName>VLTD_Quote_Footer</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VLTD Quote Footer</shortDescription>
+        <value>&lt;p style=&quot;margin: 0px; line-height: 50%;&quot;&gt;&lt;span class=&apos;c84&apos; style=&quot;color: #58595b; font-family: &apos;Arial&apos;,sans-serif; font-size: 5pt;&quot;&gt; Velcro standards trading terms and conditions apply, a copy of these are available upon request&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>VLTD_Quote_Header</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>VLTD Quote Header</shortDescription>
+        <value>&lt;p style=&quot;margin:0px; line-height: 15.4pt;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;margin: 0px; color: #cc0033; font-family: &apos;Arial&apos;,sans-serif; font-size: 8pt;&quot;&gt;VELCRO LTD&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot; &gt;1 Aston Way &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Middlewich&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Cheshire   CW10 0HS&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;Tel: (+44) 1606 738806&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0px 0px 0px 4px; line-height: 11.8pt;&quot;&gt;&lt;span class=&quot;c74&quot;&gt;infovif@velcro.com - www.velcro.com&lt;/span&gt;&lt;/p&gt;</value>
+    </labels>
+</CustomLabels>

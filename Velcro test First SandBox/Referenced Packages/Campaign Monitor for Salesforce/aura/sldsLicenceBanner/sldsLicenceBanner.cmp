@@ -1,0 +1,27 @@
+<aura:component controller="wbsendit.SubscriberListController">
+
+    <aura:attribute access="public" name="licenceDetail" type="String" />
+
+	<!-- TRIAL MESSAGE -->
+	<aura:if isTrue="{!v.licenceDetail.status == 'TRIAL' }">
+	    <div class="" style="">
+	        <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+	          <span class="slds-assistive-text">Info</span>
+	        <h2>
+	            <span class="slds-p-right--xx-small">{!v.licenceDetail.daysLeftMessage} - <a href="/apex/generalsettings?cmpid=4">Upgrade now</a></span></h2>
+	        </div>
+	    </div>
+	</aura:if>
+
+	<!-- EXPIRED MESSAGE -->
+	<aura:if isTrue="{! not(v.licenceDetail.premiumEnabled)}">
+	    <div class="" style="">
+	        <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+	          <span class="slds-assistive-text">Info</span>
+	        <h2>
+	            <span class="slds-p-right--xx-small">Your premium trial has expired - <a href="/apex/generalsettings?cmpid=4">Upgrade now</a></span></h2>
+	        </div>
+	    </div>
+	</aura:if>
+
+</aura:component>

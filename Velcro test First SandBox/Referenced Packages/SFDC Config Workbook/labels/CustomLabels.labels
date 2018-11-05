@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ComparatorDescription</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Comparator Description</shortDescription>
+        <value>Compare apex classes, triggers, visualforce pages/components and object definition in same or different orgs.</value>
+    </labels>
+    <labels>
+        <fullName>ComparatorVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Comparator Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/VcDhGWoT3c8</value>
+    </labels>
+    <labels>
+        <fullName>ComparePermissionSetOrgDescription</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ComparePermissionSetOrgDescription</shortDescription>
+        <value>Compare Permission Sets based on Page Layouts, Custom permissions, Class access, Application visibilities, Field permissions, Object permissions, Page access, RecordType visibilities, Tab visibilities, and User permissions.</value>
+    </labels>
+    <labels>
+        <fullName>CompareProfileSameOrgDescription</fullName>
+        <categories>Descrption</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Compare ProfileSame Org Description</shortDescription>
+        <value>Compare profiles based on Page Layouts,  Custom permissions,  Class access, Application visibilities, Field permissions, Object permissions, Page access, RecordType visibilities, Tab visibilities, and User permissions.</value>
+    </labels>
+    <labels>
+        <fullName>CompareProfileVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Compare Profile Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/NxYgm5e6ipg</value>
+    </labels>
+    <labels>
+        <fullName>Component_Limit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Component Limit</shortDescription>
+        <value>5</value>
+    </labels>
+    <labels>
+        <fullName>FieldUtilizationDescription</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field Utilization Description</shortDescription>
+        <value>Analyze the fields usage of any object.</value>
+    </labels>
+    <labels>
+        <fullName>FieldUtilizationVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field Utilization Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/NxYgm5e6ipg</value>
+    </labels>
+    <labels>
+        <fullName>FolderPermission</fullName>
+        <categories>Descrption</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FolderPermission</shortDescription>
+        <value>Download folder(Document,Report,Dashboard, Email) permission.</value>
+    </labels>
+    <labels>
+        <fullName>FreeLimitReachedMessage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Free Limit Reached Message</shortDescription>
+        <value>You have reached maximum free limit(5).</value>
+    </labels>
+    <labels>
+        <fullName>Free_APP_Message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Free APP Message</shortDescription>
+        <value>You are using free version of CWB so your selected component will be locked and You can&apos;t change your selection in future.</value>
+    </labels>
+    <labels>
+        <fullName>GenerateProjectXml</fullName>
+        <categories>Descrption</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>GenerateProjectXml</shortDescription>
+        <value>Generate project.xml for deployment.</value>
+    </labels>
+    <labels>
+        <fullName>ImpactAnalysisDescription</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Impact Analysis Description</shortDescription>
+        <value>Find references of object fields in workflow rules, approval processes, validation rules, formulas, sharing criteria, classes, visualforce pages, triggers etc.</value>
+    </labels>
+    <labels>
+        <fullName>ImpactAnalysisVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Impact Analysis Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/88-EJLw6z7Y</value>
+    </labels>
+    <labels>
+        <fullName>LicenseVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>License Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/NxYgm5e6ipg</value>
+    </labels>
+    <labels>
+        <fullName>ModifiedDetailVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Modified Detail Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/EmHCyBaLh7g</value>
+    </labels>
+    <labels>
+        <fullName>ObjectFieldsCreation</fullName>
+        <categories>Descrption</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ObjectFieldsCreation</shortDescription>
+        <value>This feature allows us to Create,Update and Delete on Object and Fields</value>
+    </labels>
+    <labels>
+        <fullName>ObjectVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Object Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/lVx6lw3z7iM</value>
+    </labels>
+    <labels>
+        <fullName>PaidAccountErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Paid Account Error Message</shortDescription>
+        <value>No valid Config workbook licenses found in this org. Please re-authorise with an org having valid licenses.</value>
+    </labels>
+    <labels>
+        <fullName>PermissionsetVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Permissionset Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/Zii8XBUtYcE</value>
+    </labels>
+    <labels>
+        <fullName>ProfileVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Profile Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/1nw_q6JLPic</value>
+    </labels>
+    <labels>
+        <fullName>SetupAuditTrailHistory</fullName>
+        <categories>Descripion</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SetupAuditTrailHistory</shortDescription>
+        <value>Setup Audit Trail tracks the recent setup changes that you and other admins have made to your org. Audit history is especially useful in orgs with multiple admins.</value>
+    </labels>
+    <labels>
+        <fullName>UpdateMetaDataDescription</fullName>
+        <categories>Description</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Update MetaData Description (DEPRECATED)</shortDescription>
+        <value>Quickly update Validation, Workflow rules and FLS (Field Level Security), OLS (Object Level Security) in profiles.</value>
+    </labels>
+    <labels>
+        <fullName>UpdateMetadataVideoURL</fullName>
+        <categories>Video</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Update Metadata Video URL</shortDescription>
+        <value>https://www.youtube.com/embed/WnFBCqwlDE4</value>
+    </labels>
+    <labels>
+        <fullName>UserPermission</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>UserPermission</shortDescription>
+        <value>Download user&apos;s all permission(Profile+ Permission Set)</value>
+    </labels>
+</CustomLabels>

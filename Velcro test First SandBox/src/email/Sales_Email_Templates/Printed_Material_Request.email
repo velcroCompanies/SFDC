@@ -1,0 +1,13 @@
+Hello,
+
+Please produce a printed materials with samples for the following brochures:
+
+{!Printed_Materials__c.Brochure__c}
+
+Please print the brochures in the following language (if available):  {!Printed_Materials__c.Language__c}
+
+Thank you,
+
+{!Printed_Materials__c.OwnerFullName}
+p {!Printed_Materials__c.OwnerPhone}
+e {!Printed_Materials__c.OwnerEmail}

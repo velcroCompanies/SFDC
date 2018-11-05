@@ -1,0 +1,274 @@
+<aura:component access="global" description="Campaign Monitor Email History" controller="wbsendit.TrackingDetailController" implements="force:appHostable,flexipage:availableForRecordHome,lightning:actionOverride,force:hasRecordId,force:hasSObjectName">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="recordId" type="String" />
+    <aura:attribute access="public" name="memberId" type="String" />
+    <aura:attribute access="public" name="action" type="String" />
+    <aura:attribute access="public" name="listId" type="String" />
+    <aura:attribute access="public" name="backLocation" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="activity" type="String" />
+    <aura:attribute access="private" name="hasActivity" type="Boolean" default="true" />
+    <aura:attribute access="private" name="email" type="String" default="Loading..." />
+    <aura:attribute access="private" name="resultsMessage" type="String" default="Loading..." />
+    <aura:attribute access="private" name="campDetail" type="String" />
+    <aura:attribute access="private" name="notification" type="String" default="Success" />
+    <aura:attribute access="private" name="subscriberLists" type="String" />
+    <aura:attribute access="private" name="isStandalone" type="boolean" default="false" />
+    <aura:attribute access="private" name="isExpanded" type="boolean" default="true" />
+    <aura:attribute access="private" name="expandedLabel" type="String" default="Expand All" />
+    <aura:attribute access="private" name="isFiltered" type="boolean" default="true" />
+    <aura:attribute access="private" name="selectedListFilter" type="String" />
+    <aura:attribute access="private" name="activitySummary" type="String" />
+    <aura:attribute access="private" name="selectedActivities" type="String" />
+    <aura:attribute access="private" name="selectedActivitiesSummary" type="String" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="subscriberListHomeEvent" type="wbsendit:SubscriberListHomeEvent" />
+
+    <lightning:spinner variant="brand" size="small" aura:id="spinner-id" />
+
+    <div aura:id="body-id" class="" style="{! v.isStandalone ? 'border-radius: 5px;' : 'border-top-right-radius: 5px;' }">
+
+        <!-- NOTIFICATIONS -->
+        <wbsendit:sldsNotification message="{!v.notification}" fadeTimeout="5000" />
+
+        <!-- PAGE HEADER -->
+        <div class="{! v.isStandalone ? 'slds-hide' : 'slds-page-header' }">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:avatar" />
+                        </div>
+                        <div class="slds-media__body">
+                            <lightning:breadcrumbs>
+                                <lightning:breadcrumb label="{!v.activitySummary.primarySubscriberList}" />
+                                <lightning:breadcrumb label="Email History" />
+                            </lightning:breadcrumbs>
+                            <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="{!v.email}">{!v.activitySummary.email}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <lightning:buttonGroup>
+                        <lightning:button label="Back" onclick="{!c.onBack}" />
+                    </lightning:buttonGroup>
+                    <ui:outputURL class="slds-button" value="http://support.beaufort12.com/customer/en/portal/articles/2912771" target="_blank" label="Help" />
+                </div>
+            </div>
+        </div>
+        <!-- / PAGE HEADER -->
+
+        <!-- ACTIVITY HISTORY -->
+        <div>
+
+            <article aura:id="message-id" class="{! v.isStandalone ? 'slds-card b12-lightning-card' : 'slds-card slds-m-around--medium' }" style="{! v.isStandalone ? 'border: 1px solid rgb(221, 219, 218);' : '' }">
+                <div class="slds-card__header slds-grid" style="{! v.isStandalone ? 'padding-left: 15px; padding-right: 15px;' : '' }">
+                    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:list_email" class="slds-icon" variant="inverse" />
+                        </div>
+                        <div class="slds-media__body">
+                            <h2>
+
+                                <span class="slds-text-heading--small">Email Activity</span>
+                                <wbsendit:sldsTooltip class="slds-m-left--x-small b12-tooltip-position" placement="top" text="{! 'The table below shows the emails sent to ' + v.activity.email + ' via the list ' + v.activity.listName + ' for both Campaigns and Journeys.'}" style="top: -0.30rem;"
+                                />
+
+                            </h2>
+                        </div>
+                    </header>
+                    <div class="slds-is-relative slds-hide" aura:id="b12-listfilter-id">
+                        <div style="position: absolute; top: 3rem; left: -17.5rem;">
+                            <section class="slds-popover slds-popover_walkthrough slds-nubbin_top-right" role="dialog" aria-labelledby="dialog-heading-id-01" aria-describedby="dialog-body-id-17">
+                                <lightning:buttonIcon variant="inverse" iconName="utility:close" size="" alternativeText="List" class="slds-button slds-button_icon slds-float_right slds-popover__close slds-button_icon-inverse" onclick="{!c.onCancelFilter}" />
+                                <header class="slds-popover__header slds-p-vertical_medium">
+                                    <h2 id="dialog-heading-id-01" class="slds-text-heading_medium">Filter by Subscriber List</h2>
+                                </header>
+                                <div class="slds-popover__body" id="dialog-body-id-17">
+                                    <lightning:select name="subscriberlists-id" label="Subscriber List" aura:id="subscriberlists-id" value="{!v.selectedListFilter}" class="b12-label b12-select">
+                                        <aura:iteration items="{!v.subscriberLists}" var="item">
+                                            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}" />
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                <footer class="slds-popover__footer">
+                                    <div class="slds-grid slds-grid_vertical-align-center">
+                                        <button class="slds-button slds-button_inverse slds-col_bump-left" onclick="{!c.onCancelFilter}">Cancel</button>
+                                        <button class="slds-button slds-button_brand slds-col_bump-left" onclick="{!c.onFilterList}">Apply</button>
+                                    </div>
+                                </footer>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="slds-no-flex" aura:id="b12-activity-buttons-id">
+                        <lightning:buttonIconStateful iconName="utility:filterList" selected="{!v.isFiltered}" alternativeText="Like" onclick="{! c.onDisplayListFilter }" />
+                        <lightning:buttonIcon iconName="utility:refresh" variant="border" alternativeText="Refresh" class="b12-left-button" onclick="{!c.onRefresh}" />
+                        <lightning:button label="{!v.expandedLabel}" onclick="{!c.onExpand}" />
+                    </div>
+                </div>
+                <div class="{! v.isExpanded ? 'slds-card__body' : 'slds-hide' }" aura:id="b12-activity-summary-id">
+                    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_striped " style="table-layout: fixed;">
+                        <col width="25%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="15%" />
+                        <thead>
+                            <tr class="slds-text-title--caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Campaign or Journey Name">Campaign Name</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Opens">Opens</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Clicks">Clicks</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Forwards, Facebook, Twitter">Social</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Last Activity">Last Activity</div>
+                                </th>
+                                <th scope="col" style="width: 3.25rem;">
+                                    <div class="slds-truncate" title=""></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.selectedActivitiesSummary}" var="summary" indexVar="rowIndex">
+                                <tr class="slds-hint-parent">
+                                    <td>
+                                        <div class="slds-truncate " title="{!summary.campaignName}">
+                                            <lightning:icon iconName="{! 'standard:' + if(summary.activityType == 'Campaign', 'campaign', 'omni_supervisor') }" class="slds-m-right_x-small" size="x-small" variant="inverse" /> {!summary.campaignName}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!summary.opens}">{!summary.opens}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!summary.clicks}">{!summary.clicks}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!summary.shared}">{!summary.shared}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">
+                                            <lightning:relativeDateTime value="{!summary.lastActivityDateEpoch}" title="{!summary.lastActivityDate}" />
+                                        </div>
+                                    </td>
+                                    <td style="width: 3.25rem;">
+                                        <lightning:buttonMenu alternativeText="Toggle menu" iconSize="x-small" menuAlignment="right" onselect="{! c.onCampaignMenu }">
+                                            <lightning:menuItem label="View Template" value="{!summary.campaignId}" iconName="utility:email" disabled="{! summary.activityType != 'Campaign' }" />
+                                        </lightning:buttonMenu>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="{! v.isExpanded ? 'slds-hide' : 'slds-card__body' }" aura:id="b12-activity-detail-id">
+                    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_striped " style="table-layout: fixed;">
+                        <col width="40%" />
+                        <col width="100" />
+                        <col width="120" />
+                        <col width="40%" />
+                        <thead>
+                            <tr class="slds-text-title--caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Campaign or Journey Name">Campaign Name</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Activity">Activity</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Activity Date">Activity Date</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Detail">Link Clicked</div>
+                                </th>
+                                <th scope="col" style="width: 3.25rem;">
+                                    <div class="slds-truncate" title=""></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.selectedActivities}" var="row" indexVar="rowIndex">
+                                <tr class="slds-hint-parent">
+                                    <td style="{! 'border-left: 4px solid ' + row.activityColour}">
+                                        <div class="slds-truncate " title="{!row.campaignName}">
+                                            <lightning:icon iconName="{! 'standard:' + if(row.activityType == 'Campaign', 'email', 'omni_supervisor') }" class="slds-m-right_x-small" size="x-small" variant="inverse" /> {!row.campaignName}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!row.activity}">{!row.activity}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">
+                                            <lightning:relativeDateTime value="{!row.activityDateEpoch}" title="{!row.activityDate}" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!row.urlClicked}">
+                                            <lightning:formattedUrl value="{!row.urlClicked}" target="_blank" />
+                                        </div>
+                                    </td>
+                                    <td style="width: 3.25rem;">
+                                        <lightning:buttonMenu alternativeText="Toggle menu" iconSize="x-small" menuAlignment="right" onselect="{! c.onCampaignMenu }">
+                                            <lightning:menuItem label="View Template" value="{!row.id}" iconName="utility:email" disabled="{! row.activityType != 'Campaign' }" />
+                                        </lightning:buttonMenu>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="slds-card__footer b12-footer">{!v.resultsMessage}&nbsp;
+                    <div aura:id="b12-no-activity-id" class="slds-align--absolute-center slds-hide">
+                        <lightning:badge label="No Email History" />
+                    </div>
+                    <div aura:id="b12-email-feature-id" class="slds-align--absolute-center slds-hide">
+                        <div class="b12-feature" aura:id="b12-feature-id">
+                            <div class="slds-p-horizontal_small slds-size_1-of-1">
+                                <div class="b12-feature-body  slds-text-color_weak slds-item_detail slds-p-top_small">Tracking History is a premium feature</div>
+                            </div>
+                            <div class="slds-p-horizontal_small slds-size_1-of-1">
+                                <div class="b12-feature-button">
+                                    <lightning:button variant="brand" label="Upgrade now" onclick="{! c.onUpgrade }" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
+
+        </div>
+        <!-- / ACTIVITY HISTORY -->
+    </div>
+
+    <!-- EMAIL PREVIEW MODAL -->
+    <wbsendit:sldsModal showOKButton="isTrue" okButtonLabel="Close" showCancelButton="false" aura:id="b12-preview-modal" contentModalClass="slds-modal__content b12-model-content">
+        <aura:set attribute="header">
+            <h2 class="slds-text-heading--medium">Email Template</h2>
+        </aura:set>
+        <div aura:id="tempate-spinner-id" role="status" class="slds-spinner slds-spinner--small slds-spinner_brand">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+        <div aura:id="tempate-id" class="slds-form slds-form_compound" style="min-height: 500px">
+            <iframe frameborder="0" style="min-height: 500px" height="100%" width="100%" sandbox="allow-scripts allow-forms allow-same-origin allow-popups" data-aura-rendered-by="131:10;a" src="{!v.campDetail.webVersionURL}"></iframe>
+        </div>
+
+    </wbsendit:sldsModal>
+    <!-- / EMAIL PREVIEW MODAL -->
+
+</aura:component>

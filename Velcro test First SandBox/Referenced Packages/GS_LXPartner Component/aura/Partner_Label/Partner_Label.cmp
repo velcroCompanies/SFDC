@@ -1,0 +1,7 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="GS_LXPartner.Partner_LabelCtrl" >
+    <aura:attribute name="partnerL" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+ 
+    <ui:outputText value="{!v.partnerL}"/>
+	 
+</aura:component>

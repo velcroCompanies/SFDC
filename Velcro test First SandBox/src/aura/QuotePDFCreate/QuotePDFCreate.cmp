@@ -1,0 +1,56 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" controller="AttachmentGenerator_Lightning">
+    
+    <aura:attribute name="QuoteOrgId" type="String" default="en" />
+    <aura:attribute name="QuoteId" type="String" default="" />
+    <aura:attribute name="iframeSource" type="String" default=""/>
+    <aura:attribute name="QuoteTemplate" type="String" default=""/>
+    
+    <aura:attribute name="QuoteRecord" type="Object" />
+    <aura:attribute name="record" type="Object"  description="The record object to be displayed"/>
+    <aura:attribute name="recordError" type="String" description="An error message bound to force:recordData"/>
+   
+    <!--  modal dialog --> 
+    <aura:attribute name="isOpen" type="boolean" default="false"/>
+    <force:recordData aura:id="record"
+                      layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetError="{!v.recordError}"
+                      targetRecord="{!v.record}"
+                      targetFields="{!v.QuoteRecord}"
+                      recordUpdated="{!c.doInit}"
+                      mode="VIEW"/>
+
+  <aura:handler name="init" value="{!this}" action="{!c.SetPDFParams_void}" /> 
+    
+  <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> -->
+
+  <aura:set attribute="iframeSource" value= "{! '/apex/EMEA_'+ v.QuoteTemplate + '_Quote_PDF?id=' + v.recordId + '&amp;lang='+ v.QuoteRecord.Language__c }"/>
+ 
+  <aura:if isTrue="{!v.isOpen}">
+   <div role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-modal--large slds-fade-in-open ">
+        <div class="slds-modal__container">
+         <div class="slds-modal__header">
+          Quote Preview
+         </div>
+        <div class="slds-modal__content slds-p-around--large" >
+   		<iframe aura:id="iframePDF"  src="{!v.iframeSource}"  width="100%" height="600px;" frameBorder="1" />
+   		
+   		</div>
+   		<div class="slds-modal__footer">
+   		<lightning:button variant="success" label="Create PDF and Send" title="Create PDF and Send " onclick="{! c.SetPDFParamsEmail }"/>
+   		<lightning:button variant="brand" label="Create PDF" title="Create PDF" onclick="{! c.SetPDFParams }"/>
+   		<lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{! c.modalClose }"/>
+   		</div>
+   	 </div>
+   </div>
+  </aura:if>
+    
+   <lightning:button variant="destructive" label="Create PDF Quote" onclick="{! c.modalOpen }"/> 
+   
+    <!-- Display Lightning Data Service errors, if any -->
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+        <div class="recordError">
+               {!v.recordError}</div>
+    </aura:if>
+   
+</aura:component>

@@ -1,0 +1,8 @@
+<apex:page >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Velcro PDR Frequelntly ASked Questions</h1>
+  <p> All PDRS (SPD, AEDs and NPIs should be entered into Salesforce.com using the Opportunity Object. </p>
+  <p> This replaces the Excel spreadsheet located on the intranet. </p>
+  <p> This will be updated with more content soon. </p>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

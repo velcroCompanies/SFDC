@@ -1,0 +1,7 @@
+The Pricing Team has recently Provided a Quote for the following:
+
+Link: {!Opportunity.Link}
+KAM: {!Opportunity.OwnerFullName}
+Quote Provided Date: {!Opportunity.Quote_Provided__c}
+Close Date: {!Opportunity.CloseDate}
+SOP: {!Opportunity.Start_of_Production__c}

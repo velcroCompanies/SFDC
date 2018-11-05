@@ -1,0 +1,101 @@
+<aura:component implements="force:appHostable" controller="wbsendit.ImportWizardController">
+
+	<!-- PUBLIC ATTRIBUTES -->
+	<aura:attribute access="public" name="importResult" type="String" />
+	<aura:attribute access="public" name="importRecord" type="String" />
+	<aura:attribute access="public" name="importTitle" type="String" default="Import Results" />
+
+	<!-- PRIVATE ATTRIBUTES -->
+	<aura:attribute access="private" name="resultsMessage" type="String" default="No messages"  />
+
+	<!-- HANDLERS -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+	<div aura:id="results-id" onkeyup="{!c.onKeyup}">
+		<div role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal--large" aria-labelledby="header43">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" variant="inverse" onclick="{!c.doCancel}" alternativeText="Close window."  class="slds-button__icon slds-button__icon--large slds-modal__close " />
+					<h2 aura:id="headerId" id="header43" class="slds-text-heading--medium">{!v.importTitle}</h2>
+					<p>
+					<div class="slds-grid slds-grid_align-center">
+						<div style="margin-top: 10px;" class="slds-text-body_small">
+							<ul class="slds-list_horizontal slds-has-dividers_left">
+								<li class="slds-item">Total Submitted {!v.importRecord.totalSubmitted}</li>
+								<li class="slds-item">New Subscribers {!v.importRecord.totalNewSubscribers}</li>
+								<li class="slds-item">Duplicate Emails In Submission {!v.importRecord.totalDuplicateEmailsInSubmission}</li>
+							</ul>
+						</div>
+					</div>
+					</p>
+				</div>
+
+				<!-- FAILURES -->
+				<article aura:id="failure-list-id" class="slds-card b12-page-header">
+					<div class="slds-card__header slds-grid">
+						<header class="slds-media slds-media--center slds-has-flexi-truncate">
+							<div class="slds-media__figure">
+								<lightning:icon iconName="standard:related_list" class="slds-icon" variant="inverse"/>
+							</div>
+							<div class="slds-media__body">
+								<h2>
+									<a href="javascript:void(0);" class="slds-card__header-link slds-truncate">
+									<span class="slds-text-heading--small">Import Failures</span>
+									</a>
+								</h2>
+							</div>
+						</header>
+						<div class="slds-no-flex">
+						</div>
+					</div>
+					<div class="slds-scrollable" style="min-height: 100px; max-height: 400px; background: #f9f9f9;">
+						<div class="slds-card__body">
+							<table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+								<thead>
+									<tr class="slds-text-title--caps">
+										<th scope="col">
+											<div class="slds-truncate" title="Code">Code</div>
+										</th>
+										<th scope="col">
+											<div class="slds-truncate" title="Email">Email</div>
+										</th>
+										<th scope="col">
+											<div class="slds-truncate" title="Message">Message</div>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<aura:iteration items="{!v.importRecord.failureDetailLists}" var="row" indexVar="rowIndex">
+										<tr class="slds-hint-parent">
+											<th scope="row">
+												<div class="slds-truncate" title="{!row.Code}">{!row.Code}</div>
+											</th>
+											<td>
+												<div class="slds-truncate" title="{!row.emailAddress}">{!row.emailAddress}</div>
+											</td>
+											<td>
+												<div class="slds-truncate" title="{!row.Message}">{!row.Message}</div>
+											</td>
+										</tr>
+									</aura:iteration>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="slds-card__footer">
+						<div class="slds-grid slds-grid_align-center">
+							<lightning:badge label="{!v.resultsMessage}"/>
+						</div>
+					</div>
+				</article>
+				<!-- / FAILURES -->
+
+				<div class="slds-modal__footer slds-grid slds-grid--align-spread">
+					<button aura:id="cancel-id" class="slds-button slds-button--neutral slds-order--1" onclick="{!c.doCancel}" >Cancel</button>
+				</div>
+			</div>
+		</div>
+		<div  aura:id="sldsWizardBackdrop"   class="slds-backdrop slds-backdrop--open"></div>
+	</div>
+
+</aura:component>

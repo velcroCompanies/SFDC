@@ -1,0 +1,25 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+	<aura:attribute name="Label" type="String" default="Click Me" access="global" />
+    <aura:attribute name="Type" type="String" default="Button" access="global" />
+    <aura:attribute name="Style" type="String" default="neutral" access="global" />
+    <aura:attribute name="Target" type="String" default="navigateToUrl" access="global" />
+   
+    <aura:attribute name="Url" type="String" default="" access="global" />
+    <aura:attribute name="ObjectName" type="String" default="" access="global"/>
+    <aura:attribute name="ViewName" type="String" default="" access="global"/>
+    <aura:attribute name="ComponentName" type="String" default="" access="global"/>
+    
+	<div class="container">
+        <aura:renderIf isTrue="{!v.Type == 'Button'}">
+    		<lightning:button class="quickbutton" 
+            	label="{!v.Label}" 
+                variant="{!v.Style}" 
+                onclick="{!c.navigate}" />
+        </aura:renderIf>
+        <aura:renderIf isTrue="{!v.Type == 'Link'}">
+            <ui:outputURL label="{!v.Label}"
+                click="{!c.navigate}"/>
+        </aura:renderIf>
+
+    </div> 
+</aura:component>

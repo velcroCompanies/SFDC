@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Notification Event" >
+	<aura:attribute name="msg" type="String" />
+	<aura:attribute name="msgType" type="String" />
+	<aura:attribute name="msgSeverity" type="String"/>
+</aura:event>

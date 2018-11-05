@@ -1,0 +1,17 @@
+{!Approval_Requesting_User.Username}  has rejected this Canada Samples request. Please see details below:
+
+Link to  
+{!Sample_Request__c.Link}
+
+Sample request Id : {!Sample_Request__c.Id} / {!Sample_Request__c.Name}
+
+Project Name: {!Opportunity.Name}
+Account: {!Opportunity.Account}
+Estimated Close Date: {!Opportunity.CloseDate}
+
+
+Requirements
+Prototypes/Samples: {!Opportunity.Prototypes_Samples__c}
+Quote: {!Opportunity.Quote__c}
+Packaging: {!Opportunity.Packaging__c}
+Application: {!Opportunity.Application__c}

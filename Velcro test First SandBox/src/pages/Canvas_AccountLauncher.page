@@ -1,0 +1,52 @@
+<apex:page standardController="Account" extensions="Canvas_AccountLauncher_Controller">
+
+	<head>
+		
+		<apex:includeScript value="{!URLFOR($Resource.jQuery, '/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js')}"  />
+		
+		<script>
+			
+			var offset;
+			
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+			{
+				//mobile
+ 				offset=0;
+			}			
+			else
+			{
+				//desktop
+				offset=200;
+			}
+			
+			var j$ = jQuery.noConflict();
+	        j$(document).ready(function() {
+				
+				//give the window time to configure the iframe
+				setTimeout(function(){j$('iframe[id$=canvas360]').css('height', j$(window).height()-offset);},1000);
+				
+				j$(window).resize(function() {
+					j$('iframe[id$=canvas360]').css('height', j$(window).height()-offset);
+				});
+				
+			}); 
+			
+			
+    	</script>
+		
+	</head>
+
+
+    <apex:canvasApp applicationName="Canvas360"
+    				canvasId="canvas360"
+                    height="900" 
+                    width="100%"
+                    maxHeight="infinite"
+                    maxWidth="infinite"
+                    scrolling="auto"
+                    parameters="{!jsonOutput}"/>
+
+
+
+     
+</apex:page>

@@ -1,0 +1,11 @@
+The following project has been rejected.
+Rejection Comments: {!ApprovalRequest.Comments}
+
+PDR#: {!Opportunity.PDR__c} 
+Project Name: {!Opportunity.Name} 
+Account: {!Opportunity.Account} 
+Total Annual Dollars: {!Opportunity.Total_Annual_Dollars__c} 
+Objective: {!Opportunity.Objective_Goal__c} 
+Application: {!Opportunity.Application__c} 
+
+Link to Opportunity : {!Opportunity.Link}

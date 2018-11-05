@@ -1,0 +1,36 @@
+{!Approval_Requesting_User.Name} has approved a Canada Samples request. Please see details below:
+
+Link to  :  {!Sample_Request__c.Link}
+---------------------------------------------------------------
+Sample request Id : {!Sample_Request__c.Name}
+Account name: {!Account.Name}
+---------------------------------------------------------------
+DELIVERY INFORMATION
+
+Delivery method: {!Sample_Request__c.Delivery_method__c}
+Customer Shipping Address: 
+{!Sample_Request__c.Customer_Shipping_Address__c}
+
+Send to VELCRO Affiliate Office?:
+{!Sample_Request__c.Send_to_Affiliate__c}
+{!Sample_Request__c.VELCRO_shipping_address__c}
+
+Delivery comments:
+{!Sample_Request__c.Delivery_additional_comments__c}
+
+Delivery deadline: {!Sample_Request__c.Delivery_Deadline__c} 
+--------------------------------------
+Contact data:
+{!Sample_Request__c.Customer_Contact__c}
+{!Sample_Request__c.Customer_Email__c}
+{!Sample_Request__c.Customer_Phone__c}
+
+Purpose:
+{!Sample_Request__c.NOtes_Special_Requirements__c}
+---------------------------------------
+Project Name: {!Opportunity.Name}
+Requirements
+Prototypes/Samples: {!Opportunity.Prototypes_Samples__c}
+Quote: {!Opportunity.Quote__c}
+Packaging: {!Opportunity.Packaging__c}
+Application: {!Opportunity.Application__c}

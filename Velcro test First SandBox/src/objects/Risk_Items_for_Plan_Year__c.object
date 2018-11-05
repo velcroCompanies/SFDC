@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Business_Plan__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Plan</label>
+        <referenceTo>SFDC_Acct_Plan__c</referenceTo>
+        <relationshipLabel>Risk Items for Plan Year</relationshipLabel>
+        <relationshipName>Risk_Items_for_Plan_Year</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Plan_Year_Risk__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What Programs, Initiatives are at risk for the coming year</inlineHelpText>
+        <label>Plan Year Risk</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Risk_Amount_Normalized__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( text(CurrencyIsoCode) , &quot;USD&quot;,  Risk_Amount__c  , &quot;CAD&quot;, Risk_Amount__c / value(&quot;.943400&quot;),&quot;BRL&quot;, Risk_Amount__c / value(&quot;0.434800&quot;),&quot;MXN&quot;, Risk_Amount__c / value(&quot;0.078700&quot;),0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Risk Amount Normalized</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Amount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Negative $ amount to show @ risk business for this Initiative</inlineHelpText>
+        <label>Risk Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Risk_Initiative_Comments__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Why is this a risk?</inlineHelpText>
+        <label>Risk Initiative - Comments</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Ship_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Q1</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q1-Q2</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q1-Q3</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q2</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q2-Q3</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q2-Q4</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q3</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q3-Q4</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Q4</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Ongoing through year</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Risk Item for Plan Year</label>
+    <nameField>
+        <displayFormat>{0000000000}</displayFormat>
+        <label>Risk Item for Plan Year Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Risk Items for Plan Year</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,25 @@
+<aura:component controller="trailheadapp.BadgesComponentController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <ltng:require styles="{!$Resource.trailheadapp__TrailheadStyles}" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="assignedBadges" type="Integer" default="0" />
+    <aura:attribute name="inprogressBadges" type="Integer" default="0" />
+    <aura:attribute name="completedBadges" type="Integer" default="0" />
+    
+    <lightning:card title="Trailhead Badges Summary">
+        <div class="slds-p-left--medium slds-p-right--medium">
+            <div class="slds-grid">
+                <div class="slds-col slds-align_absolute-center badgeLabels">Completed</div>
+				<div class="slds-col slds-align_absolute-center badgeLabels">In Progress</div>                
+                <div class="slds-col slds-align_absolute-center badgeLabels">Assigned</div>
+                
+            </div>  
+            <div class="slds-grid">
+                <div class="slds-col slds-align_absolute-center achievementScores">{!v.completedBadges}</div>
+                <div class="slds-col slds-align_absolute-center achievementScores">{!v.inprogressBadges}</div>
+                <div class="slds-col slds-align_absolute-center achievementScores">{!v.assignedBadges}</div>
+            </div>   
+        </div>
+    </lightning:card>
+    
+</aura:component>

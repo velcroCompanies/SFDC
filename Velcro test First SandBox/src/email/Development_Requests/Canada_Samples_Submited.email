@@ -1,0 +1,19 @@
+{!Account.OwnerFullName} has submitted a Canada Samples request for review and approval.  Please see details below:
+
+Link to  
+{!Sample_Request__c.Link}
+----------------------------
+Sample request Id : {!Sample_Request__c.Name}
+
+Account name: {!Account.Name}
+
+Delivery method: {!Sample_Request__c.Delivery_method__c} 
+
+Customer Shipping Address: {!Sample_Request__c.Customer_Shipping_Address__c}
+
+Send to Affiliate Office?: 
+{!Sample_Request__c.Send_to_Affiliate__c} 
+{!Sample_Request__c.VELCRO_shipping_address__c}
+
+Delivery deadline: {!Sample_Request__c.Delivery_Deadline__c}
+Project Name: {!Opportunity.Name}

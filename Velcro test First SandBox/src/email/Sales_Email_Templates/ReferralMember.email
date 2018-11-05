@@ -1,0 +1,17 @@
+Dear {!CampaignMember.FirstName} -
+
+We have referred you to the following Authorized Velcro Distributor:
+
+{!CampaignMember.Distributor__c}
+
+Their location or specific capabilities will allow them to service your needs more directly.
+
+You should be contacted shortly by them, but feel free to contact them in meantime ; 
+
+Distributor Contact : {!CampaignMember.Referall_Contact__c}
+Phone: {!CampaignMember.Distributor_Contact_Phone__c}
+Distributor Email: {!CampaignMember.Distributor_Contact_Email__c}
+
+Thank You,
+
+Velcro Companies

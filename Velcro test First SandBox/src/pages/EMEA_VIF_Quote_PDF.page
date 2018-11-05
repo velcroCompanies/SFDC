@@ -1,0 +1,404 @@
+<apex:page standardController="Quote"  extensions="ExtDocsQuote" applyBodyTag="false" renderAS="pdf" language="{!$CurrentPage.parameters.lang}">
+<head>
+<apex:stylesheet value="{!$Resource.QuoteCSS}" />
+
+<style type="text/css" media="print">
+                       div.header {
+                                padding: 10px;
+                                position: running(header);
+                                margin-top: 20px;
+                                width: 715px;
+                                height: auto;
+                           }
+                       div.footer {
+                                display: block;
+                                padding: 10px;
+                                position: running(footer);
+                                height: 2em;
+                               
+                                }
+                       .pagenumber:before {  content: counter(page);    }
+                        .pagecount:before {  content: counter(pages);   }
+                      
+                       div.content {     padding-top: 250px;          }
+                       
+                       table  {page-break-inside: avoid; }
+                       tr {page-break-inside: avoid; page-break-after:auto; }
+                                
+                       @page:first {
+                               @top-center {
+                                       content: element(header);
+                               }
+                             }
+                       @page {        
+                               margin-bottom: 2cm;
+                               @bottom-left {
+                                     content: element(footer);
+                                       }
+                                       
+                            }   
+                                    
+                    </style>
+</head>
+<body>
+
+<div class="header">
+ <table width="711">
+    <tr> 
+      <td width="3pt"></td>
+      <td>
+        <apex:image url="{!$Resource.VelcroLogo}"/>
+        </td>
+      <td width="3pt"></td>  
+     <td> 
+<p style="margin: 0px 0px 0px 100px; line-height: normal; text-indent: 35.4pt;"><strong><span style="margin: 0px; color: #58595b; font-family: 'Arial',sans-serif; font-size: 20pt;">
+{!$Label.QUOTE}   </span></strong></p>
+<p style="margin: 0px 0px 0px 100px; line-height: normal; text-indent: 35.4pt;"><strong><span style="margin: 0px; color: #595959; line-height: 120%; font-family: 'Arial',sans-serif; font-size: 10pt;">
+<apex:outputText value="SF-{!Quote.QuoteNumber}"/>  
+&nbsp; V<apex:outputText value="{!QuoteVersion}"/>
+</span></strong></p>
+    </td>
+</tr>
+<!--  second row header -->
+<tr>
+   <td width="3pt"></td>
+    <td>
+          <apex:outputText value="<p> {!$Label.VIF_Quote_Header} </p>" escape="false"/>
+    </td>
+    <td width="3pt"></td>
+    <td>
+ <p style="margin: 0px 0px 0px 100px; line-height: normal; text-indent: 35.4pt;"><span style="margin: 0px; color: #595959; line-height: 120%; font-family: 'Arial',sans-serif; font-size: 10pt;">
+{!$Label.Date} : 
+<apex:outputText value="{0, date,dd/MM/yyyy}">
+ <apex:param value="{!NOW()}" />
+</apex:outputText><br/>
+</span></p>
+
+<p style="margin: 0px 0px 0px 100px; line-height: normal; text-indent: 35.4pt;"><span style="margin: 0px; color: #595959; line-height: 120%; font-family: 'Arial',sans-serif; font-size: 10pt;">
+{!$Label.Page} : <span class="pagenumber"/> of <span class="pagecount"/>
+ </span></p>
+
+  </td>
+</tr>
+</table>
+<table style="margin-top:20px" width="711">
+<!--  header second row --> 
+<tr> 
+<td style="width:3pt;background:#CC0033;padding:0.2cm ocm 0cm 0cm; height: 25pt;" ></td>
+    <td width="450"> 
+<p class="c52" style="margin: 0px 0px 0px 0px; line-height: normal;"><strong>
+<span style="text-align:top; vertical-align:top; margin: 0px; color: #58595b; font-family: 'Arial',sans-serif; font-size: 8pt;">
+{!$Label.To}: {!Quote.Contact.Name} <br/>
+{!$Label.Company}: {!Quote.Account_Name__c}<br/>
+<apex:outputField value="{!Quote.Account.BillingStreet}"/> <br/>
+<apex:outputField value="{!Quote.Account.BillingPostalCode}"/>&nbsp;<apex:outputField value="{!Quote.Account.BillingCity}"/> &nbsp;
+<apex:outputField value="{!Quote.Account.BillingState}"/>&nbsp;<apex:outputField value="{!Quote.Account.BillingCountry}"/><br/>
+</span></strong></p>
+ 
+     </td>
+<td style="width:3pt;background:#CC0033;padding:0.2cm ocm 0cm 0cm; height: 25pt;" ></td>
+<td> 
+<p class="c52" style="margin: 0px 0px 0px 0px; line-height: normal;"><strong>
+<span style="text-align:top; vertical-align:top; margin: 0px; color: #58595b; font-family: 'Arial',sans-serif; font-size: 8pt;">
+{!$Label.From}: {!Quote.Account.Owner.Name}    <br/>
+{!$Label.Company}: VELCRO EUROPE S.A.<br/>
+e-mail: {!Quote.Account.Owner.Email}  <br/>
+Telf: {!Quote.Account.Owner.Phone} <br/>
+</span></strong></p>
+   </td>
+     
+     
+     
+</tr>
+    
+ </table>
+ 
+  
+</div>   
+<!-- end header  -->
+
+<!-- start footer -->
+
+ <div class="footer">
+  <apex:outputText value="<p> {!$Label.VIF_Quote_Footer} </p>" escape="false"/>   
+  <span class='c84' style="color: #58595b; font-family: 'Arial',sans-serif; font-size: 4pt;">VIF . v1 </span>   
+ </div>
+<!--  end footer -->
+
+
+<!--  start content page -->
+
+<div class="content">
+      
+<table  border="0" width="711" class='c30'>
+<tr><td>
+<p class='none c34'><span class='c33'> 
+ <br/>
+ <!-- text intro  -->
+ <br/> 
+<!--  text intro extended -->
+
+</span></p>
+</td></tr>
+</table>
+
+  
+  <table border="0" width="711" class='c30'>
+    <!-- product list header -->
+    <tr class='c15'>
+      <td width="59" class='c9'>
+        <p class='none c8'><span class='c7'>{!$Label.POSITION}</span></p>
+      </td>
+
+      <td width="132" class='c10'>
+        <p class='none c8'><span class='c7'>{!$Label.PRODUCT_CODE}</span></p>
+      </td>
+
+      <td width="227" class='c11'>
+        <p class='none c8'><span class='c7'>{!$Label.DESCRIPTION}</span></p>
+      </td>
+       <td width="90" class='c12'>
+           <p class='none c8'><span class='c7'>{!$Label.LEAD_TIME}</span></p>
+       </td>
+      <td width="90" class='c12'>
+           <p class='none c8'><span class='c7'>{!$Label.PRESENTATION}</span></p>
+      </td>
+      
+      <td width="86" class='c13'>
+        <p class='none c8'><span class='c7'>{!$Label.UNIT_OF_MEASURE}</span></p>
+      </td>
+
+      <td width="64" class='c12'>
+        <p class='none c8'><span class='c7'>{!$Label.UNIT_PRICE}</span></p>
+      </td>
+      
+      <td width="103" class='c14'>
+        <p class='none c8'><span class='c7'>{!$Label.MINIMUM_ORDER_QTY} </span></p>
+      </td>
+    </tr>
+    <apex:variable var="s_no" value="{!1}"/>
+    <apex:repeat value="{!SortedQuoteLines}" var="cx">
+              <tr class='c28'>     
+                 <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                     {!s_no}
+                     </span></p>
+                 </td>
+                 <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                    <apex:outputField value="{!cx.Product_Code__c}"/>
+                     </span></p>
+                 </td>
+                 <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                    <apex:outputField value="{!cx.Description__c}"/>
+                     </span></p>
+                 </td>
+                  <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                   <apex:outputField value="{!cx.Lead_Time__c}"/>
+                     </span></p>
+                 </td>
+                  <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                   <apex:outputField value="{!cx.Presented__c}"/>
+                     </span></p>
+                 </td>
+                 
+                 <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                     <apex:outputField value="{!cx.Units_of_measure__c}"/>
+                     </span></p>
+                 </td>
+                 <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                   <apex:outputField value="{!cx.Price__c}"/>
+                     </span></p>
+                 </td>
+                                  
+                 <td class='c18'>
+                     <p class='none c17'><span class='c22'>  
+                    <apex:outputText value="{!ROUND(cx.Minimun_Order_Quantity__c,0)}"/>
+                     </span></p>
+                 </td>
+               </tr>                   
+             
+          <apex:variable var="s_no" value="{!s_no+1}"/>
+     </apex:repeat>
+    
+    
+
+    <tr class='c29'>
+      <td colspan="8" width="59" class='c18'>
+        <p class='none c17'><span class='c16'>&nbsp;</span></p>
+      </td>
+    </tr>
+  </table>
+
+   <!--  <table border="1" cellspacing="0" cellpadding="0" width="711" class='c48'> -->
+   <table border="0" width="711" class='c30'>
+   
+    <tr class='c15'>
+      <td width="100%" colspan="3" class='c32'>
+        <p class='none c8'><span class='c7'>{!$Label.NOTES}</span></p>
+      </td>
+    </tr>
+
+   <apex:pageBlock rendered="{! IF(Quote.Quote_Packaging__c=='',false,true)}" >
+   <tr class='c39'>
+      <td width="20" class="none">
+      </td>
+      <td width="125"  style="border-bottom:solid #58595B 1.0pt; border-right:solid #58595B 1.0pt" >
+        <p class='none' style="margin:20px; line-height: 70%;" ><span class='c33'>Packaging</span></p>
+      </td>
+      <td width="585" style="border-bottom:solid #58595B 1.0pt;">
+        <p class='none' style="margin:0px; line-height: 70%;"><span class="c36">
+         <apex:outputText style="white-space:pre-line;text-align:left;" value="{!Quote.Quote_Packaging__c}" escape="false"/> </span>
+         </p>
+      </td>
+    </tr>
+    </apex:pageBlock>
+   
+   <apex:pageBlock rendered="{! IF(Quote.Quote_Annual_Volume__c=='',false,true)}" > 
+   <tr class='c39'>
+      <td width="20" class="none">
+      </td>
+      <td width="125" style="border-bottom:solid #58595B 1.0pt; border-right:solid #58595B 1.0pt" >
+        <p class='none' style="margin:20px; line-height: 70%;" ><span class='c33'>{!$Label.Annual_Volume}</span></p>
+      </td>
+      <td width="585" style="border-bottom:solid #58595B 1.0pt;">
+        <p class='none' style="margin:0px; line-height: 70%;"><span class="c36">
+            <apex:outputText style="white-space:pre-line;text-align:left;" value=" {!Quote.Quote_Annual_Volume__c}" escape="false" />
+        </span></p>
+      </td>
+    </tr>
+   </apex:pageBlock>
+   
+   <apex:pageBlock rendered="{! IF(Quote.Additional_Notes__c=='',false,true)}" > 
+   
+  <tr class='c39'>
+      <td width="20" class="none">
+      </td>
+      <td width="125" style="border-bottom:solid #58595B 1.0pt; border-right:solid #58595B 1.0pt" >
+        <p class='none' style="margin:20px; line-height: 70%;" ><span class='c33'>{!$Label.Other}</span></p>
+      </td>
+      <td width="585" style="border-bottom:solid #58595B 1.0pt;">
+        <p class='none' style="margin:0px; line-height: 70%;"><span class="c36">
+                <apex:outputText style="white-space:pre-line;text-align:left;" value="{!Quote.Additional_Notes__c}" escape="false" />
+        </span></p>
+      </td>
+    </tr>
+    </apex:pageBlock>
+   
+  </table>
+
+ <p class='none c50' style="margin:0px; line-height: 70%;"><span class='c49'>&nbsp;</span></p>
+
+ <table border="0" cellspacing="0" cellpadding="0" width="702" class='c30'>
+    <tr class='c59'>
+      <td width="163" colspan="2" class='c53'>
+        <p class='none c52'><span class='c51'>{!$Label.DELIVERY_TERMS}</span></p>
+      </td>
+
+      <td width="321" colspan="2" class='c56'>
+        <p class='none c55'><span class='c54'>{!$Label.OFFER_VALIDITY}</span></p>
+      </td>
+
+      <td width="217" colspan="2" class='c58'>
+        <p class='none c55'><span class='c51'>{!$Label.PAYMENT_TERMS}</span></p>
+      </td>
+    </tr>
+
+    <tr class='c28'>
+      <td width="163" colspan="2" class='c61'>
+        <p class='none c52'><span class='c60'>
+         <apex:outputField value="{!Quote.Fright_terms__c}" />
+         <apex:outputField value="{!Quote.incoTerms__c}" /> &nbsp; <apex:outputField value="{!Quote.InCoTerm_Locations__c}" />
+         </span></p>
+      </td>
+
+      <td width="321" colspan="2" class='c63'>
+        <p class='none c52'><span class="c60"> 
+         <apex:outputText value="{0, date,dd/MM/yyyy}">
+                <apex:param value="{!Quote.Quote_Expiration_Date__c}" />
+         </apex:outputText>
+         </span></p>
+      </td>
+
+      <td width="217" colspan="2" class='c65'>
+        <p class='none c52'><span class="c60">  <apex:outputField value="{!Quote.Payment_Method__c}"/>  &nbsp;  <apex:outputField value="{!Quote.Payment_terms__c}"/> </span></p>
+      </td>
+    </tr>
+
+    <tr class='c73'>
+      <td width="87" class='c66'>
+        <p class='none c52'><span class='c51'>{!$Label.CLIENT_NUMBER}</span></p>
+      </td>
+
+      <td width="76" class='c67'>
+        <p class='none c52'><span class='c51'>TAX ID </span></p>
+      </td>
+
+      <td width="103" class='c70'>
+        <p class='none c69'><span class='c68'>{!$Label.SALES_PERSON}</span></p>
+      </td>
+
+      <td width="219" colspan="2" class='c71'>
+        <p class='none c69'><span class='c68'>{!$Label.SERVICE_CONTACT}</span></p>
+      </td>
+
+      <td width="217" class='c58'>
+        <p class='none c72'><span class='c68'>E-MAIL</span></p>
+      </td>
+    </tr>
+
+    <tr class='c81'>
+      <td width="87" class='c75'>
+        <p class='none c57'><span lang="ES" class='c74' xml:lang=
+        "ES">{!Quote.Account.AccountNumber}</span></p>
+      </td>
+
+      <td width="76" class='c76'>
+        <p class='none c57'><span lang="ES" class='c74' xml:lang=
+        "ES"> </span></p>
+      </td>
+
+      <td width="103" class='c77'>
+        <p class='none c57'><span lang="ES" class='c74' xml:lang=
+        "ES">{!Quote.Opportunity_Owner__c}</span></p>
+      </td>
+
+      <td width="219" colspan="2" class='c79'>
+        <p class='none c23'><span class="c78" lang="ES" xml:lang=
+        "ES">{!Quote.CreatedBy.Name}</span></p>
+      </td>
+
+      <td width="217" class='c80'>
+        <p class='none c23'><span class="c78" lang="ES" xml:lang=
+        "ES">{!Quote.Opportunity_Owner_Email__c}</span></p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <table border="0" class="c90" width="711">
+     <tr style="height:0.5cm; border-width:0px 1.33px 0px 0px; border-style: solid none none; border-color: #cc0033; margin: 0px; padding: 0cm 0.0pt;background-color: transparent;">
+      <td width="100%" style="height:0.5cm;">
+      <hr/>       
+        <p class='c83'>
+        <span class='c82' style= "line-height:40%;padding:0pt 0pt 0pt 0pt;margin:0pt 0pt 0pt 0pt;">
+                <b>{!$Label.Minimun_Order_Amount_500}</b>
+        </span>
+        </p>
+        <p style="margin: 0px; line-height: 100%;"><span class='c84'>{!$Label.Adhesives_warn}</span></p> 
+        <p style="margin: 0px; line-height: 100%;"><span class='c84'>{!$Label.Counter_typed_color_warn} </span></p>
+     </td>
+      </tr>
+  </table>
+
+</div>
+<!--  end contents -->
+
+</body>
+
+</apex:page>

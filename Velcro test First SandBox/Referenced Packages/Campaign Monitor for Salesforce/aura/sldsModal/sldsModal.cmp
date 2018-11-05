@@ -1,0 +1,63 @@
+<aura:component>
+
+    <aura:attribute access="public" name="header" type="Aura.Component[]" description="Components and text to put in the header." />
+    <aura:attribute access="public" name="tagline" type="Aura.Component[]" description="Text to put in the tagline." />
+    <aura:attribute access="public" name="footer" type="Aura.Component[]" description="Components and text to put in the footer." />
+    <aura:attribute access="public" name="cancelAction" type="Aura.Action" default="{!c.closeModal}" description="Action to run when the cancel button is clicked." />
+    <aura:attribute access="public" name="closeAction" type="Aura.Action" default="{!c.closeModal}" description="Action to run when the close button is clicked." />
+    <aura:attribute access="public" name="okAction" type="Aura.Action" default="{!c.closeModal}" description="Action to run when the ok button is clicked." />
+    <aura:attribute access="public" name="cancelButtonLabel" type="String" default="{!$Label.wbsendit.Modal_Cancel_Label}" description="Label to display on the cancel button." />
+    <aura:attribute access="public" name="okButtonLabel" type="String" default="{!$Label.wbsendit.Modal_OK_Label}" description="Label to display on the OK button." />
+    <aura:attribute access="public" name="showCancelButton" type="Boolean" default="true" description="Toggle the cancel button." />
+    <aura:attribute access="public" name="showOkButton" type="Boolean" default="true" description="Toggle the OK button." />
+    <aura:attribute access="public" name="okDisabled" type="Boolean" default="false" description="Disable the OK button." />
+    <aura:attribute access="public" name="contentModalClass" type="String" default="slds-modal__content slds-p-around--medium" />
+
+    <aura:attribute access="public" name="okButtonVariant" type="String" default="brand" />
+
+    <aura:attribute access="private" name="isVisible" type="Boolean" default="false" />
+
+    <aura:method access="public" name="close" action="{!c.closeModal}" />
+    <aura:method access="public" name="open" action="{!c.openModal}" />
+
+    <div>
+        <div aura:id="sldsModal" aria-hidden="false" role="dialog" class="slds-modal">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <h2 class="slds-text-heading--medium">{!v.header}</h2>
+
+                    <aura:if isTrue="{!not(empty(v.tagline))}">
+                        <p class="slds-m-top--x-small">{!v.tagline}</p>
+                    </aura:if>
+
+                    <aura:if isTrue="{!v.showCancelButton}">
+                        <lightning:buttonIcon class="slds-modal__close" iconName="utility:close" size="large" variant="bare-inverse" alternativeText="Close" onclick="{!c.closeModal}" />
+                    </aura:if>
+                </div>
+                <div class="{!v.contentModalClass}">
+                    {!v.body}
+                </div>
+                <div class="slds-modal__footer">
+                    <aura:if isTrue="{!not(empty(v.footer))}">
+                        <div class="slds-text-align--center">
+                            {!v.footer}
+                        </div>
+                        <aura:set attribute="else">
+
+                            <div class="slds-x-small-buttons--horizontal">
+                                <aura:if isTrue="{!v.showCancelButton}">
+                                    <lightning:button variant="neutral" label="{!v.cancelButtonLabel}" onclick="{!v.cancelAction}" />
+                                </aura:if>
+                                <aura:if isTrue="{!v.showOkButton}">
+                                    <lightning:button label="{!v.okButtonLabel}" onclick="{!v.okAction}" variant="{!v.okButtonVariant}" disabled="{!v.okDisabled}" />
+                                </aura:if>
+                            </div>
+
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+        <div aura:id="sldsModalBackdrop" class="slds-modal-backdrop"></div>
+    </div>
+</aura:component>

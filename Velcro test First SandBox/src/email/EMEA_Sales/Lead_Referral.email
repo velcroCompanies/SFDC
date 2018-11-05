@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<div>Hi,</div><div>This lead has been referred to you by: {!Lead.OwnerFullName}</div><div><br></div><div><br></div><div>Name:{!Lead.Name}</div><div>Mail:{!Lead.Email}</div><div>Company: {!Lead.Company}</div><div>Phone: {!Lead.Phone}&nbsp; -&nbsp;&nbsp;{!Lead.MobilePhone}</div><div>Address: <font size="2">{!Lead.Address}</font></div><div><br></div><div>Website: {!Lead.Website}</div><div><br></div><div>Date received: {!Lead.CreatedDate}</div><div>Source: {!Lead.LeadSource}</div><div>Description: {!Lead.Description}</div><div><br></div><div><br></div><div>Please reply to: {!User.Email}</div><div><br></div><div><br></div><div>Thanks,</div><div><br></div><div><br></div><div><br></div><div><font color="#c0c0c0"></font><br></div><div><font color="#c0c0c0" size="1">{!EmailMessage.Id}</font><b></b><i></i><u></u><sub></sub><sup></sup><strike></strike><br></div>]]></td>
+</tr>
+</table>

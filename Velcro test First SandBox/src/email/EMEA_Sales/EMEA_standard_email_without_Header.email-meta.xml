@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>General purpose email template</description>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>Empty_Letterehead</letterhead>
+    <name>EMEA standard email without Header</name>
+    <style>formalLetter</style>
+    <subject>{!Case.Subject} {!EmailMessage.Subject}</subject>
+    <textOnly>-------------------------------------
+
+{!Case.Description}
+
+{!Case.ContactFormComments__c}
+
+{!EmailMessage.TextBody}
+
+Message sent by Velcro
+VELCRO-X-MAILER</textOnly>
+    <type>html</type>
+</EmailTemplate>

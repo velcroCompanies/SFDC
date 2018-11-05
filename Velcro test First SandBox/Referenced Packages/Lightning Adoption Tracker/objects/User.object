@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Can_Use_Lightning__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This field contains a copy of the value of the user permission PermissionslightningExperienceUser.  If TRUE, this user sees a link in the profile menu to switch to Lightning or back to Classic.  If FALSE, this user cannot navigate to Lightning.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field contains a copy of the value of the user permission PermissionslightningExperienceUser.  If TRUE, this user sees a link in the profile menu to switch to Lightning or back to Classic.  If FALSE, this user cannot navigate to Lightning.</inlineHelpText>
+        <label>Can Use Lightning</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Using_Lightning__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If true, this user&apos;s next login or clicks will load Lightning.  If false, the user&apos;s next login or clicks will load Classic.  This is updated using scheduled code, so the values may lag if users have switched to Classic or Lightning from their profile menu recently.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If true, this user&apos;s next login or clicks will load Lightning.  If false, the user&apos;s next login or clicks will load Classic.  This is updated using scheduled code, so the values may lag if users have switched to Classic or Lightning from their profile men</inlineHelpText>
+        <label>Using Lightning?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+</CustomObject>

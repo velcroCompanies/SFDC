@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Alerts Transportation team about Canada Samples Rejected</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Canada Samples Rejected</name>
+    <style>none</style>
+    <subject>Canda samples  Has been rejected</subject>
+    <type>text</type>
+</EmailTemplate>

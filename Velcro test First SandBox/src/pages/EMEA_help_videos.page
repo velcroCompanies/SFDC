@@ -1,0 +1,78 @@
+<apex:page >
+
+  <apex:pageBlock title="Help & Training videos" mode="">
+
+ 
+   <apex:pageBlockSection title="General" columns="2">
+    
+     <!-- video Samples Request -->
+     <apex:pageBlockSectionItem >
+          <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=38470880-4c14-49f2-9f25-a3ef47b8d05e">
+          <img width="290" src="{!URLFOR($Resource.videoImages,'Samples_Request.mp4.PNG')}"/>
+          </a>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+          <b>Create Samples Request </b> <br/>
+          How to create and use samples requests , assign them, add the samples lines and track request status.
+          <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=38470880-4c14-49f2-9f25-a3ef47b8d05e">
+          watch video 
+          </a>
+          <br/>
+          <hr/>
+          <font color="red"> 
+           Samples requests can be tracked </font> using this report under the "EMEA reports" folder: <a href="https://na7.salesforce.com/00OA0000006fWnH"> Samples Requests </a>
+
+          <br/>
+    </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+
+   <apex:pageBlockSection title="Development Requests" columns="2">
+
+    <apex:pageBlockSectionItem >
+          <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=5dc2fe86-8589-44b2-ae45-cfb3cfeb4ef1">
+            <img width="290" src="{!URLFOR($Resource.videoImages,'DR_Request_1.mp4.PNG')}"/>
+          </a>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+          <b>Create DR - Part1  </b> <br/>
+          This video shows a Development Request(DR) process, creating an SPD and submitting it to the DR team.
+           <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=5dc2fe86-8589-44b2-ae45-cfb3cfeb4ef1">
+          watch video 
+          </a>
+    
+    </apex:pageBlockSectionItem>
+  
+  <!--- video Dr 2 -->
+
+    <apex:pageBlockSectionItem >
+          <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=32c1aeec-23c4-45ba-8f23-d8b32ae4fbe3">
+             <img width="290" src="{!URLFOR($Resource.videoImages,'DR_Request_p2.mp4.PNG')}"/>
+          </a>
+    </apex:pageBlockSectionItem>          
+    <apex:pageBlockSectionItem >
+          <b>Create DR - Part2  </b> <br/>
+          Continuation of part 1. show how a request becomes approved, final Develoment Request(DR)  actions and access to DR status report.
+           <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=32c1aeec-23c4-45ba-8f23-d8b32ae4fbe3">
+          watch video 
+          </a>
+    </apex:pageBlockSectionItem>
+
+    <!-- video Clone DR -->
+     <apex:pageBlockSectionItem >
+          <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=824c120e-bc27-4ba6-98c7-3214ac17ac65">
+          <img width="290" src="{!URLFOR($Resource.videoImages,'Clone_PDR.mp4.PNG')}"/>
+          </a>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+          <b>Clone DR </b> <br/>
+          This video shows how to clone a Development Request(DR) from an existing one. This speeds up requests creation when multiple, similar DR need to be submitted.
+           <a target="_blank" href="https://velcro.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=a7701acb-8d01-474d-be9d-ec255e4ea4c3&vid=824c120e-bc27-4ba6-98c7-3214ac17ac65">
+          watch video 
+          </a>
+    </apex:pageBlockSectionItem>
+
+
+   </apex:pageBlockSection>
+
+</apex:pageBlock>
+</apex:page>

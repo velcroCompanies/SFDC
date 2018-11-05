@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" access="GLOBAL" description="Fired when wizard step is updated">
+    <aura:attribute name="importConfig" type="String" />
+</aura:event>

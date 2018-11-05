@@ -1,0 +1,45 @@
+<apex:page standardController="wbsendit__Subscriber_Import__c" showChat="false"  standardStylesheets="false" showHeader="true" sidebar="false" extensions="wbsendit.ImportWizardController">
+
+    <apex:slds />
+
+    <style type="text/css">
+        body {padding: 0px !important;}
+        .noSidebarCell {padding: 0px;}
+    </style>
+
+    <apex:includeLightning />
+
+    <div id="lightning" />
+    <script>
+
+        var scheduledId = "{!JSENCODE($CurrentPage.parameters.Id)}";
+
+        var listId = "{!listId}";
+        var recordId = "{!subscriberListId}";
+        var isPremiumOrTrial = "{!isPremiumOrTrial}";
+        var isConnected = "{!isConnected}";
+        var isAPIEnabled = "{!isAPIEnabled}";
+        var preventMemberSync = "{!preventMemberSync}";
+
+        $Lightning.use("wbsendit:ImportWizardApp", function() {
+
+            $Lightning.createComponent(
+            "{!wizardComponent}",
+            {
+                "listId" : listId,
+                "subscriberListId" : recordId,
+                "subscriberListName" : "{!subscriberListName}",
+                "importTitle" : "{!importTitle}",
+                "scheduledId" : scheduledId,
+                "isPremiumOrTrial" : isPremiumOrTrial,
+                "isConnected" : isConnected,
+                "isAPIEnabled" : isAPIEnabled,
+                "preventMemberSync" : preventMemberSync
+            },
+            "lightning",
+            function(cmp) {
+            });
+        });
+    </script>
+
+</apex:page>

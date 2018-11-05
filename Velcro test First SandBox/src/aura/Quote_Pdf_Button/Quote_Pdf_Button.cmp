@@ -1,0 +1,7 @@
+<aura:component access="GLOBAL"  implements="flexipage:availableForAllPageTypes"  extensible="false">
+
+	<aura:attribute access="GLOBAL" name="pdfData" type="String" description="PDF data in base64 encoded format"/>
+
+	<iframe aura:id="pdfFrame" src="{! '/apex/EMEA_VESA_Quote_PDF?id='+Quote.Id}"  class="pdfFrame" onload="{!c.loadpdf}"></iframe>
+    
+</aura:component>

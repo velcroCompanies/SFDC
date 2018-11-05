@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <choices>
+        <name>Standard_Process_NO</name>
+        <choiceText>Standard Process NO</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>false</isRequired>
+        </userInput>
+        <value>
+            <stringValue>NO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Standard_Process_Yes</name>
+        <choiceText>Standard Process Yes</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>false</isRequired>
+            <promptText>Standard Process?</promptText>
+        </userInput>
+        <value>
+            <stringValue>YES</stringValue>
+        </value>
+    </choices>
+    <interviewLabel>DR Test Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>DR Test Flow</label>
+    <processType>Flow</processType>
+    <screens>
+        <name>DR_Test_Flow</name>
+        <label>DR Test Flow</label>
+        <locationX>414</locationX>
+        <locationY>244</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Thank_You</targetReference>
+        </connector>
+        <fields>
+            <name>Standard_Process</name>
+            <choiceReferences>Standard_Process_Yes</choiceReferences>
+            <choiceReferences>Standard_Process_NO</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Standard Process?</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+    </screens>
+    <screens>
+        <name>Thank_You</name>
+        <label>Thank You</label>
+        <locationX>417</locationX>
+        <locationY>430</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Thanksyou</name>
+            <fieldText>Thank You</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+    </screens>
+    <startElementReference>DR_Test_Flow</startElementReference>
+    <textTemplates>
+        <name>Thanks</name>
+        <text>Thanks</text>
+    </textTemplates>
+</Flow>

@@ -1,0 +1,43 @@
+<aura:component>
+
+
+    <aura:attribute access="public" name="availableLabel" type="String" default="Available Options" />
+    <aura:attribute access="public" name="selectedLabel" type="String" default="Selected Options" />
+    <aura:attribute access="public" name="availableOptions" type="Object[]" default="" />
+    <aura:attribute access="public" name="selectedOptions" type="Object[]" default="" />
+
+    <aura:attribute access="private" name="availableIndex" type="Integer" default="" />
+    <aura:attribute access="private" name="selectedIndex" type="Integer" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="itemSelected" action="{!c.handleitemSelected}" event="wbsendit:sldsMultiSelectSelectedEvent" />
+
+
+    <div data-reactroot="" class="slds-dueling-list">
+        <div class="slds-dueling-list__column">
+            <span class="slds-form-element__label" id="label-5">{!v.availableLabel}</span>
+            <div class="slds-dueling-list__options" role="application">
+                <ul aria-describedby="option-drag-label" aria-labelledby="label-5" aria-multiselectable="true" class="slds-listbox slds-listbox_vertical" role="listbox">
+                    <aura:iteration items="{!v.availableOptions}" var="option" indexVar="rowIndex">
+                        <wbsendit:sldsMultiSelectOption label="{!option.label}" index="{!rowIndex}" isSelected="{!option.selected}" eventId="available" />
+                    </aura:iteration>
+                </ul>
+            </div>
+        </div>
+        <div class="slds-dueling-list__column">
+            <lightning:buttonIcon disabled="{!v.selectedIndex == undefined}" iconName="utility:left" variant="inverse" onclick="{! c.moveSelectedToAvailable }" alternativeText="Arrow left" />
+            <lightning:buttonIcon disabled="{!v.availableIndex == undefined}" iconName="utility:right" variant="inverse" onclick="{! c.moveAvailableToSelected }" alternativeText="Arrow right" />
+        </div>
+        <div class="slds-dueling-list__column">
+            <span class="slds-form-element__label" id="label-6">{!v.selectedLabel}</span>
+            <div class="slds-dueling-list__options" role="application">
+                <ul aria-describedby="option-drag-label" aria-labelledby="label-6" aria-multiselectable="true" class="slds-listbox slds-listbox_vertical" role="listbox">
+                    <aura:iteration items="{!v.selectedOptions}" var="option" indexVar="rowIndex">
+                        <wbsendit:sldsMultiSelectOption label="{!option.label}" index="{!rowIndex}" isSelected="{!option.selected}" eventId="selected" />
+                    </aura:iteration>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

@@ -1,0 +1,53 @@
+<aura:component implements="force:appHostable" controller="wbsendit.ImportWizardController">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="importConfig" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="soqlValue" type="String" default="" />
+    <aura:attribute access="private" name="soqlError" type="String" default="" />
+    <aura:attribute access="private" name="soqlValid" type="String" default="" />
+    <aura:attribute access="private" name="soqlTitle" type="String" default="" />
+    <aura:attribute access="private" name="importTooltip" type="String" default="Loading..." />
+    <aura:attribute access="private" name="isNextDisabled" type="Boolean" default="true" />
+    <aura:attribute access="private" name="validateDisabled" type="Boolean" default="true" />
+
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="ImportWizardEvent" type="wbsendit:ImportWizardEvent" />
+
+    <div aura:id="spinner-id" role="status" class="slds-spinner slds-spinner__small slds-spinner_brand">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+
+    <div class="slds-col slds-size_1-of-1 slds-p-around_xx-large">
+        <lightning:input name="soql-title-id" required="true" value="{!v.soqlTitle}" label="Import Name" maxlength="255" class="slds-p-bottom_small"
+            placeholder="E.g. Leads create this week" />
+
+        <lightning:formattedUrl value="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm"
+            tooltip="Go to https://my/path" label="Salesforce Object Query Language (SOQL)" target="_blank" class="slds-text-body_small slds-float_right"
+        />
+        <lightning:textarea aura:id="soql-text-id" name="soql-text-id" class="b12-soql-window" value="{!v.soqlValue}" label="Enter SOQL"
+            placeholder="E.g. SELECT Id, LastName, Email from Lead  WHERE CreatedDate = THIS_WEEK" maxlength="20000" onchange="{!c.onChangeSoql}"
+        />
+
+        <div class="slds-p-top_small slds-float_left slds-text-body_small b12-error-msg slds-text-body_small">
+            <lightning:formattedText aura:id="sqol-error-id" value="{!v.soqlError}" />
+        </div>
+
+        <div class="slds-p-top_small slds-float_left slds-text-body_small b12-success-msg slds-text-body_small">
+            <lightning:formattedText aura:id="sqol-success-id" value="{!v.soqlValid}" />
+        </div>
+
+        <lightning:button iconName="utility:like" iconPosition="left" variant="Neutral" label="Validate Syntax" title="Validate Syntax"
+            onclick="{! c.onValidateSoql }" class="slds-m-top_small slds-float_right" disabled="{!v.validateDisabled}" />
+
+    </div>
+
+
+</aura:component>

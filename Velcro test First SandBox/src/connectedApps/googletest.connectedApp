@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <canvasConfig>
+        <accessMethod>Post</accessMethod>
+        <canvasUrl>https://www.google.com</canvasUrl>
+        <samlInitiationMethod>None</samlInitiationMethod>
+    </canvasConfig>
+    <contactEmail>wsymans@harvestsolutions.net</contactEmail>
+    <label>googletest</label>
+    <oauthConfig>
+        <callbackUrl>https://login.salesforce.com/services/oauth2/callback</callbackUrl>
+        <consumerKey>3MVG9RHx1QGZ7OshBkhlVsM6.qvCVVDD6a44X7_RFLOKjCVpDYClqCzwXLZ1Pxoo2RWoTY3t3dzE6p9OB1p3g</consumerKey>
+        <scopes>Chatter</scopes>
+    </oauthConfig>
+    <startUrl>https://www.google.com</startUrl>
+</ConnectedApp>

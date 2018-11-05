@@ -1,0 +1,29 @@
+<aura:component >
+	
+    <aura:method name="navigateToUrl" 
+                 action="{!c.navigateToUrl}"
+                 description="Navigate to a URL in a new window">
+			    	<aura:attribute name="url" type="String" /> 
+	</aura:method>
+    
+    <aura:method name="navigateToList" 
+                 action="{!c.navigateToList}" 
+                 description="Navigate to a List view"> 
+    				<aura:attribute name="listViewParams" 
+                                    type="String" 
+                                    description="Comma deliminated list of inputs: ListViewId,ListViewName,scope"/>
+	</aura:method>
+    
+    <aura:method name="navigateToObjectHome" 
+                 action="{!c.navigateToObjectHome}" 
+                 description="Navigate to an Object Home view"> 
+    				<aura:attribute name="ObjectName" type="String" />
+	</aura:method>
+    
+    <aura:method name="navigateToLightningPage" 
+                 action="{!c.navigateToLightningPage}" 
+                 description="Navigate to a Lightning Page"> 
+    				<aura:attribute name="ComponentName" type="String" />
+	</aura:method>
+    
+</aura:component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>mgraber+sitecore@gmail.com</contactEmail>
+    <label>Sitecore App</label>
+    <oauthConfig>
+        <callbackUrl>https://login.salesforce.com/services/oauth2/callback</callbackUrl>
+        <consumerKey>3MVG9RHx1QGZ7OshBkhlVsM6.qvCVVDD6a44XjOJD7EgD6MEGJjKGhJrbCE2ME2WfYrrMXZF8lUWWdVtxyJ6f</consumerKey>
+        <scopes>Api</scopes>
+    </oauthConfig>
+</ConnectedApp>

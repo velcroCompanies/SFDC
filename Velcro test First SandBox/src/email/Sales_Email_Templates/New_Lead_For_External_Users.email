@@ -1,0 +1,21 @@
+Created Date: {!Lead.CreatedDate}
+SBU: {!Lead.SBU__c}
+Industry: {!Lead.Industry}
+
+First Name: {!Lead.FirstName}
+Last Name: {!Lead.LastName}
+
+Company: {!Lead.Company}
+Title: {!Lead.Title}
+Phone: {!Lead.Phone}
+Email: {!Lead.Email}
+
+Comments:
+
+"{!Lead.Additional_Notes__c}"
+
+Street: {!Lead.Street}
+State / Province: {!Lead.State}
+City: {!Lead.City}
+Postal Code: {!Lead.StateCode}
+Country:{!Lead.ContactFormCountry__c}

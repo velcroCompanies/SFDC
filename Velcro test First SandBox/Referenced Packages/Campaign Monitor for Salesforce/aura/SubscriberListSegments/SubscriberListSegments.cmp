@@ -1,0 +1,216 @@
+<aura:component implements="force:appHostable" controller="wbsendit.SegmentListController">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="action" type="String" />
+    <aura:attribute access="public" name="listId" type="String" />
+    <aura:attribute access="public" name="listName" type="String" />
+    <aura:attribute access="public" name="backLocation" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="listdetail" type="String" />
+    <aura:attribute access="private" name="notification" type="String" default="Success" />
+    <aura:attribute access="private" name="segmentRoot" type="String" />
+    <aura:attribute access="private" name="segments" type="String" />
+    <aura:attribute access="private" name="segmentId" type="String" />
+    <aura:attribute access="private" name="segmentList" type="String" />
+    <aura:attribute access="private" name="segmentPage" type="Integer" default="1" />
+    <aura:attribute access="private" name="segmentCountMsg" type="String" default="" />
+
+    <aura:attribute access="private" name="subHeader" type="String" default="0 subscribers" />
+    <aura:attribute access="private" name="subHeaderSort" type="String" default="Sorted by Email" />
+    <aura:attribute access="private" name="subHeaderFilter" type="String" default="" />
+    <aura:attribute access="private" name="noSubscribersLabel" type="String" default="No segment members found" />
+    <aura:attribute access="private" name="loadedSegmentMembers" type="Boolean" default="false" />
+    <aura:attribute access="private" name="showSegmentFilter" type="Boolean" default="true" />
+    <aura:attribute access="private" name="hasSegments" type="Boolean" default="true" />
+
+    <!-- PAGING -->
+    <aura:attribute access="private" name="allLists" type="String" />
+    <aura:attribute access="private" name="currentList" type="String" />
+    <aura:attribute access="private" name="pageNumber" type="Integer" default="1" />
+    <aura:attribute access="private" name="maxPage" type="Integer" default="1" />
+    <aura:attribute access="private" name="sortField" type="String" />
+    <aura:attribute access="private" name="sortAsc" type="Boolean" />
+    <!-- / PAGING -->
+
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.pageNumber}" action="{!c.renderPage}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="sldsNotificationEvent" type="wbsendit:sldsNotificationEvent" />
+    <aura:registerEvent name="subscriberListHomeEvent" type="wbsendit:SubscriberListHomeEvent" />
+
+    <lightning:spinner variant="brand" size="small" aura:id="spinner-id" />
+
+    <div aura:id="body-id" class="slds-hide" style="border-top-right-radius: 5px;">
+
+        <!-- NOTIFICATIONS -->
+        <wbsendit:sldsNotification message="{!v.notification}" fadeTimeout="5000" />
+
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:product_item" />
+                        </div>
+                        <div class="slds-media__body">
+                            <lightning:breadcrumbs>
+                                <lightning:breadcrumb label="Subscriber List" />
+                                <lightning:breadcrumb label="Segments" />
+                            </lightning:breadcrumbs>
+                            <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate"
+                                title="{!$Label.wbsendit.Subscriber_List_Detail}">{!v.listdetail.listName}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <lightning:buttonGroup>
+                        <lightning:button label="Back" onclick="{!c.onBack}" />
+                    </lightning:buttonGroup>
+                    <ui:outputURL class="slds-button" value="https://www.cm4sf.com/doing-more/segments-salesforce-records"
+                        target="_blank" label="Help" />
+                </div>
+            </div>
+        </div>
+        <!-- / PAGE HEADER -->
+
+        <aura:if isTrue="{! v.hasSegments}">
+
+            <lightning:combobox class="slds-m-around_small" name="segment" label="Select Segment" value="{!v.segmentId}"
+                placeholder="Select" options="{! v.segmentList }" onchange="{! c.onSegmentChange }" />
+
+            <!-- SUBSCRIBER LIST SEGMENTS -->
+            <lightning:card class="slds-m-around_small">
+                <aura:set attribute="title">
+                    Segment Members
+
+                    <aura:if isTrue="{! v.allLists.length > 0}">
+                        <div style="margin-top: 10px;" class="slds-text-body_small">
+                            <ul class="slds-list_horizontal slds-has-dividers_left">
+                                <li class="slds-item" aura:id="b12-subheader">{!v.subHeader}</li>
+                                <li class="slds-item" aura:id="b12-subheader-sort">{!v.subHeaderSort}</li>
+                                <li class="slds-item slds-hide" aura:id="b12-subheader-filter">{!v.subHeaderFilter}</li>
+                            </ul>
+                        </div>
+                    </aura:if>
+                </aura:set>
+
+                <aura:set attribute="actions">
+
+                    <aura:if isTrue="{! v.showSegmentFilter}">
+                        <lightning:buttonGroup>
+                            <lightning:input aura:id="search" type="search" label="Search Segment Members" name="search"
+                                onchange="{!c.onClearSearch}" isLoading="{!v.isLoading}" placeholder="Search emails" />
+                            <lightning:button label="Search" onclick="{!c.onSearch}" class="b12-search-button" variant="brand" />
+                        </lightning:buttonGroup>
+                    </aura:if>
+                </aura:set>
+                <aura:if isTrue="{! v.loadedSegmentMembers }">
+                    <table class="slds-table slds-table_fixed-layout slds-table_bordered slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col" style="width: 230px">
+                                    <div class="slds-truncate" title="Member Name">
+                                        Name
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Email Address">
+                                        Email Address
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Subscribed">
+                                        Subscribed
+                                    </div>
+                                </th>
+                                <th scope="col" style="width: 3.25rem;">
+                                    <div class="slds-truncate" title=""></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <aura:iteration items="{!v.currentList}" var="record" indexVar="rowIndex">
+                                <tr class="slds-hint-parent">
+                                    <td role="gridcell">
+                                        <div class="slds-float_left slds-m-right_small">
+                                            <lightning:icon iconName="{! 'standard:' + record.icon}" size="x-small" />
+                                        </div>
+                                        <aura:if isTrue="{! empty(record.name) }">
+                                            <a href="javascript:void(0);" onclick="{!c.onSelectMember}" id="{!record.id}"
+                                                class="slds-badge">Not Linked to Salesforce</a>
+                                            <aura:set attribute="else">
+                                                <div class="slds-truncate" title="{!record.name}"><a href="javascript:void(0);"
+                                                        onclick="{!c.onSelectMember}" id="{!record.id}">{!record.name}</a></div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </td>
+                                    <th scope="row">
+                                        <div class="slds-truncate" title="{!record.email}">{!record.email}</div>
+                                    </th>
+                                    <td role="gridcell">
+                                        <lightning:relativeDateTime value="{!record.dateSubscribedEpoch}" title="{!record.dateSubscribed}" />
+                                    </td>
+                                    <td role="gridcell" style="width: 3.25rem;">
+                                        <lightning:buttonMenu alternativeText="Toggle menu" iconSize="x-small"
+                                            menuAlignment="right" onselect="{!c.onListMenu}">
+                                            <lightning:menuItem label="View" value="{!'viewItem:' + rowIndex}" iconName="utility:description" />
+                                        </lightning:buttonMenu>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+
+
+                        </tbody>
+                    </table>
+
+                    <div aura:id="b12-footer" class="slds-show">
+                        <aura:if isTrue="{! v.maxPage > 1}">
+                            <div class="slds-grid">
+                                <div class="slds-col">
+                                    <wbsendit:pagination mainClass="slds-m-around_xx-small" currentPageNumber="{!v.pageNumber}"
+                                        maxPageNumber="{!v.maxPage}" />
+                                </div>
+                                <div class="slds-col slds-p-around_medium">
+                                    <aura:if isTrue="{!v.allLists.length == 1000}">
+                                        <div class="slds-float_right">
+                                            <lightning:badge label="Showing first 1,000 records" />
+                                        </div>
+                                    </aura:if>
+                                </div>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{! v.allLists.length == 0}">
+                            <div class="slds-grid slds-grid_align-center">
+                                <div class="slds-col slds-p-around_medium">
+                                    <lightning:badge label="{!v.noSubscribersLabel}" />
+                                </div>
+                            </div>
+                        </aura:if>
+                    </div>
+
+                    <aura:set attribute="else">
+                        <lightning:spinner alternativeText="Loading" size="small" />
+                    </aura:set>
+                </aura:if>
+
+            </lightning:card>
+            <aura:set attribute="else">
+                <div class="slds-grid slds-grid_align-center">
+                    <div class="slds-col slds-p-around_medium">
+                        <lightning:badge label="No Segments found" />
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+
+        <!-- / SUBSCRIBER LIST SEGMENTS -->
+
+    </div>
+
+</aura:component>

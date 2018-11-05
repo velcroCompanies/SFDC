@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event to open Edit Modal" >
+	<aura:attribute name="partnerRecordId" type="String" description="Partner Record Id" />
+	<aura:attribute name="sObjectName" type="String" description="Parent Object Name" />
+</aura:event>

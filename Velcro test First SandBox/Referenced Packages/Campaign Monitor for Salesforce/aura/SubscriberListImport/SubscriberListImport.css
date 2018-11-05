@@ -1,0 +1,33 @@
+.THIS .slds-page-header {
+    border-radius: 0px;
+	border-top-right-radius: 5px;
+    box-shadow: none;
+    border-left: 0px;
+}
+.THIS {
+	background-color: #fff;
+}
+.THIS .status-Running {
+    background: #67B8EB;
+    color: #fff;
+}
+.THIS .status-Updating {
+    background: #67B8EB;
+    color: #fff;
+}
+.THIS .status-Failed {
+    background: #E9706A;
+    color: #fff;
+}
+.THIS .status-Queued {
+    background: #F5B456;
+    color: #fff;
+}
+.THIS .status-Waiting {
+    background: #F5B456;
+    color: #fff;
+}
+.THIS .status-Completed {
+    background: #42CABD;
+    color: #fff;
+}

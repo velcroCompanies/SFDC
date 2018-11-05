@@ -1,0 +1,51 @@
+<aura:component access="global" >    
+<!--Attributes--> 
+<aura:attribute name="sObjectName" type="String" access="global" /> 
+<aura:attribute name="recordId" type="String"/>
+<aura:attribute name="recordName" type="String"/> 
+<aura:attribute name="numOfRecords" type="Integer"/> 
+
+<aura:attribute name="accountExtraField" type="String" access="global"/>
+<aura:attribute name="oppExtraField" type="String" access="global"/>  
+
+<aura:attribute name="labelsObj" type="Object" access="global"/>   
+    
+<!--Registered Events-   <aura:attribute name="pl" type="Aura.component" default="c:Partner_Label"/> -->
+<aura:registerEvent name="openCreatePartnerModal" type="GS_LXPartner:openCreatePartnerModalEvent"/> 
+<!--Events handlers-->     
+<aura:handler name="init" action="{!c.doInit}" value="{!this}"/>      
+    
+<div class="slds-page-header">
+  <div class="slds-grid">
+    <div class="slds-col slds-has-flexi-truncate">
+      <nav class="slds-m-bottom--xx-small" role="navigation" aria-label="Breadcrumbs">
+        <ol class="slds-breadcrumb slds-list--horizontal">
+          <aura:if isTrue="{!v.sObjectName == 'Account'}">
+        	<li class="slds-breadcrumb__item slds-text-title--caps">
+            <a href="javascript:void(0);" onclick="{!c.navigateToObjectHome}" data-navigateto="{!v.sObjectName}">{!v.labelsObj.accountLabel}</a>
+          </li>
+    	  <aura:set attribute="else">
+        	<li class="slds-breadcrumb__item slds-text-title--caps">
+            <a href="javascript:void(0);" onclick="{!c.navigateToObjectHome}" data-navigateto="{!v.sObjectName}">
+              {!v.labelsObj.opportunityLabel}</a></li>
+          </aura:set>
+          </aura:if>
+          <li class="slds-breadcrumb__item slds-text-title--caps"><a href="javascript:void(0);"
+            onclick="{!c.navigateToRecord}" data-navigatetorecordid="{!v.recordId}">
+           {!v.recordName}</a></li>  
+        </ol>
+      </nav>
+      <h1 class="slds-page-header__title slds-truncate" title="Partners">
+        {!v.labelsObj.partnerLabel}</h1>
+    </div>
+    <div class="slds-col slds-no-flex slds-grid slds-align-top">
+      <button class="slds-button slds-button--neutral" onclick="{!c.clickNew}">{!$Label.gs_lxpartner.New}</button>
+    </div>
+  </div>
+  <div class="slds-grid">
+    <div class="slds-col slds-align-bottom">
+        <p class="slds-text-body--small"><ui:outputText value="{!v.numOfRecords}" />&nbsp;{!$Label.gs_lxpartner.items}&nbsp;•&nbsp;{!$Label.gs_lxpartner.sorted_by}&nbsp;{!v.labelsObj.partnerLabel}&nbsp;  </p>
+    </div>
+  </div>
+</div>      
+</aura:component>

@@ -1,0 +1,6 @@
+Hi, {!Change_Request__c.original_owner__c}
+
+The Salesforce change request you submitted is completed.
+Change Request Subject - {!Change_Request__c.Subject2__c}
+
+Please reach out to your Salesforce Administrator if you have further questions.

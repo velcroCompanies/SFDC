@@ -1,0 +1,15 @@
+.THIS {
+}
+
+.THIS .b12-tooltip-position {
+    position: relative;
+}
+.THIS .slds-page-header {
+    border-radius: 0px;
+    border-top-right-radius: 5px;
+    box-shadow: none;
+    border-left: 0px;
+}
+.THIS {
+    background-color: #fff;
+}

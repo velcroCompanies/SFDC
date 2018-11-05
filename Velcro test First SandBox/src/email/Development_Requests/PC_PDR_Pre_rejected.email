@@ -1,0 +1,6 @@
+{!ApprovalRequest.Process_Assignee} has been Rejected :
+
+PDR # {!Opportunity.PDR__c}
+Project Name : {!Opportunity.Name}
+Account: {!Opportunity.Account}
+Assignment: {!Opportunity.Pre_Approve_Status__c}

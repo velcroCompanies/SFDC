@@ -1,0 +1,14 @@
+PDR#: {!Opportunity.PDR__c}
+Owner: {!Opportunity.OwnerFullName}
+Customer: {!Opportunity.Account}
+Opportunity Name: {!Opportunity.Name}
+Total Annual Dollars: {!Opportunity.Total_Annual_Dollars__c}
+New Stage in Sales Process: {!Opportunity.StageName}
+New Probability: {!Opportunity.Probability}
+
+Current Potential Project Value: {!Opportunity.Amount}
+Original Potential Project Value: {!Opportunity.Original_Opportunity_Amount__c}
+
+Project Manager:
+{!Opportunity.DR_Project_Manager__c}
+{!Opportunity.DR_Project_Manager_Email__c}

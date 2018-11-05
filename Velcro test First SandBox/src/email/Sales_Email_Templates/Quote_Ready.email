@@ -1,0 +1,1 @@
+Your quote is ready for the customer : {!Quote.Account_Name__c}. You can view the quote here {!Quote.Link}.

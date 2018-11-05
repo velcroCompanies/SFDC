@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>New lead assigned template email</description>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>Velcro_EMEA</letterhead>
+    <name>EMEA New lead assigned</name>
+    <style>freeForm</style>
+    <subject>New lead: {!Contact.Name}  assigned to you</subject>
+    <type>html</type>
+</EmailTemplate>

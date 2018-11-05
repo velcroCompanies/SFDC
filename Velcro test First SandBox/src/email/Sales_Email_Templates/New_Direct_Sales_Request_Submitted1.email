@@ -1,0 +1,4 @@
+{!Opportunity.OwnerFullName} would like approval to sell directly to:
+
+Account Name: {!Opportunity.Account}
+{!Opportunity.Link}

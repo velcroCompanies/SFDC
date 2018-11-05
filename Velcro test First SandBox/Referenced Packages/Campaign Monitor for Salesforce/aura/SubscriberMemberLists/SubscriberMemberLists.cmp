@@ -1,0 +1,141 @@
+<aura:component controller="wbsendit.SubscriberMembershipDetailController" implements="force:appHostable,lightning:actionOverride,force:hasRecordId,force:hasSObjectName">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="memberId" type="String" />
+    <aura:attribute access="public" name="listId" type="String" />
+    <aura:attribute access="public" name="listName" type="String" default="Loading..." />
+    <aura:attribute access="public" name="backLocation" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="memberLists" type="String" />
+    <aura:attribute access="private" name="email" type="String" default="Loading..." />
+    <aura:attribute access="private" name="sfListId" type="String" />
+    <aura:attribute access="private" name="resultsMessage" type="String" default="Loading..." />
+    <aura:attribute access="private" name="cmDetail" type="String" />
+    <aura:attribute access="private" name="notification" type="String" default="Success" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="subscriberListHomeEvent" type="wbsendit:SubscriberListHomeEvent" />
+
+    <lightning:spinner variant="brand" size="small" aura:id="spinner-id" />
+
+    <div aura:id="body-id" class="" style="border-top-right-radius: 5px;">
+
+        <!-- NOTIFICATIONS -->
+        <wbsendit:sldsNotification message="{!v.notification}" fadeTimeout="5000" />
+
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:avatar" />
+                        </div>
+                        <div class="slds-media__body">
+                            <lightning:breadcrumbs>
+                                <lightning:breadcrumb label="{!v.listName}" />
+                                <lightning:breadcrumb label="Member Lists" />
+                            </lightning:breadcrumbs>
+                            <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="{!v.email}">{!v.email}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <lightning:buttonGroup>
+
+                        <lightning:button label="Back" onclick="{!c.onBack}" />
+                    </lightning:buttonGroup>
+                    <ui:outputURL class="slds-button" value="http://support.beaufort12.com/customer/en/portal/articles/2912771" target="_blank" label="Help" />
+                </div>
+            </div>
+        </div>
+        <!-- / PAGE HEADER -->
+        <!-- SUBSCRIBER LISTS -->
+        <div class="slds-m-around--small">
+
+
+            <aura:if isTrue="{!v.memberLists.length == 0 }">
+                <div class="slds-align--absolute-center slds-m-top--xx-large">
+                    <lightning:badge label="Not Subscribed to any Subscriber Lists" />
+                </div>
+                <aura:set attribute="else">
+
+                    <article aura:id="message-id" class="slds-card slds-m-around--medium">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning:icon iconName="standard:lead_list" class="slds-icon" variant="inverse" />
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2>
+
+                                        <span class="slds-text-heading--small">Associated Subscriber Lists - {!v.email}</span>
+                                        <wbsendit:sldsTooltip class="slds-m-left--x-small b12-tooltip-position" placement="top" text="The table below shows all the subscriber lists the email is associated with and when the list last synced with Salesforce." />
+
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body">
+                            <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_col-bordered" style="table-layout: fixed;">
+                                <col width="50%" />
+                                <col width="170" />
+                                <col width="20%" />
+                                <col width="110px" />
+                                <thead>
+                                    <tr class="slds-text-title--caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Field">List Name</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Value">Unsubscribe Setting</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Value">Last Synced</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Value">Status</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.memberLists}" var="row" indexVar="rowIndex">
+                                        <tr class="{! if(rowIndex == 0, 'slds-is-selected', '') }">
+                                            <td>
+                                                <div class="slds-truncate" title="{!row.listName}">{!row.listName}</div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate" title="{!row.listUnsubscribeSetting}">{!row.listUnsubscribeSetting}</div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate">
+                                                    <aura:if isTrue="{!row.listLastSyncedEpoch != null }">
+                                                        <lightning:relativeDateTime value="{!row.listLastSyncedEpoch}" title="{!row.listLastSynced}" />
+                                                        <aura:set attribute="else">
+                                                            Never
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div title="{!row.state}" class="{! if(row.isOptIn, 'status-optin' , 'status-optout')}">{!row.state}</div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="slds-card__footer">{!v.resultsMessage}&nbsp;</div>
+                    </article>
+                </aura:set>
+            </aura:if>
+
+        </div>
+        <!-- / SUBSCRIBER LISTS -->
+
+    </div>
+</aura:component>

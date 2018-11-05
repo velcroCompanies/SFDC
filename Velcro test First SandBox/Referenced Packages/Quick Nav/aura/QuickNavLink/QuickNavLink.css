@@ -1,0 +1,13 @@
+.THIS.container-center {
+    margin: 10px;
+    text-align: center;
+}
+
+.THIS.container-left {
+    margin: 10px;
+}
+
+.THIS.container-right {
+    margin: 10px;
+    text-align: right;
+}

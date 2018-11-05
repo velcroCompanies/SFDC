@@ -1,0 +1,6 @@
+{!ApprovalRequest.Process_Approver} has Approved :
+
+PDR # {!Opportunity.PDR__c}
+Project Name : {!Opportunity.Name}
+Account: {!Opportunity.Account}
+{!Opportunity.Link}

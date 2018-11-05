@@ -1,0 +1,5 @@
+<apex:page extensions="DispatchFlowController" standardController="Account" lightningStylesheets="true">
+<flow:interview name="EMEA_New_Opp_Flow" interview="{!theFlow}"  finishLocation="{!NewDispatchRecord}">
+     <apex:param name="AccountId" value="{!account.Id}"/>
+</flow:interview>      
+</apex:page>

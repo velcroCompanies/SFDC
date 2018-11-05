@@ -1,0 +1,9 @@
+The Velcro Pricing Team has rejected your Quote Request  : 
+
+{!Quote.Link}
+
+For :  {!Quote.Account_Name__c} .
+
+Rejected Reason: {!Quote.Rejected_Reason__c}
+
+Contact PricingAmericas@velcro.com with any questions.

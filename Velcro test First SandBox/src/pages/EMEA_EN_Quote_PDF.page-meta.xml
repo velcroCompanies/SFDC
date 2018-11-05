@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>38.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Emea English PDF quote template. Important: Do not change the name as it will fail to be referenced by the PDF generator when choosing the default language</description>
+    <label>EMEA EN Quote PDF</label>
+</ApexPage>

@@ -1,0 +1,139 @@
+<aura:component controller="wbsendit.SubscriberListController" implements="force:appHostable,lightning:actionOverride,force:hasRecordId,force:hasSObjectName">
+
+    <!-- PUBLIC ATTRIBUTES -->
+    <aura:attribute access="public" name="listId" type="String" />
+    <aura:attribute access="public" name="listName" type="String" />
+
+    <!-- PRIVATE ATTRIBUTES -->
+    <aura:attribute access="private" name="allLists" type="String" />
+    <aura:attribute access="private" name="currentList" type="String" />
+    <aura:attribute access="private" name="pageNumber" type="Integer" default="1" />
+    <aura:attribute access="private" name="maxPage" type="Integer" default="1" />
+    <aura:attribute access="private" name="sortField" type="String" />
+    <aura:attribute access="private" name="sortAsc" type="Boolean" />
+    <aura:attribute access="private" name="showJobsBanner" type="Boolean" default="false" />
+    <aura:attribute access="private" name="disableRefreshButton" type="Boolean" default="false" />
+    <aura:attribute access="private" name="timerId" type="String" />
+    <aura:attribute access="private" name="action" type="String" />
+    <aura:attribute access="private" name="licenceDetail" type="String" />
+    <aura:attribute access="private" name="disableDisconnectButton" type="Boolean" />
+
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    <aura:handler name="change" value="{!v.pageNumber}" action="{!c.onRenderPage}" />
+
+    <!-- PAGE HEADER -->
+    <div class="slds-page-header">
+        <div class="slds-grid">
+            <div class="slds-col slds-has-flexi-truncate">
+                <div class="slds-media slds-no-space slds-grow">
+                    <div class="slds-media__figure">
+                        <lightning:icon iconName="custom:custom23" />
+                    </div>
+                    <div class="slds-media__body">
+                        <p class="slds-text-title--caps slds-line-height--reset">{!$Label.wbsendit.SendIT_Header}</p>
+                        <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="{!$Label.wbsendit.Subscriber_List_Header}">{!$Label.wbsendit.Subscriber_List_Header}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                <lightning:buttonGroup>
+                    <lightning:button label="Refresh" disabled="{!v.disableRefreshButton}" iconName="utility:sync" onclick="{!c.onRefreshLists}" />
+                    <lightning:button label="{!$Label.wbsendit.Subscriber_List_New}" disabled="{!v.disableDisconnectButton}" onclick="{!c.onCreateList}" />
+                </lightning:buttonGroup>
+                <ui:outputURL class="slds-button" value="http://support.beaufort12.com/customer/en/portal/articles/2810991" target="_blank" label="Help" />
+            </div>
+        </div>
+    </div>
+    <!-- / PAGE HEADER -->
+
+    <!-- SUBSCRIBER LIST TABLE -->
+    <lightning:card title="Susbcriber Lists" class="slds-m-top_xx-small">
+        <div class="{! v.showJobsBanner ? 'slds-notify slds-notify--alert slds-theme--warning slds-theme--alert-texture ' : 'slds-hide' }" role="alert">
+            <span class="slds-assistive-text">Info</span>
+            <h2 data-aura-rendered-by="12:55;a"><span class="slds-p-right--xx-small">Refreshing Subscriber Lists</span></h2>
+        </div>
+        <table class="slds-table slds-table_fixed-layout slds-table--bordered slds-table--cell-buffer">
+            <thead>
+                <tr class="slds-text-title--caps">
+                    <th scope="col">
+                        <div onclick="{!c.sortBylistName}" class="slds-truncate" title="Susbcriber List Name">
+                            Susbcriber List Name
+                            <aura:if isTrue="{!v.sortField=='listName'}">
+                                <span>
+                                <lightning:icon iconName="{!'utility:arrow'+(v.sortAsc?'up':'down')}" size="xx-small" alternativeText="{!'sort arrow '+(v.sortAsc?'up':'down')}" />
+                            </span>
+                            </aura:if>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div onclick="{!c.sortByClientName}" class="slds-truncate" title="Client Name">
+                            Client Name
+                            <aura:if isTrue="{!v.sortField=='clientName'}">
+                                <span>
+                                <lightning:icon iconName="{!'utility:arrow'+(v.sortAsc?'up':'down')}" size="xx-small" alternativeText="{!'sort arrow '+(v.sortAsc?'up':'down')}" />
+                            </span>
+                            </aura:if>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div onclick="{!c.sortByListType}" class="slds-truncate" title="List Type">
+                            List Type
+                            <aura:if isTrue="{!v.sortField=='listType'}">
+                                <span>
+                                <lightning:icon iconName="{!'utility:arrow'+(v.sortAsc?'up':'down')}" size="xx-small" alternativeText="{!'sort arrow '+(v.sortAsc?'up':'down')}" />
+                            </span>
+                            </aura:if>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div onclick="{!c.sortByUnsubscribeSetting}" class="slds-truncate" title="Unsubscribe Setting">
+                            Unsubscribe Setting
+                            <aura:if isTrue="{!v.sortField=='unsubscribeSetting'}">
+                                <span>
+                                <lightning:icon iconName="{!'utility:arrow'+(v.sortAsc?'up':'down')}" size="xx-small" alternativeText="{!'sort arrow '+(v.sortAsc?'up':'down')}" />
+                            </span>
+                            </aura:if>
+                        </div>
+                    </th>
+                    <th scope="col" style="width: 3.25rem;">
+                        <div class="slds-truncate" title=""></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.currentList}" var="record" indexVar="rowIndex">
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" title="{!record.listName}"><a href="javascript:void(0);" onclick="{!c.onSelectList}" id="{!record.listId}">{!record.listName}</a></div>
+                        </th>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="{!record.clientName}">{!record.clientName}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="{!record.listType}">{!record.listType}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="{!record.unsubscribeSetting}">{!record.unsubscribeSetting}</div>
+                        </td>
+                        <td role="gridcell" style="width: 3.25rem;">
+                            <lightning:buttonMenu alternativeText="Toggle menu" iconSize="x-small" menuAlignment="right" onselect="{!c.onListMenu}">
+                                <lightning:menuItem label="Edit" value="{!'editItem:' + rowIndex}" iconName="utility:description" />
+                                <lightning:menuItem label="Delete" value="{!'deleteItem:' + rowIndex}" iconName="utility:delete" />
+                            </lightning:buttonMenu>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+
+
+        <aura:if isTrue="{!v.maxPage != 1}">
+            <wbsendit:pagination mainClass="slds-m-around_xx-small" currentPageNumber="{!v.pageNumber}" maxPageNumber="{!v.maxPage}" />
+        </aura:if>
+
+    </lightning:card>
+    <!-- / SUBSCRIBER LIST TABLE -->
+
+
+</aura:component>

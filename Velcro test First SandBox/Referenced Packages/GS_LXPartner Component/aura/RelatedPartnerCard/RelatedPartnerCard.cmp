@@ -1,0 +1,105 @@
+<aura:component controller="GS_LXPartner.PartnerController" access="global" implements="forceCommunity:availableForAllPageTypes" >
+<!-- Attributes --> 
+<aura:attribute name="noOfCardElements" type="String"/>  
+<aura:attribute name="noOfCardColumns"  type="String"/>   
+<aura:attribute name="noOfModalCreateRows"  type="String"/> 
+<aura:attribute name="partners" type="Partner[]"/>
+<aura:attribute name="partnerSubset" type="Partner[]"/> 
+<aura:attribute name="sObjectName" type="String" access="global"/>
+<aura:attribute name="recordId" type="String"/>
+<aura:attribute name="labelsObj" type="Object" access="global"/>
+
+<!-- design attributes coming from the outer mose component for when user is to create new Partner, drop down list that suggests an account's or opportunity's Name to select can have an extra field to differentiate records with same names used in createPartner.cmp--> 
+<aura:attribute name="accountExtraField" type="String" access="global"/>
+<aura:attribute name="oppExtraField" type="String"  access="global"/> 
+
+<!-- design attribute to set opportunity field visibility on RelatedParterCard.cmp /> -->
+<aura:attribute name="showOppField" type="Boolean" access="global"/>   
+    
+<!-- Events handlers <aura:attribute name="pl" type="Aura.component" />-->     
+<aura:handler name="init" action="{!c.doInit}" value="{!this}"/> 
+<aura:handler name="partnerAddedEvent" event="GS_LXPartner:partnerAddedEvent" action="{!c.handlePartnerAddition}"/>
+<aura:handler name="partnerDeletedEvent" event="GS_LXPartner:partnerDeletedEvent" action="{!c.handlePartnerDeletion}"/> 
+<aura:handler name="partnerEditEvent" event="GS_LXPartner:openEditPartnerModalEvent" action="{!c.handlePartnerEdit}"/>  
+<aura:handler event="GS_LXPartner:refreshPartnerCardEvent" action="{!c.refreshView}"/>    
+<aura:handler name="closeCreatePartnerModal" event="GS_LXPartner:closeCreatePartnerModalEvent" action="{!c.closeCreatePartnerModal}"/>
+<aura:handler name="closeEditPartnerModal" event="GS_LXPartner:closeEditPartnerModalEvent" action="{!c.closeEditPartnerModal}"/> 
+
+<aura:handler name="partnerEdited" event="GS_LXPartner:PartnerEditedEvent" action="{!c.handlePartnerEdited}"/>    
+
+<!-- Util -->    
+<GS_LXPartner:PartnerUtil aura:id="utilMethods"/>
+    
+<!-- markup -->     
+<article class="slds-card slds-card_boundary">   
+  <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+      <div class="slds-media__figure"> 
+    <GS_LXPartner:svgIcon svgPath="{!$Resource.GS_LXPartner__slds220 + '/assets/icons/standard-sprite/svg/symbols.svg#account'}" category="standard" size="small" name="account"/>
+      </div>
+      <div class="slds-media__body slds-truncate">
+        
+        <h2> 
+          <a href="javascript:void(0);" class="slds-text-link--reset slds-card__header-link" onclick="{!c.navigateToPartnerListComponent}">
+            <span class="slds-text-heading--small">
+              {!v.labelsObj.partnerLabel} <ui:outputText value="{!' (' + v.partners.length + ')'}" />
+            </span>
+          </a>
+        </h2> 
+          
+        
+      </div>
+    </header>
+    <div class="slds-no-flex">
+      <aura:if isTrue="{!v.noOfCardColumns >= 2}">   
+        <button class="slds-button slds-button--neutral" onclick="{!c.clickNew}">
+          {!$Label.gs_lxpartner.New}</button>
+      <aura:set attribute="else">    
+        <lightning:buttonMenu aura:id="create-new-menu" alternativeText="Actions" menuAlignment="right"  variant="border-filled" iconSize="medium" onselect="{!c.clickNew}">
+            <lightning:menuItem label="Add"> </lightning:menuItem>
+      </lightning:buttonMenu>
+      </aura:set>
+      </aura:if>    
+    </div>
+  </div>
+
+  <aura:if isTrue="{!v.partners.length > 0}">  
+  <div class="slds-card__body">  
+    <div class="slds-grid slds-wrap">
+      <aura:iteration items="{!v.partnerSubset}" var="partner" indexVar="index">    
+      <div class="{!v.noOfCardColumns > 1 ? 'slds-tile slds-media slds-card__tile slds-p-horizontal--medium slds-size--1-of-1 slds-medium-size--1-of-2 slds-hint-parent' : 'slds-tile slds-media slds-card__tile slds-p-horizontal--medium slds-size--1-of-1 slds-medium-size--1-of-1 slds-hint-parent'}">
+          <div class="slds-media__figure">
+          <div class="slds-icon_container">
+            <GS_LXPartner:svgIcon svgPath="{!$Resource.GS_LXPartner__slds220 + '/assets/icons/standard-sprite/svg/symbols.svg#account'}" category="standard" size="small" name="account"/> 
+          </div>
+        </div>
+        <div class="slds-media__body">
+          <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+            <h2 class="slds-truncate">
+              <a class="elementHeader" href="javascript:void(0);" onclick="{!c.navigateToRecord}" data-navigatetorecordid="{!partner.AccountToId}">
+                {!partner.AccountTo.Name}</a></h2>
+              <GS_LXPartner:RelatedPartnerActions partnerRecId="{!partner.Id}" sObjName="{!v.sObjectName}" menuAlignment="left"/>
+          </div>
+          <div class="slds-tile__detail slds-text-body--medium">
+            <dl class="slds-list--horizontal slds-wrap">
+              <dt class="slds-item--label slds-text-color--weak slds-truncate" title="Second Label"> {!v.labelsObj.roleLabel }: </dt>
+              <dd class="slds-item--detail slds-truncate"><ui:outputText value="{!partner.Role}"/></dd>
+              <aura:if isTrue="{!and (v.sObjectName == 'Account', v.showOppField) }">  
+              <dt class="slds-item--label slds-text-color--weak slds-truncate" title="Second Label">{!v.labelsObj.opportunityLabel}: </dt>
+                  <dd class="slds-item--detail slds-truncate"><a href="javascript:void(0);" onclick="{!c.navigateToRecord}" data-navigatetorecordid="{!partner.OpportunityId}">{!partner.Opportunity.Name}</a></dd> 
+              </aura:if>    
+            </dl>
+          </div>
+        </div>
+      </div>
+      </aura:iteration>
+    </div>
+  </div>
+  <div class="slds-card__footer"><a href="javascript:void(0);" onclick="{!c.navigateToPartnerListComponent}" > {!$Label.gs_lxpartner.View_All} 
+    <span class="slds-assistive-text">{!$Label.gs_lxpartner.View_All}</span></a></div>
+  </aura:if>    
+</article>
+
+<!-- modal placeholder -->    
+{!v.body}    
+</aura:component>
