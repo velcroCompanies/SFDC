@@ -1,3 +1,0 @@
-<apex:page sidebar="false"  showHeader="true" tabstyle="CWB_Tool__tab">
-   <c:VFC_MetaDataGenerator ></c:VFC_MetaDataGenerator>
-</apex:page>

@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.FieldSchemaController" contenttype="application/x-excel#ObjectProfileDetail_{!Now()}.xls" readOnly="true">
-  <c:VFC_downloadObjectProfileTemplate mapProfile="{!mapProfile}"  setProfileId="{!setProfileId}" mapSchema="{!mapSchema}" />
-</apex:page>

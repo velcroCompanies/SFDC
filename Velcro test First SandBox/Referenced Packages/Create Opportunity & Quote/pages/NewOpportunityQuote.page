@@ -1,5 +1,0 @@
-<!--
-    12/14/17  BS  Created to allow overriding the standard New button on Opportunity (155352)
--->
-<apex:page StandardController="Opportunity" extensions="createoppnquote.NewOpportunityQuote" action="{!redirect}">
-</apex:page>

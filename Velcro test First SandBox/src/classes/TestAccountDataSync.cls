@@ -15,6 +15,9 @@ public class TestAccountDataSync {
   {
   	
   	Account a = new Account(Name='Class Test Account',SBU__c='Industrial',Phone='931234567',Fax='939876543',Website='https://velcro.com');
+  	a.Org__c='VUSA';
+    a.SBU__c='Transportation';
+    a.Customer_Category__c='Automotive Seating';
     insert a;
     a.Phone=null;
     a.Fax= null ;

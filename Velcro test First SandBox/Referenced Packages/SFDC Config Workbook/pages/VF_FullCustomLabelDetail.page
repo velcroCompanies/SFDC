@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.DescribeCustomLabelCtrl" contenttype="application/x-excel#FullCustomLabelDetail_{!Now()}.xls" readOnly="true">
-   <c:VFC_FullCustomLabelDetail mapFullCustomLabelDetail="{!mapFullCustomLabelDetail}" /> 
-</apex:page>

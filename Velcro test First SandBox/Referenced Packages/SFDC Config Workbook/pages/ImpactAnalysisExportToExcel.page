@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.ImpactAnalysisCtroller" contenttype="application/x-excel#ImpactAnalysis_{!Now()}.xls" action="{!batchAction}">
-   <c:ImpactAnalysisExportToExcel objImpactAnalysisModel="{!objImpactAnalysisModel}"   />
-</apex:page>

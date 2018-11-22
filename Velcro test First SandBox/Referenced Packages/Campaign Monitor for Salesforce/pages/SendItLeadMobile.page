@@ -1,3 +1,0 @@
-<apex:page standardController="Lead">
-    <c:SendItMobile />
-</apex:page>

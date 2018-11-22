@@ -1,3 +1,0 @@
-<apex:page contenttype="application/x-excel#{!$CurrentPage.parameters.sobject}-objectfield_{!Now()}.xls">
-  <c:VFC_metadatagendownloadfields ></c:VFC_metadatagendownloadfields>
-</apex:page>

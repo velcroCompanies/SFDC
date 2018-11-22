@@ -1,5 +1,0 @@
-<apex:page >
-  <script>
-  window.parent.document.getElementById('closeButton').click();
-  </script>
-</apex:page>

@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.DescribeCustomApplicationCtrl"  contenttype="application/x-excel#CustomApplicationDetail_{!Now()}.xls" readOnly="true">
-    <c:VFC_FullCustomApplicationDetail mapFullCustomApplicationDetail="{!mapFullCustomApplicationDetail}" />  
- </apex:page>

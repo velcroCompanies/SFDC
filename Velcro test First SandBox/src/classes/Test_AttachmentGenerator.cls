@@ -1,6 +1,6 @@
 @isTest
 
-Private Class Test_AttachmentGenerator {
+public class Test_AttachmentGenerator {
 
  static  testMethod void TestPdf()
  { 
@@ -15,7 +15,45 @@ Private Class Test_AttachmentGenerator {
  insert opp;
  system.debug('opp:' +opp.Id)  ;  
  
-  if (opp!=null)
+ 
+ /***** test contacts ***/
+    Account newAcc = new Account();
+    newAcc.name='test ACC for contacts';
+    newAcc.Org__c='VESA';
+    newAcc.SBU__c='Transportation';
+    newAcc.Customer_Category__c='Automotive Seating';
+    //Id RecordTypeIdaccount = Schema.SObjectType.Account.getRecordTypeInfosByName().get('EMEA Customer').getRecordTypeId();
+    //newAcc.RecordTypeId= RecordTypeIdaccount;
+    //newAcc.RecordTypeId='012A00000019lmdIAA';
+    //insert newAcc;
+    
+    
+    Contact con =new Contact();
+    con.FirstName='Roger';
+    con.LastName='Mas';
+    con.email='roger@roger.com';
+    con.LeadSource='Other';
+    con.Contact_Type__c='Buyer';
+    
+    List<Account> acc_list = [SELECT Id From Account Where Name like '%A%' LIMIT 1];  
+    for (Account acc_rec : acc_list)
+    {
+      con.AccountId =  acc_rec.Id;    
+    }
+    
+        
+    insert con;
+    //Now update the OCR for the primary contact
+    OpportunityContactRole ocr = new OpportunityContactRole();
+    ocr.ContactId = con.Id;
+    ocr.OpportunityId = opp.Id;
+    ocr.IsPrimary = TRUE;
+    ocr.Role = 'Decision Maker';
+    insert ocr;
+    System.debug('created opportunity contact role for primary');
+ 
+ 
+ if (opp!=null)
      {
  quo.Name='Test quote';
  quo.OpportunityId= opp.Id;
@@ -57,6 +95,9 @@ Private Class Test_AttachmentGenerator {
  extQuote= new ExtDocsQuote(sc); 
  result= extQuote.getQuoteVersion();
  System.assertNotEquals ('1',result);
+ 
+ 
+ 
  
  
  }

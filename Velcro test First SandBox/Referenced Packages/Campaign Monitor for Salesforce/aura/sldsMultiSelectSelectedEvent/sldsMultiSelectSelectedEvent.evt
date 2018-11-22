@@ -1,4 +1,0 @@
-<aura:event type="Component" description="Event template" >
-	<aura:attribute name="eventId" type="String" />
-	<aura:attribute name="index" type="Integer" />
-</aura:event>

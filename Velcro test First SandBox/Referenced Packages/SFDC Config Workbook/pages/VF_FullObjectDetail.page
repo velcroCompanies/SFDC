@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.DescribeObjectCtrl"  contenttype="application/x-excel#FullObjectDetail_{!Now()}.xls" action="{!getObjectDetailsAction}" readOnly="true">
-<c:VFC_FullObjectDetail mapFullObjectDetail="{!mapFullObjectDetail}" /> 
- </apex:page>

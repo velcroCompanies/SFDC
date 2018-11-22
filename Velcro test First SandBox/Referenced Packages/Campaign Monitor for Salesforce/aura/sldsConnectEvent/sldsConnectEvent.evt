@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="Notification Event" >
-	<aura:attribute name="connectionSettings" type="String" />
-</aura:event>

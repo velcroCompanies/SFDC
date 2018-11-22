@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="Update Card Event" >
-	<aura:attribute name="id" type="String" />
-</aura:event>

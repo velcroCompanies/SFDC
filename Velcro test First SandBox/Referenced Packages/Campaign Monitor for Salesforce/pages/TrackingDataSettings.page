@@ -1,1 +1,0 @@
-<apex:page showHeader="true" sidebar="false" controller="wbsendit.TrackingDataSettingsController" action="{!redirect}" />

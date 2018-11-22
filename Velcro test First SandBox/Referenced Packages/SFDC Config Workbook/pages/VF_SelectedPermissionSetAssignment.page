@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.DescribePermissionSetCtrl" contenttype="application/x-excel#PermissionSetAssignment{!TODAY()}.xls"  readOnly="true">
- <c:VFC_PermissionSetAssignment mapPermissionSet="{!mapPermissionSet}"  setPermissionSetId="{!setPermissionSetId}" mapPermissionSetAssignment="{!mapPermissionSetAssignment}" />  
-</apex:page>

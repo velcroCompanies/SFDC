@@ -1,3 +1,0 @@
-<apex:page showheader="false" controller="cwbtool.SetupAuditTrailController" contenttype="application/x-excel#SetupAuditHistory_{!Now()}.xls">
-  <c:SetupAuditHistoryCmpDownload mapdata="{!mapdata}"  lstKey="{!lstKey}" />
-</apex:page>

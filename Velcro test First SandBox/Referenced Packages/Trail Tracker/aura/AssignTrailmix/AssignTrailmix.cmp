@@ -1,3 +1,0 @@
-<aura:component implements="flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global">
-    Deprecated
-</aura:component>

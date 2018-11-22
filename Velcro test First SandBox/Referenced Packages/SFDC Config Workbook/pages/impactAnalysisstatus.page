@@ -1,3 +1,0 @@
-<apex:page standardcontroller="cwbtool__AnalysisSummary__c" sidebar="false">
-  <c:impactAnalysisstatus ></c:impactAnalysisstatus>
-</apex:page>

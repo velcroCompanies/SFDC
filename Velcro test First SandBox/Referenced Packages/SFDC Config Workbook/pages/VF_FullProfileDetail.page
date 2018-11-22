@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.DescribeProfileCtrl" contenttype="application/x-excel#FullProfileDetail_{!Now()}.xls" readOnly="true">
- <c:VFC_FullProfileDetail mapFullProfileDetail="{!mapFullProfileDetail}" /> 
- </apex:page>

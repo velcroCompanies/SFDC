@@ -1,6 +1,0 @@
-<aura:event type="APPLICATION" description="Jobs Notification Event" >
-	<aura:attribute access="private" name="apexJobs" type="String" />
-	<aura:attribute access="private" name="msgType" type="String" description="Message type can be (NX_CHECK_RUNNING_JOBS | NX_JOB_STATUS)" />
-	<aura:attribute access="private" name="showJobsBanner" type="Boolean" description="Set to true to display the apex jobs banner"/>
-	<aura:attribute access="private" name="initJob" type="Boolean" description="Set to true when starting a job (E.g. user presses button)"/>
-</aura:event>

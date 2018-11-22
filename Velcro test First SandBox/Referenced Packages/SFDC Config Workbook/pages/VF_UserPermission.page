@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.UserPermissionController" contenttype="application/x-excel#FullProfileDetail_{!Now()}.xls" readOnly="true">
-     <c:VFC_UserPermissionProfileDetail mapFullProfileDetail="{!mapUserPermission}" /> 
- </apex:page>

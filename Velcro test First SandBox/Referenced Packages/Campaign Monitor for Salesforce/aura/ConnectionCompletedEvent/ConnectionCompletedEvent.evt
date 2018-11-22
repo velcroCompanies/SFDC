@@ -1,7 +1,0 @@
-<aura:event type="APPLICATION" description="Connection completed event">
-	<aura:attribute name="code" type="String" />
-	<aura:attribute name="state" type="String" />
-	<aura:attribute name="error" type="String" />
-	<aura:attribute name="errorDescription" type="String" />
-	<aura:attribute name="accessToken" type="String" />
-</aura:event>

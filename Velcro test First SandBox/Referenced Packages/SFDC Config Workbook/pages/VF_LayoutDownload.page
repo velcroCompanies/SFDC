@@ -1,3 +1,0 @@
-<apex:page controller="cwbtool.DescribeLayoutCtrl" contenttype="application/x-excel#Layout_{!Now()}.xls">
-  <c:VFC_LayoutDownload mapLayoutDetail="{!mapLayoutDetail}"  lstLayoutName="{!lstLayoutName}" />
-</apex:page>
