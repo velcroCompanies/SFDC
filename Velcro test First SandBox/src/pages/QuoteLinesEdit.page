@@ -1,4 +1,4 @@
-<apex:page standardController="Quote" extensions="QuoteLinesListController" tabstyle="Quote">
+<apex:page standardController="Quote" extensions="QuoteLinesListController" tabstyle="Quote" lightningStylesheets="true">
 <apex:includeScript value="/soap/ajax/29.0/connection.js"/>
 <apex:includeScript value="/soap/ajax/29.0/apex.js"/>
 <script>

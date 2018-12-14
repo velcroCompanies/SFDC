@@ -327,7 +327,13 @@ Cellulare:{!Quote.Account.Owner.MobilePhone} <br/>
       </td>
 
       <td width="217" colspan="2" class='c65'>
-        <p class='none c52'><span class="c60">  <apex:outputField value="{!Quote.Payment_Method__c}"/>  &nbsp;  <apex:outputField value="{!Quote.Payment_terms__c}"/> </span></p>
+        <p class='none c52'><span class="c60"> 
+         <apex:outputField value="{!Quote.Payment_Method__c}"/>  &nbsp; | &nbsp; 
+         
+             	<apex:outputText rendered="{! IF(Quote.Payment_terms__c=='Usual Payment Terms',true,false)}" value="{!Quote.Payment_terms__c}: {!Quote.Account_Default_Payment_Terms__c}"/>
+           		<apex:outputText rendered="{! IF(Quote.Payment_terms__c=='Usual Payment Terms',false,true)}" value="{!Quote.Payment_terms__c}"/>
+         </span>
+         </p>
       </td>
     </tr>
   </table>

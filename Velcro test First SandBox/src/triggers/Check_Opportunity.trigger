@@ -15,12 +15,12 @@ trigger Check_Opportunity on Opportunity (after insert, after update) {
     
     public static String emailMsg(Opportunity Oppo )
     {
-    	String msg='';
-    	msg = '<b>Opportunity</b>: ' + URL.getSalesforceBaseUrl().toExternalForm() +'/';
+        String msg='';
+        msg = '<b>Opportunity</b>: ' + URL.getSalesforceBaseUrl().toExternalForm() +'/';
         msg+= Oppo.Id + '<br/><br/>Account Name: ' + Oppo.Account_Name__c + '<br/>';
         msg+= 'Opportunity Type: ' + Oppo.Opportunity_Type__c + '<br/>';
-    	return msg;
-    	
+        return msg;
+        
     }
     public List<String> emailMsgSetRecipeints(Opportunity Oppo)
     {
@@ -47,7 +47,7 @@ trigger Check_Opportunity on Opportunity (after insert, after update) {
               }
            }
            //if  (toAddresses.isEmpty()) {
-           	   toAddresses.add('rfontcuberta@velcro.com');
+               toAddresses.add('rfontcuberta@velcro.com');
            // }
            return toAddresses;
        }
@@ -80,7 +80,7 @@ trigger Check_Opportunity on Opportunity (after insert, after update) {
         
         if (doit)   // 09-02-2018. We will not execute code if we finally don't send an email.
         {
-        	
+            
         
         //Build and subject and message
         subject = 'Opportunity approved: ' + Oppo.Opportunity_Code__c + '!';
