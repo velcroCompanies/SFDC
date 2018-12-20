@@ -164,4 +164,71 @@ public class testCheck_Opportunity {
   
   }
   
+ //*** TestSchedule Class
+
+public static void  testschedule() {
+
+    Account newAcc = new Account();
+    newAcc.name='test Account 2';
+    newAcc.Org__c='VESA';
+    newAcc.SBU__c='Transportation';
+    newAcc.Customer_Category__c='Automotive Seating';
+    Id RecordTypeIdaccount = Schema.SObjectType.Account.getRecordTypeInfosByName().get('EMEA Customer').getRecordTypeId();
+    newAcc.RecordTypeId= RecordTypeIdaccount;
+    insert newAcc;
+    
+    Opportunity o1=new Opportunity(); 
+    o1.Name = 'Test Opp3';
+    List <User> user_list = [SELECT Id  FROM User where Username like 'velcro.com'];  
+    for (User user_rec : user_list)
+    {
+      o1.ownerid = user_rec.Id;    
+    }
+    System.debug('Acc name: ' + newAcc.name);
+       
+    o1.accountid= newAcc.Id;
+    o1.closeDate= system.today(); 
+    o1.Request_Status__c= 'Draft';    
+    o1.StageName='Qualifying';
+    o1.Type='New Business';
+    o1.Amount=1;
+    o1.Probability=40;
+    o1.Quote__c=true;
+    o1.Product_Require_Standard_Processes__c= 'YES';
+    o1.Product_Requires_Standard_Material__c= 'YES';
+    o1.Product_Quality_Requirements_Standard__c='YES';
+    o1.Pilot_Runs__c='0';
+    
+    Id RecordTypeIdOpp = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('D-SPD Request').getRecordTypeId();
+    o1.RecordTypeId= RecordTypeIdOpp;
+    insert o1;
+    
+    
+    
+ Test.StartTest();
+    // Create an approval request for the opportunity
+	Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
+	req1.setComments('Submitting opportunity for approval.');
+	req1.setObjectId(o1.Id);
+	// Submit the approval request for the account
+    Approval.ProcessResult result = Approval.process(req1);
+	// change the assigned approver
+	Approval.ProcessWorkitemRequest req2 = new Approval.ProcessWorkitemRequest();
+	req2.setComments('Reassigning request.');
+	req2.setAction('Reassign');
+	req2.setNextApproverIds(new Id[] { o1.ownerid} );
+ 	//*** throw the scheduler 
+ 	DRCheckAssignments reminder = new DRCheckAssignments();
+	// Run every 30 minutes
+ 	String sch = '0 30 * * * ?';
+	String jobID = System.schedule('EMEA DR Check Reassignments', sch, reminder);
+ 
+ 
+Test.stopTest();
+
+}
+  
+  
+  
+  
 }
